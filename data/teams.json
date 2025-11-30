@@ -1,0 +1,49 @@
+[
+  {
+    "id": "2",
+    "name": "Los Halcones",
+    "code": "HALCON",
+    "sport": "Baloncesto",
+    "createdBy": "2",
+    "createdByName": "Nico",
+    "createdByUsername": "nico",
+    "members": [
+      "2",
+      "4",
+      "1"
+    ],
+    "maxMembers": 5,
+    "createdAt": "2025-11-09T15:30:00Z",
+    "description": "Equipo de baloncesto competitivo"
+  },
+  {
+    "id": "3",
+    "name": "Los Leones",
+    "code": "LEONES",
+    "sport": "Fútbol",
+    "createdBy": "5",
+    "createdByName": "Laura",
+    "createdByUsername": "laura",
+    "members": [
+      "5"
+    ],
+    "maxMembers": 7,
+    "createdAt": "2025-11-11T09:00:00Z",
+    "description": "Buscando jugadores"
+  },
+  {
+    "id": "6",
+    "name": "PEPE",
+    "code": "PEPE",
+    "sport": "Fútbol",
+    "createdBy": "1",
+    "createdByName": "GabrielSP",
+    "createdByUsername": "gabrisp",
+    "members": [
+      "1"
+    ],
+    "maxMembers": 7,
+    "createdAt": "2025-11-30T18:38:34.048Z",
+    "description": ""
+  }
+]

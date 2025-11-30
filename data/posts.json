@@ -1,0 +1,58 @@
+[
+  {
+    "id": "1",
+    "userId": "1",
+    "username": "gabrisp",
+    "name": "Gabriel",
+    "content": "¡Gran partido de tenis hoy! 🎾",
+    "image": "/posts/tenis1.jpg",
+    "likes": 12,
+    "comments": 3,
+    "createdAt": "2025-11-10T10:30:00Z"
+  },
+  {
+    "id": "2",
+    "userId": "2",
+    "username": "nico",
+    "name": "Nico",
+    "content": "Buscando compañero para pádel esta tarde",
+    "image": null,
+    "likes": 8,
+    "comments": 5,
+    "createdAt": "2025-11-11T14:00:00Z"
+  },
+  {
+    "id": "3",
+    "userId": "3",
+    "username": "maria",
+    "name": "María",
+    "content": "Nueva cancha descubierta, ¡está genial!",
+    "image": "/posts/cancha1.jpg",
+    "likes": 25,
+    "comments": 7,
+    "createdAt": "2025-11-09T16:45:00Z"
+  },
+  {
+    "id": "4",
+    "userId": "4",
+    "username": "carlos",
+    "name": "Carlos",
+    "content": "Partido de fútbol el sábado, ¿alguien se apunta?",
+    "image": null,
+    "likes": 15,
+    "comments": 10,
+    "createdAt": "2025-11-08T09:20:00Z"
+  },
+  {
+    "id": "5",
+    "userId": "5",
+    "username": "laura",
+    "name": "Laura",
+    "content": "Mejorando mi saque 🎾",
+    "image": "/posts/tenis2.jpg",
+    "likes": 18,
+    "comments": 4,
+    "createdAt": "2025-11-07T11:15:00Z"
+  }
+]
+

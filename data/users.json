@@ -1,0 +1,396 @@
+[
+  {
+    "id": "1",
+    "username": "gabrisp",
+    "email": "gabriel@example.com",
+    "password": "password123",
+    "name": "GabrielSP",
+    "age": 22,
+    "university": "U-tad",
+    "course": "4to MAIS",
+    "profileCompletion": 60,
+    "points": 2000,
+    "avatar": "/media/avatar-1-1764521648217.webp",
+    "coverPhoto": "/covers/gabriel.jpg",
+    "sports": [
+      "Tenis",
+      "Pádel",
+      "Fútbol"
+    ],
+    "pairSports": [
+      "Tenis",
+      "Pádel"
+    ],
+    "mainSport": "Tenis",
+    "levels": {
+      "football": "intermedio",
+      "basketball": "novato",
+      "tennis": "pro",
+      "padel": "intermedio"
+    },
+    "sportProfiles": {
+      "Fútbol": {
+        "stats": {
+          "matches": 25,
+          "wins": 15,
+          "losses": 10,
+          "winRate": 60,
+          "skillRating": 75,
+          "stamina": 78,
+          "technique": 73,
+          "teamwork": 80
+        }
+      },
+      "Tenis": {
+        "stats": {
+          "matches": 45,
+          "wins": 32,
+          "losses": 13,
+          "winRate": 71,
+          "skillRating": 88,
+          "stamina": 85,
+          "technique": 90,
+          "teamwork": 60
+        }
+      },
+      "Pádel": {
+        "avatar": "/media/sport-avatar-1-1764520097193.JPG",
+        "bio": "bdsrg",
+        "stats": {
+          "matches": 30,
+          "wins": 18,
+          "losses": 12,
+          "winRate": 60,
+          "skillRating": 72,
+          "stamina": 75,
+          "technique": 70,
+          "teamwork": 80
+        }
+      },
+      "Baloncesto": {
+        "stats": {
+          "matches": 8,
+          "wins": 3,
+          "losses": 5,
+          "winRate": 38,
+          "skillRating": 65,
+          "stamina": 70,
+          "technique": 68,
+          "teamwork": 60
+        }
+      }
+    }
+  },
+  {
+    "id": "2",
+    "username": "nico",
+    "email": "nico@example.com",
+    "password": "password123",
+    "name": "Nico",
+    "age": 25,
+    "university": "UPM",
+    "course": "3ro Informática",
+    "profileCompletion": 80,
+    "points": 1850,
+    "avatar": "/media/avatar-2-1764522033287.avif",
+    "coverPhoto": "/covers/nico.jpg",
+    "sports": [
+      "Pádel",
+      "Baloncesto"
+    ],
+    "pairSports": [
+      "Pádel"
+    ],
+    "mainSport": "Pádel",
+    "levels": {
+      "football": "novato",
+      "basketball": "intermedio",
+      "tennis": "novato",
+      "padel": "pro"
+    },
+    "sportProfiles": {
+      "Pádel": {
+        "stats": {
+          "matches": 50,
+          "wins": 38,
+          "losses": 12,
+          "winRate": 76,
+          "skillRating": 92,
+          "stamina": 90,
+          "technique": 88,
+          "teamwork": 95
+        }
+      },
+      "Baloncesto": {
+        "stats": {
+          "matches": 20,
+          "wins": 12,
+          "losses": 8,
+          "winRate": 60,
+          "skillRating": 75,
+          "stamina": 80,
+          "technique": 72,
+          "teamwork": 78
+        }
+      },
+      "Fútbol": {
+        "stats": {
+          "matches": 5,
+          "wins": 2,
+          "losses": 3,
+          "winRate": 40,
+          "skillRating": 55,
+          "stamina": 60,
+          "technique": 58,
+          "teamwork": 65
+        }
+      },
+      "Tenis": {
+        "stats": {
+          "matches": 3,
+          "wins": 1,
+          "losses": 2,
+          "winRate": 33,
+          "skillRating": 50,
+          "stamina": 55,
+          "technique": 52,
+          "teamwork": 50
+        }
+      }
+    }
+  },
+  {
+    "id": "3",
+    "username": "maria",
+    "email": "maria@example.com",
+    "password": "password123",
+    "name": "María",
+    "age": 21,
+    "university": "UCM",
+    "course": "2do ADE",
+    "profileCompletion": 90,
+    "points": 2200,
+    "avatar": "/avatars/maria.jpg",
+    "coverPhoto": "/covers/maria.jpg",
+    "sports": [
+      "Tenis",
+      "Fútbol",
+      "Baloncesto"
+    ],
+    "pairSports": [
+      "Tenis"
+    ],
+    "mainSport": "Tenis",
+    "levels": {
+      "football": "intermedio",
+      "basketball": "intermedio",
+      "tennis": "pro",
+      "padel": "novato"
+    },
+    "sportProfiles": {
+      "Tenis": {
+        "stats": {
+          "matches": 60,
+          "wins": 42,
+          "losses": 18,
+          "winRate": 70,
+          "skillRating": 85,
+          "stamina": 88,
+          "technique": 87,
+          "teamwork": 65
+        }
+      },
+      "Fútbol": {
+        "stats": {
+          "matches": 30,
+          "wins": 18,
+          "losses": 12,
+          "winRate": 60,
+          "skillRating": 75,
+          "stamina": 78,
+          "technique": 73,
+          "teamwork": 80
+        }
+      },
+      "Baloncesto": {
+        "stats": {
+          "matches": 25,
+          "wins": 15,
+          "losses": 10,
+          "winRate": 60,
+          "skillRating": 74,
+          "stamina": 77,
+          "technique": 72,
+          "teamwork": 79
+        }
+      },
+      "Pádel": {
+        "stats": {
+          "matches": 4,
+          "wins": 1,
+          "losses": 3,
+          "winRate": 25,
+          "skillRating": 45,
+          "stamina": 50,
+          "technique": 48,
+          "teamwork": 55
+        }
+      }
+    }
+  },
+  {
+    "id": "4",
+    "username": "carlos",
+    "email": "carlos@example.com",
+    "password": "password123",
+    "name": "Carlos",
+    "age": 23,
+    "university": "UPM",
+    "course": "4to Industrial",
+    "profileCompletion": 70,
+    "points": 1950,
+    "avatar": "/avatars/carlos.jpg",
+    "coverPhoto": "/covers/carlos.jpg",
+    "sports": [
+      "Fútbol",
+      "Baloncesto"
+    ],
+    "pairSports": [],
+    "mainSport": "Fútbol",
+    "levels": {
+      "football": "pro",
+      "basketball": "intermedio",
+      "tennis": "novato",
+      "padel": "novato"
+    },
+    "sportProfiles": {
+      "Fútbol": {
+        "stats": {
+          "matches": 55,
+          "wins": 38,
+          "losses": 17,
+          "winRate": 69,
+          "skillRating": 86,
+          "stamina": 88,
+          "technique": 85,
+          "teamwork": 90
+        }
+      },
+      "Baloncesto": {
+        "stats": {
+          "matches": 28,
+          "wins": 16,
+          "losses": 12,
+          "winRate": 57,
+          "skillRating": 72,
+          "stamina": 75,
+          "technique": 70,
+          "teamwork": 76
+        }
+      },
+      "Tenis": {
+        "stats": {
+          "matches": 6,
+          "wins": 2,
+          "losses": 4,
+          "winRate": 33,
+          "skillRating": 52,
+          "stamina": 58,
+          "technique": 55,
+          "teamwork": 50
+        }
+      },
+      "Pádel": {
+        "stats": {
+          "matches": 2,
+          "wins": 0,
+          "losses": 2,
+          "winRate": 0,
+          "skillRating": 40,
+          "stamina": 45,
+          "technique": 42,
+          "teamwork": 48
+        }
+      }
+    }
+  },
+  {
+    "id": "5",
+    "username": "laura",
+    "email": "laura@example.com",
+    "password": "password123",
+    "name": "Laura",
+    "age": 20,
+    "university": "UCM",
+    "course": "3ro Psicología",
+    "profileCompletion": 85,
+    "points": 2100,
+    "avatar": "/avatars/laura.jpg",
+    "coverPhoto": "/covers/laura.jpg",
+    "sports": [
+      "Pádel",
+      "Tenis"
+    ],
+    "pairSports": [
+      "Pádel",
+      "Tenis"
+    ],
+    "mainSport": "Pádel",
+    "levels": {
+      "football": "novato",
+      "basketball": "novato",
+      "tennis": "intermedio",
+      "padel": "pro"
+    },
+    "sportProfiles": {
+      "Pádel": {
+        "stats": {
+          "matches": 48,
+          "wins": 35,
+          "losses": 13,
+          "winRate": 73,
+          "skillRating": 89,
+          "stamina": 87,
+          "technique": 91,
+          "teamwork": 92
+        }
+      },
+      "Tenis": {
+        "stats": {
+          "matches": 22,
+          "wins": 13,
+          "losses": 9,
+          "winRate": 59,
+          "skillRating": 73,
+          "stamina": 76,
+          "technique": 75,
+          "teamwork": 62
+        }
+      },
+      "Fútbol": {
+        "stats": {
+          "matches": 3,
+          "wins": 1,
+          "losses": 2,
+          "winRate": 33,
+          "skillRating": 48,
+          "stamina": 52,
+          "technique": 50,
+          "teamwork": 55
+        }
+      },
+      "Baloncesto": {
+        "stats": {
+          "matches": 2,
+          "wins": 0,
+          "losses": 2,
+          "winRate": 0,
+          "skillRating": 42,
+          "stamina": 46,
+          "technique": 44,
+          "teamwork": 50
+        }
+      }
+    }
+  }
+]
