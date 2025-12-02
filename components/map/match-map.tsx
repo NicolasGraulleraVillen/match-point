@@ -1,54 +1,52 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import dynamic from "next/dynamic"
-import { Match } from "@/types"
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import { Match } from "@/types";
 
 // Dynamically import MapContainer to avoid SSR issues
-const MapContainer = dynamic(
-  () => import("react-leaflet").then((mod) => mod.MapContainer),
-  { ssr: false }
-)
-const TileLayer = dynamic(
-  () => import("react-leaflet").then((mod) => mod.TileLayer),
-  { ssr: false }
-)
-const Marker = dynamic(
-  () => import("react-leaflet").then((mod) => mod.Marker),
-  { ssr: false }
-)
-const Popup = dynamic(
-  () => import("react-leaflet").then((mod) => mod.Popup),
-  { ssr: false }
-)
+const MapContainer = dynamic(() => import("react-leaflet").then((mod) => mod.MapContainer), { ssr: false });
+const TileLayer = dynamic(() => import("react-leaflet").then((mod) => mod.TileLayer), { ssr: false });
+const Marker = dynamic(() => import("react-leaflet").then((mod) => mod.Marker), { ssr: false });
+const Popup = dynamic(() => import("react-leaflet").then((mod) => mod.Popup), { ssr: false });
 
-import L from "leaflet"
-import "leaflet/dist/leaflet.css"
+let LRef: typeof import("leaflet") | null = null;
 
-// Fix for default marker icons in Next.js
 if (typeof window !== "undefined") {
-  delete (L.Icon.Default.prototype as any)._getIconUrl
-  L.Icon.Default.mergeOptions({
+  // Cargar Leaflet solo en cliente
+  // eslint-disable-next-line no-var-requires
+  LRef = require("leaflet");
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  require("leaflet/dist/leaflet.css");
+
+  // Fix para los iconos por defecto en Next.js
+  delete (LRef.Icon.Default.prototype as any)._getIconUrl;
+  LRef.Icon.Default.mergeOptions({
     iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png",
     iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png",
     shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
-  })
+  });
 }
-
 interface MatchMapProps {
-  matches: Match[]
-  onMatchSelect: (match: Match) => void
-  center?: [number, number]
-  zoom?: number
-  teams?: Array<{ id: string; name: string; sport: string; location?: { lat: number; lng: number; address: string } }>
+  matches: Match[];
+  onMatchSelect: (match: Match) => void;
+  center?: [number, number];
+  zoom?: number;
+  teams?: Array<{ id: string; name: string; sport: string; location?: { lat: number; lng: number; address: string } }>;
 }
 
-export function MatchMap({ matches, onMatchSelect, center = [40.4168, -3.7038], zoom = 13, teams = [] }: MatchMapProps) {
-  const [mounted, setMounted] = useState(false)
+export function MatchMap({
+  matches,
+  onMatchSelect,
+  center = [40.4168, -3.7038],
+  zoom = 13,
+  teams = [],
+}: MatchMapProps) {
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
   if (!mounted) {
     return (
@@ -58,66 +56,61 @@ export function MatchMap({ matches, onMatchSelect, center = [40.4168, -3.7038], 
           <p className="text-muted-foreground">Cargando mapa...</p>
         </div>
       </div>
-    )
+    );
   }
 
-  // Create custom icons for different sports using SVG
   const getSportIcon = (sport: string, isTeam = false) => {
-    const size = isTeam ? 32 : 28
-    const sportKey = sport.toLowerCase()
-    
-    let svgIcon = ""
-    
+    if (!LRef) return undefined as any;
+
+    // Iconos un poco más pequeños
+    const size = isTeam ? 32 : 24;
+    const sportKey = sport.toLowerCase();
+
+    let iconUrl = "/icons/default.png";
+
     if (sportKey.includes("fútbol") || sportKey.includes("football")) {
-      svgIcon = `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="12" cy="12" r="10" stroke="white" stroke-width="2" fill="#22c55e" />
-        <path d="M12 2 L13.5 7 L19 7.5 L14.5 11 L16 16.5 L12 13.5 L8 16.5 L9.5 11 L5 7.5 L10.5 7 Z" 
-              fill="white" opacity="0.3" stroke="white" stroke-width="1" stroke-linejoin="round" />
-        <path d="M12 2 L13.5 7 M19 7.5 L14.5 11 M16 16.5 L12 13.5 M8 16.5 L9.5 11 M5 7.5 L10.5 7" 
-              stroke="white" stroke-width="1.5" stroke-linecap="round" />
-      </svg>`
+      iconUrl = "/icons/football.png";
     } else if (sportKey.includes("baloncesto") || sportKey.includes("basketball")) {
-      svgIcon = `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="12" cy="12" r="10" stroke="white" stroke-width="2" fill="#ef4444" />
-        <path d="M12 2 C14 8, 14 16, 12 22" stroke="white" stroke-width="1.5" fill="none" />
-        <path d="M12 2 C10 8, 10 16, 12 22" stroke="white" stroke-width="1.5" fill="none" />
-        <path d="M2 12 C8 10, 16 10, 22 12" stroke="white" stroke-width="1.5" fill="none" />
-        <path d="M2 12 C8 14, 16 14, 22 12" stroke="white" stroke-width="1.5" fill="none" />
-        <circle cx="12" cy="12" r="2" fill="white" opacity="0.5" />
-      </svg>`
+      iconUrl = "/icons/basketball.png";
     } else if (sportKey.includes("tenis") || sportKey.includes("tennis")) {
-      svgIcon = `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="8" cy="8" r="5.5" stroke="white" stroke-width="2" fill="#3b82f6" />
-        <path d="M5 5 L11 11" stroke="white" stroke-width="1" />
-        <path d="M5 11 L11 5" stroke="white" stroke-width="1" />
-        <path d="M13 13 L19.5 19.5" stroke="white" stroke-width="2.5" stroke-linecap="round" />
-        <circle cx="20.5" cy="20.5" r="2" fill="white" />
-      </svg>`
+      iconUrl = "/icons/tennis.png";
     } else if (sportKey.includes("pádel") || sportKey.includes("padel")) {
-      svgIcon = `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="3" y="3" width="8" height="14" rx="2" stroke="white" stroke-width="2" fill="#f59e0b" />
-        <line x1="5" y1="6" x2="9" y2="6" stroke="white" stroke-width="0.5" />
-        <line x1="5" y1="9" x2="9" y2="9" stroke="white" stroke-width="0.5" />
-        <line x1="5" y1="12" x2="9" y2="12" stroke="white" stroke-width="0.5" />
-        <line x1="5" y1="15" x2="9" y2="15" stroke="white" stroke-width="0.5" />
-        <path d="M15 3 L21 3 L21 17 L15 17" stroke="white" stroke-width="2" stroke-linecap="round" />
-        <circle cx="7" cy="19.5" r="1.2" fill="white" />
-        <circle cx="18" cy="20.5" r="1.5" fill="white" />
-      </svg>`
-    } else {
-      // Default icon
-      svgIcon = `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="12" cy="12" r="10" stroke="white" stroke-width="2" fill="#6366f1" />
-      </svg>`
+      iconUrl = "/icons/padel.png";
     }
 
-    return L.divIcon({
+    // Usamos divIcon para poder añadir el circulito blanco debajo
+    return LRef.divIcon({
       className: "custom-marker",
-      html: `<div style="background: white; border-radius: 50%; padding: 2px; box-shadow: 0 2px 8px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center;">${svgIcon}</div>`,
-      iconSize: [size + 4, size + 4],
-      iconAnchor: [(size + 4) / 2, (size + 4) / 2],
-    })
-  }
+      html: `
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <div style="
+            width:${size}px;
+            height:${size}px;
+            border-radius:9999px;
+            overflow:hidden;
+            box-shadow:0 2px 6px rgba(15,23,42,0.45);
+            background:#ffffff;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+          ">
+            <img src="${iconUrl}" style="width:${size - 4}px;height:${size - 4}px;object-fit:contain;" />
+          </div>
+          <div style="
+            width:8px;
+            height:8px;
+            border-radius:9999px;
+            background:white;
+            opacity:0.9;
+            margin-top:2px;
+          "></div>
+        </div>
+      `,
+      iconSize: [size, size + 10],
+      iconAnchor: [size / 2, size + 10], // "punta" en el circulito blanco
+      popupAnchor: [0, -(size / 2)],
+    });
+  };
 
   return (
     <div className="h-full w-full">
@@ -138,7 +131,7 @@ export function MatchMap({ matches, onMatchSelect, center = [40.4168, -3.7038], 
             icon={getSportIcon(match.sport)}
             eventHandlers={{
               click: () => {
-                onMatchSelect(match)
+                onMatchSelect(match);
               },
             }}
           >
@@ -151,7 +144,7 @@ export function MatchMap({ matches, onMatchSelect, center = [40.4168, -3.7038], 
           </Marker>
         ))}
         {teams.map((team) => {
-          if (!team.location) return null
+          if (!team.location) return null;
           return (
             <Marker
               key={`team-${team.id}`}
@@ -165,10 +158,9 @@ export function MatchMap({ matches, onMatchSelect, center = [40.4168, -3.7038], 
                 </div>
               </Popup>
             </Marker>
-          )
+          );
         })}
       </MapContainer>
     </div>
-  )
+  );
 }
-

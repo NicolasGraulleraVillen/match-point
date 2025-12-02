@@ -1,32 +1,43 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"
-import L from "leaflet"
-import "leaflet/dist/leaflet.css"
-import { Match } from "@/types"
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import { Match } from "@/types";
 
-// Fix for default markers in Next.js
+const MapContainer = dynamic(() => import("react-leaflet").then((mod) => mod.MapContainer), { ssr: false });
+const TileLayer = dynamic(() => import("react-leaflet").then((mod) => mod.TileLayer), { ssr: false });
+const Marker = dynamic(() => import("react-leaflet").then((mod) => mod.Marker), { ssr: false });
+const Popup = dynamic(() => import("react-leaflet").then((mod) => mod.Popup), { ssr: false });
+
+let LRef: typeof import("leaflet") | null = null;
+
 if (typeof window !== "undefined") {
-  delete (L.Icon.Default.prototype as any)._getIconUrl
-  L.Icon.Default.mergeOptions({
-    iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
-    iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
-    shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
-  })
+  // Cargar Leaflet solo en cliente
+  // eslint-disable-next-line no-var-requires
+  LRef = require("leaflet");
+  // eslint-disable-next-line no-var-requires
+  require("leaflet/dist/leaflet.css");
+
+  // Fix para los iconos por defecto en Next.js
+  delete (LRef.Icon.Default.prototype as any)._getIconUrl;
+  LRef.Icon.Default.mergeOptions({
+    iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png",
+    iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png",
+    shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
+  });
 }
 
 interface MiniMapProps {
-  match: Match
-  className?: string
+  match: Match;
+  className?: string;
 }
 
 export function MiniMap({ match, className = "" }: MiniMapProps) {
-  const [mounted, setMounted] = useState(false)
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
   if (!mounted || !match.location) {
     return (
@@ -38,38 +49,59 @@ export function MiniMap({ match, className = "" }: MiniMapProps) {
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   const getSportIcon = (sport: string) => {
-    const size = 24
-    const sportKey = sport.toLowerCase()
+    if (!LRef) return undefined as any;
 
-    let svgIcon = ""
-    let bgColor = "#6B7280"
+    // Un poco más pequeño que en el mapa grande
+    const size = 20;
+    const sportKey = sport.toLowerCase();
+
+    let iconUrl = "/icons/default.png";
 
     if (sportKey.includes("fútbol") || sportKey.includes("football")) {
-      bgColor = "#3B82F6"
-      svgIcon = `<svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>`
+      iconUrl = "/icons/football.png";
     } else if (sportKey.includes("baloncesto") || sportKey.includes("basketball")) {
-      bgColor = "#EF4444"
-      svgIcon = `<svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><path d="M17.09 11l2.5-2.5-1.41-1.41-2.5 2.5-2.5-2.5-1.41 1.41 2.5 2.5-2.5 2.5 1.41 1.41 2.5-2.5 2.5 2.5 1.41-1.41-2.5-2.5zM6.91 11l-2.5-2.5 1.41-1.41 2.5 2.5 2.5-2.5 1.41 1.41-2.5 2.5 2.5 2.5-1.41 1.41-2.5-2.5-2.5 2.5-1.41-1.41 2.5-2.5z"/></svg>`
+      iconUrl = "/icons/basketball.png";
     } else if (sportKey.includes("tenis") || sportKey.includes("tennis")) {
-      bgColor = "#10B981"
-      svgIcon = `<svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><circle cx="12" cy="12" r="10" fill="white"/></svg>`
+      iconUrl = "/icons/tennis.png";
     } else if (sportKey.includes("pádel") || sportKey.includes("padel")) {
-      bgColor = "#F59E0B"
-      svgIcon = `<svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>`
+      iconUrl = "/icons/padel.png";
     }
 
-    return L.divIcon({
+    return LRef.divIcon({
       className: "custom-marker-mini",
-      html: `<div style="background: ${bgColor}; border-radius: 50%; padding: 4px; box-shadow: 0 2px 6px rgba(0,0,0,0.3); display: flex; align-items: center; justify-center; width: ${size + 8}px; height: ${size + 8}px;">${svgIcon}</div>`,
-      iconSize: [size + 8, size + 8],
-      iconAnchor: [(size + 8) / 2, (size + 8) / 2],
-    })
-  }
-
+      html: `
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <div style="
+            width:${size}px;
+            height:${size}px;
+            border-radius:9999px;
+            overflow:hidden;
+            box-shadow:0 2px 6px rgba(15,23,42,0.45);
+            background:#ffffff;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+          ">
+            <img src="${iconUrl}" style="width:${size - 4}px;height:${size - 4}px;object-fit:contain;" />
+          </div>
+          <div style="
+            width:6px;
+            height:6px;
+            border-radius:9999px;
+            background:white;
+            opacity:0.9;
+            margin-top:2px;
+          "></div>
+        </div>
+      `,
+      iconSize: [size, size + 8],
+      iconAnchor: [size / 2, size + 8],
+    });
+  };
   return (
     <div className={`relative h-32 w-full overflow-hidden rounded-lg border ${className}`}>
       <MapContainer
@@ -86,10 +118,7 @@ export function MiniMap({ match, className = "" }: MiniMapProps) {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker
-          position={[match.location.lat, match.location.lng]}
-          icon={getSportIcon(match.sport)}
-        >
+        <Marker position={[match.location.lat, match.location.lng]} icon={getSportIcon(match.sport)}>
           <Popup>
             <div className="text-sm">
               <p className="font-semibold">{match.sport}</p>
@@ -99,5 +128,5 @@ export function MiniMap({ match, className = "" }: MiniMapProps) {
         </Marker>
       </MapContainer>
     </div>
-  )
+  );
 }

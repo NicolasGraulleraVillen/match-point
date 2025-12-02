@@ -17,9 +17,7 @@
     "requiresApproval": true,
     "distance": 300,
     "status": "active",
-    "players": [
-      "2"
-    ],
+    "players": ["2"],
     "pendingRequests": []
   },
   {
@@ -40,12 +38,8 @@
     "requiresApproval": true,
     "distance": 2000,
     "status": "active",
-    "players": [
-      "2"
-    ],
-    "pendingRequests": [
-      "1"
-    ]
+    "players": ["2"],
+    "pendingRequests": ["1"]
   },
   {
     "id": "3",
@@ -65,9 +59,7 @@
     "requiresApproval": true,
     "distance": 400,
     "status": "active",
-    "players": [
-      "3"
-    ],
+    "players": ["3"],
     "pendingRequests": []
   },
   {
@@ -88,12 +80,8 @@
     "requiresApproval": true,
     "distance": 600,
     "status": "active",
-    "players": [
-      "4"
-    ],
-    "pendingRequests": [
-      "1"
-    ]
+    "players": ["4"],
+    "pendingRequests": ["1"]
   },
   {
     "id": "5",
@@ -113,11 +101,7 @@
     "requiresApproval": false,
     "distance": 1500,
     "status": "active",
-    "players": [
-      "5",
-      "3",
-      "1"
-    ],
+    "players": ["5", "3", "1"],
     "pendingRequests": []
   },
   {
@@ -138,9 +122,7 @@
     "requiresApproval": true,
     "distance": 300,
     "status": "active",
-    "players": [
-      "1"
-    ],
+    "players": ["1"],
     "pendingRequests": [],
     "isTeamMatch": true,
     "team1Id": "2",
@@ -165,9 +147,7 @@
     "requiresApproval": true,
     "distance": 0,
     "status": "active",
-    "players": [
-      "1"
-    ],
+    "players": ["1"],
     "pendingRequests": [],
     "isTeamMatch": true,
     "team1Id": "6",
@@ -192,9 +172,7 @@
     "requiresApproval": true,
     "distance": 0,
     "status": "active",
-    "players": [
-      "1"
-    ],
+    "players": ["1"],
     "pendingRequests": [],
     "isTeamMatch": true,
     "team1Id": "6",
@@ -219,13 +197,620 @@
     "requiresApproval": true,
     "distance": 0,
     "status": "active",
-    "players": [
-      "1"
-    ],
+    "players": ["1"],
     "pendingRequests": [],
     "isTeamMatch": true,
     "team1Id": "6",
     "team1Name": "PEPE",
     "lookingForTeam": true
+  },
+  {
+    "id": "11",
+    "sport": "Tenis",
+    "createdBy": "1",
+    "createdByName": "GabrielSP",
+    "createdByUsername": "gabrisp",
+    "date": "2025-11-19",
+    "time": "00:04",
+    "location": {
+      "lat": 40.426434155519274,
+      "lng": -3.673038482666016,
+      "address": "40.4162, -3.7359"
+    },
+    "totalPlayers": 2,
+    "currentPlayers": 1,
+    "requiresApproval": true,
+    "distance": 0,
+    "status": "active",
+    "players": ["1"],
+    "pendingRequests": [],
+    "isTeamMatch": false,
+    "lookingForTeam": false
+  },
+  {
+    "id": "12",
+    "sport": "Fútbol",
+    "createdBy": "1",
+    "createdByName": "GabrielSP",
+    "createdByUsername": "gabrisp",
+    "date": "2025-12-23",
+    "time": "21:38",
+    "location": {
+      "lat": 40.43440488077008,
+      "lng": -3.737583160400391,
+      "address": "40.4344, -3.7376"
+    },
+    "totalPlayers": 14,
+    "currentPlayers": 1,
+    "requiresApproval": true,
+    "distance": 296,
+    "status": "active",
+    "players": ["1"],
+    "pendingRequests": [],
+    "isTeamMatch": true,
+    "team1Id": "7",
+    "team1Name": "FRGSNDGRWH",
+    "lookingForTeam": true
+  },
+  {
+    "id": "200",
+    "sport": "Fútbol",
+    "createdBy": "1",
+    "createdByName": "Usuario Demo",
+    "createdByUsername": "demo",
+    "date": "2025-11-01",
+    "time": "18:00",
+    "location": {
+      "lat": 40.4168,
+      "lng": -3.7038,
+      "address": "Campo Central Fútbol 1"
+    },
+    "totalPlayers": 14,
+    "currentPlayers": 10,
+    "requiresApproval": true,
+    "distance": 500,
+    "status": "completed",
+    "players": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+    "pendingRequests": [],
+    "isTeamMatch": false
+  },
+  {
+    "id": "201",
+    "sport": "Fútbol",
+    "createdBy": "1",
+    "createdByName": "Usuario Demo",
+    "createdByUsername": "demo",
+    "date": "2025-11-03",
+    "time": "19:00",
+    "location": {
+      "lat": 40.4178,
+      "lng": -3.7048,
+      "address": "Campo Central Fútbol 2"
+    },
+    "totalPlayers": 14,
+    "currentPlayers": 14,
+    "requiresApproval": false,
+    "distance": 850,
+    "status": "completed",
+    "players": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"],
+    "pendingRequests": [],
+    "isTeamMatch": true,
+    "team1Id": "f1",
+    "team1Name": "Fútbol Novatos A",
+    "team2Id": "f2",
+    "team2Name": "Fútbol Novatos B",
+    "lookingForTeam": false
+  },
+  {
+    "id": "202",
+    "sport": "Fútbol",
+    "createdBy": "1",
+    "createdByName": "Usuario Demo",
+    "createdByUsername": "demo",
+    "date": "2025-11-05",
+    "time": "20:00",
+    "location": {
+      "lat": 40.4188,
+      "lng": -3.7058,
+      "address": "Campo Intermedio Fútbol 1"
+    },
+    "totalPlayers": 14,
+    "currentPlayers": 12,
+    "requiresApproval": true,
+    "distance": 600,
+    "status": "completed",
+    "players": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+    "pendingRequests": [],
+    "isTeamMatch": false
+  },
+  {
+    "id": "203",
+    "sport": "Fútbol",
+    "createdBy": "1",
+    "createdByName": "Usuario Demo",
+    "createdByUsername": "demo",
+    "date": "2025-11-07",
+    "time": "21:00",
+    "location": {
+      "lat": 40.4198,
+      "lng": -3.7068,
+      "address": "Campo Intermedio Fútbol 2"
+    },
+    "totalPlayers": 14,
+    "currentPlayers": 14,
+    "requiresApproval": false,
+    "distance": 1200,
+    "status": "completed",
+    "players": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"],
+    "pendingRequests": [],
+    "isTeamMatch": true,
+    "team1Id": "f3",
+    "team1Name": "Fútbol Inter A",
+    "team2Id": "f4",
+    "team2Name": "Fútbol Inter B",
+    "lookingForTeam": false
+  },
+  {
+    "id": "204",
+    "sport": "Fútbol",
+    "createdBy": "1",
+    "createdByName": "Usuario Demo",
+    "createdByUsername": "demo",
+    "date": "2025-11-09",
+    "time": "18:30",
+    "location": {
+      "lat": 40.4208,
+      "lng": -3.7078,
+      "address": "Campo Pro Fútbol 1"
+    },
+    "totalPlayers": 14,
+    "currentPlayers": 12,
+    "requiresApproval": true,
+    "distance": 900,
+    "status": "completed",
+    "players": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+    "pendingRequests": [],
+    "isTeamMatch": false
+  },
+  {
+    "id": "205",
+    "sport": "Fútbol",
+    "createdBy": "1",
+    "createdByName": "Usuario Demo",
+    "createdByUsername": "demo",
+    "date": "2025-11-11",
+    "time": "19:30",
+    "location": {
+      "lat": 40.4218,
+      "lng": -3.7088,
+      "address": "Campo Pro Fútbol 2"
+    },
+    "totalPlayers": 14,
+    "currentPlayers": 14,
+    "requiresApproval": false,
+    "distance": 1500,
+    "status": "completed",
+    "players": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"],
+    "pendingRequests": [],
+    "isTeamMatch": true,
+    "team1Id": "f5",
+    "team1Name": "Fútbol Pro A",
+    "team2Id": "f6",
+    "team2Name": "Fútbol Pro B",
+    "lookingForTeam": false
+  },
+
+  {
+    "id": "210",
+    "sport": "Baloncesto",
+    "createdBy": "1",
+    "createdByName": "Usuario Demo",
+    "createdByUsername": "demo",
+    "date": "2025-11-02",
+    "time": "18:00",
+    "location": {
+      "lat": 40.4268,
+      "lng": -3.7138,
+      "address": "Pabellón Basket Novato 1"
+    },
+    "totalPlayers": 10,
+    "currentPlayers": 8,
+    "requiresApproval": true,
+    "distance": 700,
+    "status": "completed",
+    "players": ["1", "2", "3", "4", "5", "6", "7", "8"],
+    "pendingRequests": [],
+    "isTeamMatch": false
+  },
+  {
+    "id": "211",
+    "sport": "Baloncesto",
+    "createdBy": "1",
+    "createdByName": "Usuario Demo",
+    "createdByUsername": "demo",
+    "date": "2025-11-04",
+    "time": "19:00",
+    "location": {
+      "lat": 40.4278,
+      "lng": -3.7148,
+      "address": "Pabellón Basket Novato 2"
+    },
+    "totalPlayers": 10,
+    "currentPlayers": 10,
+    "requiresApproval": false,
+    "distance": 900,
+    "status": "completed",
+    "players": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+    "pendingRequests": [],
+    "isTeamMatch": true,
+    "team1Id": "b1",
+    "team1Name": "Basket Novatos A",
+    "team2Id": "b2",
+    "team2Name": "Basket Novatos B",
+    "lookingForTeam": false
+  },
+  {
+    "id": "212",
+    "sport": "Baloncesto",
+    "createdBy": "1",
+    "createdByName": "Usuario Demo",
+    "createdByUsername": "demo",
+    "date": "2025-11-06",
+    "time": "20:00",
+    "location": {
+      "lat": 40.4288,
+      "lng": -3.7158,
+      "address": "Pabellón Basket Intermedio 1"
+    },
+    "totalPlayers": 10,
+    "currentPlayers": 8,
+    "requiresApproval": true,
+    "distance": 1100,
+    "status": "completed",
+    "players": ["1", "2", "3", "4", "5", "6", "7", "8"],
+    "pendingRequests": [],
+    "isTeamMatch": false
+  },
+  {
+    "id": "213",
+    "sport": "Baloncesto",
+    "createdBy": "1",
+    "createdByName": "Usuario Demo",
+    "createdByUsername": "demo",
+    "date": "2025-11-08",
+    "time": "21:00",
+    "location": {
+      "lat": 40.4298,
+      "lng": -3.7168,
+      "address": "Pabellón Basket Intermedio 2"
+    },
+    "totalPlayers": 10,
+    "currentPlayers": 10,
+    "requiresApproval": false,
+    "distance": 1300,
+    "status": "completed",
+    "players": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+    "pendingRequests": [],
+    "isTeamMatch": true,
+    "team1Id": "b3",
+    "team1Name": "Basket Inter A",
+    "team2Id": "b4",
+    "team2Name": "Basket Inter B",
+    "lookingForTeam": false
+  },
+  {
+    "id": "214",
+    "sport": "Baloncesto",
+    "createdBy": "1",
+    "createdByName": "Usuario Demo",
+    "createdByUsername": "demo",
+    "date": "2025-11-10",
+    "time": "18:30",
+    "location": {
+      "lat": 40.4308,
+      "lng": -3.7178,
+      "address": "Pabellón Basket Pro 1"
+    },
+    "totalPlayers": 10,
+    "currentPlayers": 8,
+    "requiresApproval": true,
+    "distance": 1500,
+    "status": "completed",
+    "players": ["1", "2", "3", "4", "5", "6", "7", "8"],
+    "pendingRequests": [],
+    "isTeamMatch": false
+  },
+  {
+    "id": "215",
+    "sport": "Baloncesto",
+    "createdBy": "1",
+    "createdByName": "Usuario Demo",
+    "createdByUsername": "demo",
+    "date": "2025-11-12",
+    "time": "19:30",
+    "location": {
+      "lat": 40.4318,
+      "lng": -3.7188,
+      "address": "Pabellón Basket Pro 2"
+    },
+    "totalPlayers": 10,
+    "currentPlayers": 10,
+    "requiresApproval": false,
+    "distance": 1700,
+    "status": "completed",
+    "players": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+    "pendingRequests": [],
+    "isTeamMatch": true,
+    "team1Id": "b5",
+    "team1Name": "Basket Pro A",
+    "team2Id": "b6",
+    "team2Name": "Basket Pro B",
+    "lookingForTeam": false
+  },
+
+  {
+    "id": "220",
+    "sport": "Tenis",
+    "createdBy": "1",
+    "createdByName": "Usuario Demo",
+    "createdByUsername": "demo",
+    "date": "2025-11-01",
+    "time": "16:00",
+    "location": {
+      "lat": 40.4368,
+      "lng": -3.7238,
+      "address": "Pista Tenis Novato 1"
+    },
+    "totalPlayers": 2,
+    "currentPlayers": 2,
+    "requiresApproval": false,
+    "distance": 400,
+    "status": "completed",
+    "players": ["1", "2"],
+    "pendingRequests": [],
+    "isTeamMatch": false
+  },
+  {
+    "id": "221",
+    "sport": "Tenis",
+    "createdBy": "1",
+    "createdByName": "Usuario Demo",
+    "createdByUsername": "demo",
+    "date": "2025-11-03",
+    "time": "17:00",
+    "location": {
+      "lat": 40.4378,
+      "lng": -3.7248,
+      "address": "Pista Tenis Novato 2"
+    },
+    "totalPlayers": 2,
+    "currentPlayers": 2,
+    "requiresApproval": true,
+    "distance": 650,
+    "status": "completed",
+    "players": ["1", "3"],
+    "pendingRequests": [],
+    "isTeamMatch": false
+  },
+  {
+    "id": "222",
+    "sport": "Tenis",
+    "createdBy": "1",
+    "createdByName": "Usuario Demo",
+    "createdByUsername": "demo",
+    "date": "2025-11-05",
+    "time": "18:00",
+    "location": {
+      "lat": 40.4388,
+      "lng": -3.7258,
+      "address": "Pista Tenis Intermedio 1"
+    },
+    "totalPlayers": 2,
+    "currentPlayers": 2,
+    "requiresApproval": false,
+    "distance": 900,
+    "status": "completed",
+    "players": ["1", "4"],
+    "pendingRequests": [],
+    "isTeamMatch": false
+  },
+  {
+    "id": "223",
+    "sport": "Tenis",
+    "createdBy": "1",
+    "createdByName": "Usuario Demo",
+    "createdByUsername": "demo",
+    "date": "2025-11-07",
+    "time": "19:00",
+    "location": {
+      "lat": 40.4398,
+      "lng": -3.7268,
+      "address": "Pista Tenis Intermedio 2"
+    },
+    "totalPlayers": 2,
+    "currentPlayers": 2,
+    "requiresApproval": true,
+    "distance": 1150,
+    "status": "completed",
+    "players": ["1", "5"],
+    "pendingRequests": [],
+    "isTeamMatch": false
+  },
+  {
+    "id": "224",
+    "sport": "Tenis",
+    "createdBy": "1",
+    "createdByName": "Usuario Demo",
+    "createdByUsername": "demo",
+    "date": "2025-11-09",
+    "time": "16:30",
+    "location": {
+      "lat": 40.4408,
+      "lng": -3.7278,
+      "address": "Pista Tenis Pro 1"
+    },
+    "totalPlayers": 2,
+    "currentPlayers": 2,
+    "requiresApproval": false,
+    "distance": 1400,
+    "status": "completed",
+    "players": ["1", "6"],
+    "pendingRequests": [],
+    "isTeamMatch": false
+  },
+  {
+    "id": "225",
+    "sport": "Tenis",
+    "createdBy": "1",
+    "createdByName": "Usuario Demo",
+    "createdByUsername": "demo",
+    "date": "2025-11-11",
+    "time": "17:30",
+    "location": {
+      "lat": 40.4418,
+      "lng": -3.7288,
+      "address": "Pista Tenis Pro 2"
+    },
+    "totalPlayers": 2,
+    "currentPlayers": 2,
+    "requiresApproval": true,
+    "distance": 1650,
+    "status": "completed",
+    "players": ["1", "7"],
+    "pendingRequests": [],
+    "isTeamMatch": false
+  },
+
+  {
+    "id": "230",
+    "sport": "Pádel",
+    "createdBy": "1",
+    "createdByName": "Usuario Demo",
+    "createdByUsername": "demo",
+    "date": "2025-11-02",
+    "time": "16:00",
+    "location": {
+      "lat": 40.4468,
+      "lng": -3.7338,
+      "address": "Pista Pádel Novato 1"
+    },
+    "totalPlayers": 4,
+    "currentPlayers": 4,
+    "requiresApproval": false,
+    "distance": 500,
+    "status": "completed",
+    "players": ["1", "2", "3", "4"],
+    "pendingRequests": [],
+    "isTeamMatch": false
+  },
+  {
+    "id": "231",
+    "sport": "Pádel",
+    "createdBy": "1",
+    "createdByName": "Usuario Demo",
+    "createdByUsername": "demo",
+    "date": "2025-11-04",
+    "time": "17:00",
+    "location": {
+      "lat": 40.4478,
+      "lng": -3.7348,
+      "address": "Pista Pádel Novato 2"
+    },
+    "totalPlayers": 4,
+    "currentPlayers": 4,
+    "requiresApproval": true,
+    "distance": 750,
+    "status": "completed",
+    "players": ["1", "3", "5", "7"],
+    "pendingRequests": [],
+    "isTeamMatch": false
+  },
+  {
+    "id": "232",
+    "sport": "Pádel",
+    "createdBy": "1",
+    "createdByName": "Usuario Demo",
+    "createdByUsername": "demo",
+    "date": "2025-11-06",
+    "time": "18:00",
+    "location": {
+      "lat": 40.4488,
+      "lng": -3.7358,
+      "address": "Pista Pádel Intermedio 1"
+    },
+    "totalPlayers": 4,
+    "currentPlayers": 4,
+    "requiresApproval": false,
+    "distance": 1000,
+    "status": "completed",
+    "players": ["1", "4", "6", "8"],
+    "pendingRequests": [],
+    "isTeamMatch": false
+  },
+  {
+    "id": "233",
+    "sport": "Pádel",
+    "createdBy": "1",
+    "createdByName": "Usuario Demo",
+    "createdByUsername": "demo",
+    "date": "2025-11-08",
+    "time": "19:00",
+    "location": {
+      "lat": 40.4498,
+      "lng": -3.7368,
+      "address": "Pista Pádel Intermedio 2"
+    },
+    "totalPlayers": 4,
+    "currentPlayers": 4,
+    "requiresApproval": true,
+    "distance": 1250,
+    "status": "completed",
+    "players": ["1", "2", "5", "8"],
+    "pendingRequests": [],
+    "isTeamMatch": false
+  },
+  {
+    "id": "234",
+    "sport": "Pádel",
+    "createdBy": "1",
+    "createdByName": "Usuario Demo",
+    "createdByUsername": "demo",
+    "date": "2025-11-10",
+    "time": "16:30",
+    "location": {
+      "lat": 40.4508,
+      "lng": -3.7378,
+      "address": "Pista Pádel Pro 1"
+    },
+    "totalPlayers": 4,
+    "currentPlayers": 4,
+    "requiresApproval": false,
+    "distance": 1500,
+    "status": "completed",
+    "players": ["1", "6", "7", "8"],
+    "pendingRequests": [],
+    "isTeamMatch": false
+  },
+  {
+    "id": "235",
+    "sport": "Pádel",
+    "createdBy": "1",
+    "createdByName": "Usuario Demo",
+    "createdByUsername": "demo",
+    "date": "2025-11-12",
+    "time": "17:30",
+    "location": {
+      "lat": 40.4518,
+      "lng": -3.7388,
+      "address": "Pista Pádel Pro 2"
+    },
+    "totalPlayers": 4,
+    "currentPlayers": 4,
+    "requiresApproval": true,
+    "distance": 1750,
+    "status": "completed",
+    "players": ["1", "2", "3", "5"],
+    "pendingRequests": [],
+    "isTeamMatch": false
   }
 ]

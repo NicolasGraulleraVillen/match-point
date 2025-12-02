@@ -1,77 +1,83 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
-import Link from "next/link"
-import { Navbar } from "@/components/navbar"
-import { MobileBottomNav } from "@/components/mobile-bottom-nav"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Calendar, Trophy, Info } from "lucide-react"
-import { useAuth } from "@/hooks/use-auth"
-import { HistoryMatch, Level } from "@/types"
-import { SportIcon, getSportName } from "@/lib/sport-utils"
-import { HistoryDetailsModal } from "@/components/history-details-modal"
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { Navbar } from "@/components/navbar";
+import { MobileBottomNav } from "@/components/mobile-bottom-nav";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Calendar, Trophy, Info } from "lucide-react";
+import { useAuth } from "@/hooks/use-auth";
+import { HistoryMatch, Level } from "@/types";
+import { SportIcon, getSportName } from "@/lib/sport-utils";
+import { HistoryDetailsModal } from "@/components/history-details-modal";
 
 export default function HistorialPage() {
-  const router = useRouter()
-  const { isLoggedIn, loading, currentUser } = useAuth()
-  const [history, setHistory] = useState<HistoryMatch[]>([])
-  const [filterSport, setFilterSport] = useState<string>("all")
-  const [filterLevel, setFilterLevel] = useState<Level | "all">("all")
-  const [selectedMatch, setSelectedMatch] = useState<HistoryMatch | null>(null)
-  const [detailsOpen, setDetailsOpen] = useState(false)
+  const router = useRouter();
+  const { isLoggedIn, loading, currentUser } = useAuth();
+  const [history, setHistory] = useState<HistoryMatch[]>([]);
+  const [filterSport, setFilterSport] = useState<string>("all");
+  const [filterLevel, setFilterLevel] = useState<Level | "all">("all");
+  const [selectedMatch, setSelectedMatch] = useState<HistoryMatch | null>(null);
+  const [detailsOpen, setDetailsOpen] = useState(false);
 
   useEffect(() => {
     if (isLoggedIn && currentUser) {
-      loadHistory()
+      loadHistory();
     }
-  }, [isLoggedIn, currentUser])
+  }, [isLoggedIn, currentUser]);
 
   const loadHistory = async () => {
     try {
-      // Load completed matches from API
-      const response = await fetch("/api/matches")
+      // Cargar partidos desde la API
+      const response = await fetch("/api/matches");
       if (response.ok) {
-        const matches = await response.json()
-        // Convert completed matches to history format
+        const matches = await response.json();
+
+        // Ciclo de resultados y marcadores coherentes
+        const resultCycle: ("win" | "loss" | "draw")[] = ["win", "loss", "draw"];
+        const scoreByResult: Record<"win" | "loss" | "draw", string[]> = {
+          win: ["3-1", "2-0", "4-2", "5-3", "1-0"],
+          loss: ["1-3", "0-2", "2-4", "3-5", "0-1"],
+          draw: ["1-1", "2-2", "0-0"],
+        };
+
+        // Convertir partidos completados al formato de historial
         const completedMatches = matches
-          .filter((m: any) => 
-            m.status === "completed" && 
-            (m.players.includes(currentUser!.id) || m.createdBy === currentUser!.id)
+          .filter(
+            (m: any) =>
+              m.status === "completed" && (m.players.includes(currentUser!.id) || m.createdBy === currentUser!.id)
           )
           .map((m: any, index: number) => {
-            // Generate mock history data
             const opponents = matches
               .filter((other: any) => other.id !== m.id && other.sport === m.sport)
-              .map((other: any) => other.createdByName)
-            
-            const results: ("win" | "loss" | "draw")[] = ["win", "loss", "draw"]
-            const result = results[index % 3]
-            const scores = [
-              "3-1", "2-0", "1-1", "4-2", "0-2", "2-2", "5-3", "1-0"
-            ]
-            
+              .map((other: any) => other.createdByName);
+
+            const result = resultCycle[index % resultCycle.length];
+            const scoresForResult = scoreByResult[result];
+            const score = scoresForResult[index % scoresForResult.length];
+
             return {
               id: m.id,
               sport: m.sport,
               date: m.date,
               opponent: opponents[0] || "Equipo Rival",
               result,
-              score: scores[index % scores.length],
+              score,
               level: (["novato", "intermedio", "pro"] as Level[])[index % 3],
               location: m.location?.address || "Ubicación no especificada",
-            } as HistoryMatch
-          })
-        
-        setHistory(completedMatches)
+            } as HistoryMatch;
+          });
+
+        setHistory(completedMatches);
       }
     } catch (error) {
-      console.error("Error loading history:", error)
+      console.error("Error loading history:", error);
     }
-  }
+  };
 
   if (loading) {
     return (
@@ -81,45 +87,45 @@ export default function HistorialPage() {
           <p className="text-muted-foreground">Cargando...</p>
         </div>
       </div>
-    )
+    );
   }
 
   if (!isLoggedIn) {
-    router.push("/")
-    return null
+    router.push("/");
+    return null;
   }
 
   const filteredHistory = history.filter((match) => {
-    if (filterSport !== "all" && match.sport !== filterSport) return false
-    if (filterLevel !== "all" && match.level !== filterLevel) return false
-    return true
-  })
+    if (filterSport !== "all" && match.sport !== filterSport) return false;
+    if (filterLevel !== "all" && match.level !== filterLevel) return false;
+    return true;
+  });
 
   const getBorderColor = (result: string) => {
     switch (result) {
       case "win":
-        return "border-l-green-500/60"
+        return "border-l-green-500/60";
       case "loss":
-        return "border-l-red-500/60"
+        return "border-l-red-500/60";
       case "draw":
-        return "border-l-yellow-500/60"
+        return "border-l-yellow-500/60";
       default:
-        return ""
+        return "";
     }
-  }
+  };
 
   const getResultText = (result: string) => {
     switch (result) {
       case "win":
-        return "Victoria"
+        return "Victoria";
       case "loss":
-        return "Derrota"
+        return "Derrota";
       case "draw":
-        return "Empate"
+        return "Empate";
       default:
-        return result
+        return result;
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-8">
@@ -177,7 +183,9 @@ export default function HistorialPage() {
             {filteredHistory.map((match) => (
               <Card
                 key={match.id}
-                className={`border-l-4 bg-background/80 transition-all duration-200 hover:shadow-md ${getBorderColor(match.result)}`}
+                className={`border-l-4 bg-background/80 transition-all duration-200 hover:shadow-md ${getBorderColor(
+                  match.result
+                )}`}
               >
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between gap-4">
@@ -196,11 +204,15 @@ export default function HistorialPage() {
                         <p className="text-sm text-muted-foreground truncate">vs {match.opponent}</p>
                         <div className="flex items-center gap-4 mt-2">
                           <div className="text-lg font-bold">{match.score}</div>
-                          <div className={`text-xs font-semibold ${
-                            match.result === "win" ? "text-green-600" : 
-                            match.result === "loss" ? "text-red-600" : 
-                            "text-yellow-600"
-                          }`}>
+                          <div
+                            className={`text-xs font-semibold ${
+                              match.result === "win"
+                                ? "text-green-600"
+                                : match.result === "loss"
+                                ? "text-red-600"
+                                : "text-yellow-600"
+                            }`}
+                          >
                             {getResultText(match.result)}
                           </div>
                         </div>
@@ -218,12 +230,12 @@ export default function HistorialPage() {
                           })}
                         </span>
                       </div>
-                      <Button 
-                        size="sm" 
+                      <Button
+                        size="sm"
                         variant="ghost"
                         onClick={() => {
-                          setSelectedMatch(match)
-                          setDetailsOpen(true)
+                          setSelectedMatch(match);
+                          setDetailsOpen(true);
                         }}
                       >
                         <Info className="h-4 w-4 mr-1" />
@@ -240,12 +252,7 @@ export default function HistorialPage() {
 
       <MobileBottomNav />
 
-      <HistoryDetailsModal 
-        match={selectedMatch} 
-        open={detailsOpen} 
-        onOpenChange={setDetailsOpen} 
-      />
+      <HistoryDetailsModal match={selectedMatch} open={detailsOpen} onOpenChange={setDetailsOpen} />
     </div>
-  )
+  );
 }
-

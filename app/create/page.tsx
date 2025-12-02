@@ -1,59 +1,101 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { Navbar } from "@/components/navbar"
-import { MobileBottomNav } from "@/components/mobile-bottom-nav"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Switch } from "@/components/ui/switch"
-import { useAuth } from "@/hooks/use-auth"
-import { Toast } from "@/components/ui/toast"
-import { createMatch, getTeams } from "@/lib/api-client"
-import usersData from "@/data/users.json"
-import { Team } from "@/types"
-import { LocationPicker } from "@/components/map/location-picker"
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { Navbar } from "@/components/navbar";
+import { MobileBottomNav } from "@/components/mobile-bottom-nav";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Switch } from "@/components/ui/switch";
+import { useAuth } from "@/hooks/use-auth";
+import { Toast } from "@/components/ui/toast";
+import { createMatch, getTeams } from "@/lib/api-client";
+import usersData from "@/data/users.json";
+import { Team } from "@/types";
+import { LocationPicker } from "@/components/map/location-picker";
+
+// Ubicaciones predefinidas
+const PREDEFINED_LOCATIONS = [
+  {
+    id: "utad-football",
+    name: "Campo de fútbol U-tad",
+    lat: 40.538115,
+    lng: -3.893912,
+    address: "Campo de fútbol U-tad, Las Rozas de Madrid",
+  },
+  {
+    id: "utad-padel",
+    name: "Campo de padel U-tad",
+    lat: 40.538094,
+    lng: -3.893667,
+    address: "Campo de padel U-tad, Las Rozas de Madrid",
+  },
+  {
+    id: "upm-futbol",
+    name: "Club Deportivo Retiro Sur UPM",
+    lat: 40.4091631,
+    lng: -3.6863655,
+    address: "P.º de Fernán Núñez, 3, Retiro, 28009 Madrid",
+  },
+  {
+    id: "la-maso",
+    name: "La Masó",
+    lat: 40.4894,
+    lng: -3.7206,
+    address: "Centro Deportivo La Masó, Madrid",
+  },
+  {
+    id: "soto-moraleja",
+    name: "Soto de la Moraleja",
+    lat: 40.5187,
+    lng: -3.6494,
+    address: "Soto de la Moraleja, Madrid",
+  },
+];
 
 export default function CreatePage() {
-  const router = useRouter()
-  const { isLoggedIn, loading, currentUser } = useAuth()
-  const [sport, setSport] = useState("")
-  const [date, setDate] = useState("")
-  const [time, setTime] = useState("")
-  const [players, setPlayers] = useState("")
-  const [requiresApproval, setRequiresApproval] = useState(false)
-  const [location, setLocation] = useState({ lat: 40.4168, lng: -3.7038, address: "" })
-  const [distance, setDistance] = useState("")
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null)
-  const [teams, setTeams] = useState<Team[]>([])
-  const [selectedTeamId, setSelectedTeamId] = useState("")
-  const [isTeamMatch, setIsTeamMatch] = useState(false)
+  const router = useRouter();
+  const { isLoggedIn, loading, currentUser } = useAuth();
+  const [sport, setSport] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [players, setPlayers] = useState("");
+  const [requiresApproval, setRequiresApproval] = useState(false);
+  const [location, setLocation] = useState({
+    lat: PREDEFINED_LOCATIONS[0].lat,
+    lng: PREDEFINED_LOCATIONS[0].lng,
+    address: PREDEFINED_LOCATIONS[0].address,
+  });
+  const [selectedLocationId, setSelectedLocationId] = useState(PREDEFINED_LOCATIONS[0].id);
+  const [distance, setDistance] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
+  const [teams, setTeams] = useState<Team[]>([]);
+  const [selectedTeamId, setSelectedTeamId] = useState("");
+  const [isTeamMatch, setIsTeamMatch] = useState(false);
 
-  const isTeamSport = sport === "Fútbol" || sport === "Baloncesto"
+  const isTeamSport = sport === "Fútbol" || sport === "Baloncesto";
 
   useEffect(() => {
     if (isLoggedIn && isTeamSport && currentUser) {
-      loadUserTeams()
+      loadUserTeams();
     }
-  }, [isLoggedIn, isTeamSport, currentUser])
+  }, [isLoggedIn, isTeamSport, currentUser]);
 
   const loadUserTeams = async () => {
     try {
-      const allTeams = await getTeams()
-      const userTeams = allTeams.filter(t => 
-        t.members.includes(currentUser!.id) && t.sport === sport
-      )
-      setTeams(userTeams)
+      const allTeams = await getTeams();
+      const userTeams = allTeams.filter((t) => t.members.includes(currentUser!.id) && t.sport === sport);
+      setTeams(userTeams);
       if (userTeams.length > 0) {
-        setSelectedTeamId(userTeams[0].id)
+        setSelectedTeamId(userTeams[0].id);
       }
     } catch (error) {
-      console.error("Error loading teams:", error)
+      console.error("Error loading teams:", error);
     }
-  }
+  };
 
   if (loading) {
     return (
@@ -63,36 +105,36 @@ export default function CreatePage() {
           <p className="text-muted-foreground">Cargando...</p>
         </div>
       </div>
-    )
+    );
   }
 
-  if (!isLoggedIn) return null
+  if (!isLoggedIn) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
 
     try {
       if (!currentUser) {
-        throw new Error("Usuario no autenticado")
+        throw new Error("Usuario no autenticado");
       }
 
-      const user = usersData.find(u => u.id === currentUser.id)
+      const user = usersData.find((u) => u.id === currentUser.id);
       if (!user) {
-        throw new Error("Usuario no encontrado")
+        throw new Error("Usuario no encontrado");
       }
 
       // Calculate total players based on sport
-      let totalPlayers = 0
+      let totalPlayers = 0;
       if (sport === "Fútbol") {
         // Fútbol: 7 jugadores por equipo
-        totalPlayers = isTeamSport && selectedTeamId ? 14 : 7 // 14 if team match (2 teams), 7 if individual
+        totalPlayers = isTeamSport && selectedTeamId ? 14 : 7; // 14 if team match (2 teams), 7 if individual
       } else if (sport === "Baloncesto") {
         // Baloncesto: 5 jugadores por equipo
-        totalPlayers = isTeamSport && selectedTeamId ? 10 : 5 // 10 if team match (2 teams), 5 if individual
+        totalPlayers = isTeamSport && selectedTeamId ? 10 : 5; // 10 if team match (2 teams), 5 if individual
       } else {
         // Tenis and Pádel: use input value
-        totalPlayers = parseInt(players) || 2
+        totalPlayers = parseInt(players) || 2;
       }
 
       const matchData: any = {
@@ -110,35 +152,35 @@ export default function CreatePage() {
         totalPlayers,
         requiresApproval,
         distance: parseInt(distance) || 0,
-      }
+      };
 
       // Add team information if it's a team sport
       if (isTeamSport && selectedTeamId) {
-        const selectedTeam = teams.find(t => t.id === selectedTeamId)
+        const selectedTeam = teams.find((t) => t.id === selectedTeamId);
         if (selectedTeam) {
-          matchData.isTeamMatch = true
-          matchData.team1Id = selectedTeam.id
-          matchData.team1Name = selectedTeam.name
+          matchData.isTeamMatch = true;
+          matchData.team1Id = selectedTeam.id;
+          matchData.team1Name = selectedTeam.name;
           // For Fútbol and Baloncesto, always looking for another team
-          matchData.lookingForTeam = true
+          matchData.lookingForTeam = true;
         }
       }
 
-      await createMatch(matchData)
+      await createMatch(matchData);
 
-      setToast({ message: "Partido creado exitosamente", type: "success" })
+      setToast({ message: "Partido creado exitosamente", type: "success" });
       setTimeout(() => {
-        router.push("/home")
-      }, 1500)
+        router.push("/home");
+      }, 1500);
     } catch (error) {
       setToast({
         message: error instanceof Error ? error.message : "Error al crear el partido",
         type: "error",
-      })
+      });
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-8">
@@ -153,9 +195,9 @@ export default function CreatePage() {
               id="sport"
               value={sport}
               onChange={(e) => {
-                setSport(e.target.value)
-                setIsTeamMatch(false)
-                setSelectedTeamId("")
+                setSport(e.target.value);
+                setIsTeamMatch(false);
+                setSelectedTeamId("");
               }}
               className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               required
@@ -175,11 +217,7 @@ export default function CreatePage() {
                   <CardContent className="pt-6">
                     <p className="text-sm text-yellow-800 dark:text-yellow-200">
                       No tienes equipos de {sport}.{" "}
-                      <Button
-                        variant="link"
-                        className="p-0 h-auto"
-                        onClick={() => router.push("/teams/create")}
-                      >
+                      <Button variant="link" className="p-0 h-auto" onClick={() => router.push("/teams/create")}>
                         Crea uno aquí
                       </Button>
                     </p>
@@ -203,9 +241,7 @@ export default function CreatePage() {
                         </option>
                       ))}
                     </select>
-                    <p className="text-xs text-muted-foreground">
-                      Tu equipo buscará enfrentarse a otro equipo
-                    </p>
+                    <p className="text-xs text-muted-foreground">Tu equipo buscará enfrentarse a otro equipo</p>
                   </div>
                 </>
               )}
@@ -215,23 +251,11 @@ export default function CreatePage() {
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="date">Fecha</Label>
-              <Input
-                id="date"
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                required
-              />
+              <Input id="date" type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
             </div>
             <div className="space-y-2">
               <Label htmlFor="time">Hora</Label>
-              <Input
-                id="time"
-                type="time"
-                value={time}
-                onChange={(e) => setTime(e.target.value)}
-                required
-              />
+              <Input id="time" type="time" value={time} onChange={(e) => setTime(e.target.value)} required />
             </div>
           </div>
 
@@ -250,9 +274,7 @@ export default function CreatePage() {
                 required
               />
               <p className="text-xs text-muted-foreground">
-                {sport === "Tenis" || sport === "Pádel" 
-                  ? "2 para individual, 4 para dobles"
-                  : ""}
+                {sport === "Tenis" || sport === "Pádel" ? "2 para individual, 4 para dobles" : ""}
               </p>
             </div>
           )}
@@ -264,21 +286,13 @@ export default function CreatePage() {
                 <div className="space-y-2">
                   {sport === "Fútbol" ? (
                     <>
-                      <p className="text-sm font-medium">
-                        Número de jugadores: 7 por equipo
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        Total: 14 jugadores (2 equipos)
-                      </p>
+                      <p className="text-sm font-medium">Número de jugadores: 7 por equipo</p>
+                      <p className="text-xs text-muted-foreground">Total: 14 jugadores (2 equipos)</p>
                     </>
                   ) : (
                     <>
-                      <p className="text-sm font-medium">
-                        Número de jugadores: 5 por equipo
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        Total: 10 jugadores (2 equipos)
-                      </p>
+                      <p className="text-sm font-medium">Número de jugadores: 5 por equipo</p>
+                      <p className="text-xs text-muted-foreground">Total: 10 jugadores (2 equipos)</p>
                     </>
                   )}
                 </div>
@@ -289,15 +303,9 @@ export default function CreatePage() {
           <div className="flex items-center justify-between rounded-lg border p-4">
             <div className="space-y-0.5">
               <Label htmlFor="approval">Requiere Aprobación</Label>
-              <p className="text-sm text-muted-foreground">
-                Los usuarios necesitarán tu aprobación para unirse
-              </p>
+              <p className="text-sm text-muted-foreground">Los usuarios necesitarán tu aprobación para unirse</p>
             </div>
-            <Switch
-              id="approval"
-              checked={requiresApproval}
-              onCheckedChange={setRequiresApproval}
-            />
+            <Switch id="approval" checked={requiresApproval} onCheckedChange={setRequiresApproval} />
           </div>
 
           <div className="space-y-2">
@@ -314,37 +322,50 @@ export default function CreatePage() {
 
           <div className="space-y-2">
             <Label htmlFor="address">Dirección</Label>
-            <Input
+            <select
               id="address"
-              placeholder="Ej: Campo de Fútbol Central, Madrid"
-              value={location.address}
-              onChange={(e) => setLocation({ ...location, address: e.target.value })}
-            />
+              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              value={selectedLocationId}
+              onChange={(e) => {
+                const loc = PREDEFINED_LOCATIONS.find((l) => l.id === e.target.value);
+                if (!loc) return;
+                setSelectedLocationId(loc.id);
+                setLocation({
+                  lat: loc.lat,
+                  lng: loc.lng,
+                  address: loc.address,
+                });
+              }}
+            >
+              {PREDEFINED_LOCATIONS.map((loc) => (
+                <option key={loc.id} value={loc.id}>
+                  {loc.name}
+                </option>
+              ))}
+            </select>
           </div>
 
           <Card>
             <CardHeader>
               <CardTitle>Ubicación</CardTitle>
               <p className="text-sm text-muted-foreground">
-                Haz clic en el mapa para seleccionar la ubicación del partido
+                La ubicación se ajusta automáticamente según la dirección seleccionada
               </p>
             </CardHeader>
             <CardContent>
               <LocationPicker
                 location={location}
                 onLocationChange={(newLocation) => {
-                  setLocation(newLocation)
+                  // En /create no permitimos cambiar desde el mapa; solo desde el select
+                  setLocation((prev) => ({ ...prev, ...newLocation }));
                 }}
+                interactive={false}
               />
               <div className="mt-4 space-y-2">
                 <p className="text-xs text-muted-foreground">
                   Coordenadas: {location.lat.toFixed(6)}, {location.lng.toFixed(6)}
                 </p>
-                {location.address && (
-                  <p className="text-xs text-muted-foreground">
-                    Dirección: {location.address}
-                  </p>
-                )}
+                {location.address && <p className="text-xs text-muted-foreground">Dirección: {location.address}</p>}
               </div>
             </CardContent>
           </Card>
@@ -358,14 +379,7 @@ export default function CreatePage() {
       <MobileBottomNav />
 
       {/* Toast Notification */}
-      {toast && (
-        <Toast
-          message={toast.message}
-          type={toast.type}
-          onClose={() => setToast(null)}
-        />
-      )}
+      {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
     </div>
-  )
+  );
 }
-

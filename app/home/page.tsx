@@ -1,98 +1,92 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
-import Link from "next/link"
-import { Navbar } from "@/components/navbar"
-import { MobileBottomNav } from "@/components/mobile-bottom-nav"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Plus, Search, Users as UsersIcon, Trash2 } from "lucide-react"
-import { useAuth } from "@/hooks/use-auth"
-import { MatchMap } from "@/components/map/match-map"
-import { MatchCardBottomSheet } from "@/components/map/match-card-bottom-sheet"
-import { MiniMap } from "@/components/map/mini-map"
-import { SearchMatchesModal, MatchFilters } from "@/components/search-matches-modal"
-import { TeamDetailsModal } from "@/components/team-details-modal"
-import { MatchDetailsModal } from "@/components/match-details-modal"
-import usersData from "@/data/users.json"
-import { User, Match, Team } from "@/types"
-import { getTeams, updateMatch, deleteMatch } from "@/lib/api-client"
-import { SportIcon, getSportName } from "@/lib/sport-utils"
-import { toast } from "sonner"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { Navbar } from "@/components/navbar";
+import { MobileBottomNav } from "@/components/mobile-bottom-nav";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Plus, Search, Users as UsersIcon, Trash2 } from "lucide-react";
+import { useAuth } from "@/hooks/use-auth";
+import { MatchMap } from "@/components/map/match-map";
+import { MatchCardBottomSheet } from "@/components/map/match-card-bottom-sheet";
+import { MiniMap } from "@/components/map/mini-map";
+import { SearchMatchesModal, MatchFilters } from "@/components/search-matches-modal";
+import { TeamDetailsModal } from "@/components/team-details-modal";
+import { MatchDetailsModal } from "@/components/match-details-modal";
+import usersData from "@/data/users.json";
+import { User, Match, Team } from "@/types";
+import { getTeams, updateMatch, deleteMatch } from "@/lib/api-client";
+import { SportIcon, getSportName } from "@/lib/sport-utils";
+import { toast } from "sonner";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 export default function HomePage() {
-  const router = useRouter()
-  const { isLoggedIn, loading, currentUser } = useAuth()
-  const [selectedMatch, setSelectedMatch] = useState<Match | null>(null)
-  const [matches, setMatches] = useState<Match[]>([])
-  const [teams, setTeams] = useState<Team[]>([])
-  const [isLoadingMatches, setIsLoadingMatches] = useState(true)
-  const [searchModalOpen, setSearchModalOpen] = useState(false)
-  const [selectedTeamForModal, setSelectedTeamForModal] = useState<Team | null>(null)
-  const [teamModalOpen, setTeamModalOpen] = useState(false)
-  const [selectedMatchForModal, setSelectedMatchForModal] = useState<Match | null>(null)
-  const [matchModalOpen, setMatchModalOpen] = useState(false)
-  const [searchFilters, setSearchFilters] = useState<MatchFilters | null>(null)
-  const [selectedMatchForJoin, setSelectedMatchForJoin] = useState<string | null>(null)
-  
+  const router = useRouter();
+  const { isLoggedIn, loading, currentUser } = useAuth();
+  const [selectedMatch, setSelectedMatch] = useState<Match | null>(null);
+  const [matches, setMatches] = useState<Match[]>([]);
+  const [teams, setTeams] = useState<Team[]>([]);
+  const [isLoadingMatches, setIsLoadingMatches] = useState(true);
+  const [searchModalOpen, setSearchModalOpen] = useState(false);
+  const [selectedTeamForModal, setSelectedTeamForModal] = useState<Team | null>(null);
+  const [teamModalOpen, setTeamModalOpen] = useState(false);
+  const [selectedMatchForModal, setSelectedMatchForModal] = useState<Match | null>(null);
+  const [matchModalOpen, setMatchModalOpen] = useState(false);
+  const [searchFilters, setSearchFilters] = useState<MatchFilters | null>(null);
+  const [selectedMatchForJoin, setSelectedMatchForJoin] = useState<string | null>(null);
+
   // Get main sport from user or default to first sport
-  const mainSport = currentUser?.mainSport || currentUser?.sports?.[0] || "Fútbol"
-  const [selectedSport, setSelectedSport] = useState(mainSport)
-  
+  const mainSport = currentUser?.mainSport || currentUser?.sports?.[0] || "Fútbol";
+  const [selectedSport, setSelectedSport] = useState(mainSport);
+
   // Map sport names to match the types
   const sportMap: Record<string, string> = {
-    "Fútbol": "football",
-    "Baloncesto": "basketball",
-    "Tenis": "tennis",
-    "Pádel": "padel"
-  }
-  
+    Fútbol: "football",
+    Baloncesto: "basketball",
+    Tenis: "tennis",
+    Pádel: "padel",
+  };
+
   const reverseSportMap: Record<string, string> = {
-    "football": "Fútbol",
-    "basketball": "Baloncesto",
-    "tennis": "Tenis",
-    "padel": "Pádel"
-  }
+    football: "Fútbol",
+    basketball: "Baloncesto",
+    tennis: "Tenis",
+    padel: "Pádel",
+  };
 
   useEffect(() => {
     if (isLoggedIn) {
-      loadMatches()
-      loadTeams()
+      loadMatches();
+      loadTeams();
     }
-  }, [isLoggedIn])
+  }, [isLoggedIn]);
 
   const loadMatches = async () => {
     try {
-      const response = await fetch("/api/matches")
+      const response = await fetch("/api/matches");
       if (response.ok) {
-        const data = await response.json()
-        setMatches(data)
+        const data = await response.json();
+        setMatches(data);
       }
     } catch (error) {
-      console.error("Error loading matches:", error)
+      console.error("Error loading matches:", error);
     } finally {
-      setIsLoadingMatches(false)
+      setIsLoadingMatches(false);
     }
-  }
+  };
 
   const loadTeams = async () => {
     try {
-      const allTeams = await getTeams()
-      setTeams(allTeams)
+      const allTeams = await getTeams();
+      setTeams(allTeams);
     } catch (error) {
-      console.error("Error loading teams:", error)
+      console.error("Error loading teams:", error);
     }
-  }
+  };
 
   if (loading || isLoadingMatches) {
     return (
@@ -102,166 +96,165 @@ export default function HomePage() {
           <p className="text-muted-foreground">Cargando...</p>
         </div>
       </div>
-    )
+    );
   }
 
-  if (!isLoggedIn) return null
+  if (!isLoggedIn) return null;
 
   // Get user level for selected sport
   const getUserLevel = (): string => {
-    if (!currentUser) return "novato"
-    const sportKey = sportMap[selectedSport] || "football"
-    return currentUser.levels?.[sportKey] || "novato"
-  }
+    if (!currentUser) return "novato";
+    const sportKey = sportMap[selectedSport] || "football";
+    return currentUser.levels?.[sportKey] || "novato";
+  };
 
   // Get user points for selected sport
   const getUserPoints = (): number => {
-    if (!currentUser) return 0
-    return currentUser.sportProfiles?.[selectedSport]?.stats?.wins 
-      ? (currentUser.sportProfiles[selectedSport].stats.wins || 0) * 10 + (currentUser.sportProfiles[selectedSport].stats.matches || 0) * 2
-      : currentUser.points || 0
-  }
+    if (!currentUser) return 0;
+    return currentUser.sportProfiles?.[selectedSport]?.stats?.wins
+      ? (currentUser.sportProfiles[selectedSport].stats.wins || 0) * 10 +
+          (currentUser.sportProfiles[selectedSport].stats.matches || 0) * 2
+      : currentUser.points || 0;
+  };
 
   // Filter matches by selected sport and search filters
-  let filteredMatches = matches.filter(m => m.sport === selectedSport)
-  
+  let filteredMatches = matches.filter((m) => m.sport === selectedSport && m.status !== "completed");
+
   // Apply search filters
   if (searchFilters) {
     if (searchFilters.minDate) {
-      filteredMatches = filteredMatches.filter(m => m.date >= searchFilters!.minDate)
+      filteredMatches = filteredMatches.filter((m) => m.date >= searchFilters!.minDate);
     }
     if (searchFilters.maxDate) {
-      filteredMatches = filteredMatches.filter(m => m.date <= searchFilters!.maxDate)
+      filteredMatches = filteredMatches.filter((m) => m.date <= searchFilters!.maxDate);
     }
     if (searchFilters.time) {
-      filteredMatches = filteredMatches.filter(m => {
-        const matchTime = m.time.split(":")[0]
-        const filterTime = searchFilters!.time.split(":")[0]
-        return Math.abs(parseInt(matchTime) - parseInt(filterTime)) <= 1
-      })
+      filteredMatches = filteredMatches.filter((m) => {
+        const matchTime = m.time.split(":")[0];
+        const filterTime = searchFilters!.time.split(":")[0];
+        return Math.abs(parseInt(matchTime) - parseInt(filterTime)) <= 1;
+      });
     }
     if (searchFilters.sport !== "all") {
-      filteredMatches = filteredMatches.filter(m => m.sport === searchFilters!.sport)
+      filteredMatches = filteredMatches.filter((m) => m.sport === searchFilters!.sport);
     }
     // Note: level filtering would require adding level to Match type
     if (searchFilters.maxDistance > 0) {
       // Distance filtering would require user location - simplified for now
-      filteredMatches = filteredMatches.filter(m => m.distance <= searchFilters!.maxDistance)
+      filteredMatches = filteredMatches.filter((m) => m.distance <= searchFilters!.maxDistance);
     }
   }
-  
-  const myMatches = filteredMatches.filter(m => 
-    currentUser && (
-      m.players.includes(currentUser.id) || 
-      m.pendingRequests.includes(currentUser.id) ||
-      m.createdBy === currentUser.id
-    )
-  )
+
+  const myMatches = filteredMatches.filter(
+    (m) =>
+      currentUser &&
+      (m.players.includes(currentUser.id) ||
+        m.pendingRequests.includes(currentUser.id) ||
+        m.createdBy === currentUser.id)
+  );
 
   // Get user's teams for the selected sport - same logic as in /profile
-  const userTeams = currentUser 
-    ? teams.filter(t => 
-        t.members.includes(currentUser.id) && t.sport === selectedSport
-      )
-    : []
+  const userTeams = currentUser
+    ? teams.filter((t) => t.members.includes(currentUser.id) && t.sport === selectedSport)
+    : [];
 
   const handleMatchSelect = (match: Match) => {
-    setSelectedMatch(match)
-  }
+    setSelectedMatch(match);
+  };
 
   const handleMatchSelectFromMap = (match: Match) => {
-    setSelectedMatch(match)
-  }
+    setSelectedMatch(match);
+  };
 
   // Check if user is part of a team in the match
   const isUserInMatchTeam = (match: Match, userId: string): boolean => {
-    if (!match.isTeamMatch) return false
+    if (!match.isTeamMatch) return false;
     if (match.team1Id) {
-      const team1 = teams.find(t => t.id === match.team1Id)
-      if (team1 && team1.members.includes(userId)) return true
+      const team1 = teams.find((t) => t.id === match.team1Id);
+      if (team1 && team1.members.includes(userId)) return true;
     }
     if (match.team2Id) {
-      const team2 = teams.find(t => t.id === match.team2Id)
-      if (team2 && team2.members.includes(userId)) return true
+      const team2 = teams.find((t) => t.id === match.team2Id);
+      if (team2 && team2.members.includes(userId)) return true;
     }
-    return false
-  }
+    return false;
+  };
 
   // Calculate total players in team match
   const getTeamMatchPlayersCount = (match: Match): { current: number; total: number } => {
     if (!match.isTeamMatch) {
-      return { current: match.currentPlayers, total: match.totalPlayers }
+      return { current: match.currentPlayers, total: match.totalPlayers };
     }
-    
-    let current = 0
-    let total = 0
-    
+
+    let current = 0;
+    let total = 0;
+
     if (match.team1Id) {
-      const team1 = teams.find(t => t.id === match.team1Id)
+      const team1 = teams.find((t) => t.id === match.team1Id);
       if (team1) {
-        current += team1.members.length
-        total += team1.maxMembers
+        current += team1.members.length;
+        total += team1.maxMembers;
       }
     }
-    
+
     if (match.team2Id) {
-      const team2 = teams.find(t => t.id === match.team2Id)
+      const team2 = teams.find((t) => t.id === match.team2Id);
       if (team2) {
-        current += team2.members.length
-        total += team2.maxMembers
+        current += team2.members.length;
+        total += team2.maxMembers;
       }
     }
-    
-    return { current, total }
-  }
+
+    return { current, total };
+  };
 
   const handleJoinRequest = async (matchId: string) => {
-    if (!currentUser) return
-    
-    const match = matches.find((m) => m.id === matchId)
-    if (!match) return
+    if (!currentUser) return;
+
+    const match = matches.find((m) => m.id === matchId);
+    if (!match) return;
 
     // Check if user is already in the match
     if (match.players.includes(currentUser.id)) {
-      toast.info("Ya estás en este partido")
-      return
+      toast.info("Ya estás en este partido");
+      return;
     }
 
     // Check if user is part of a team in the match
     if (isUserInMatchTeam(match, currentUser.id)) {
-      toast.info("Ya estás en este partido como parte de un equipo")
-      return
+      toast.info("Ya estás en este partido como parte de un equipo");
+      return;
     }
 
     // If no approval required, join directly
     if (!match.requiresApproval) {
       try {
         // Ensure user is added to participants
-        const updatedPlayers = [...match.players, currentUser.id]
+        const updatedPlayers = [...match.players, currentUser.id];
         await updateMatch(match.id, {
           players: updatedPlayers,
           currentPlayers: updatedPlayers.length,
-        })
-        toast.success("Te has unido al partido exitosamente")
-        await loadMatches()
+        });
+        toast.success("Te has unido al partido exitosamente");
+        await loadMatches();
       } catch (error) {
-        toast.error("Error al unirse al partido")
+        toast.error("Error al unirse al partido");
       }
     } else {
       // If approval required, show dialog
-      setSelectedMatchForJoin(matchId)
+      setSelectedMatchForJoin(matchId);
     }
-  }
+  };
 
   const handleConfirmJoin = async () => {
     if (selectedMatchForJoin && currentUser) {
-      const match = matches.find((m) => m.id === selectedMatchForJoin)
+      const match = matches.find((m) => m.id === selectedMatchForJoin);
       if (match) {
         // Check if already in pending requests or players
         if (match.pendingRequests.includes(currentUser.id) || match.players.includes(currentUser.id)) {
-          toast.error("Ya estás en este partido o has solicitado unirte")
-          setSelectedMatchForJoin(null)
-          return
+          toast.error("Ya estás en este partido o has solicitado unirte");
+          setSelectedMatchForJoin(null);
+          return;
         }
 
         try {
@@ -269,105 +262,103 @@ export default function HomePage() {
             // Add to pending requests
             await updateMatch(match.id, {
               pendingRequests: [...match.pendingRequests, currentUser.id],
-            })
-            toast.success("Solicitud enviada. Esperando aprobación.")
+            });
+            toast.success("Solicitud enviada. Esperando aprobación.");
           } else {
             // Add directly to players - ensure user is added to participants
-            const updatedPlayers = [...match.players, currentUser.id]
+            const updatedPlayers = [...match.players, currentUser.id];
             await updateMatch(match.id, {
               players: updatedPlayers,
               currentPlayers: updatedPlayers.length,
-            })
-            toast.success("Te has unido al partido exitosamente")
+            });
+            toast.success("Te has unido al partido exitosamente");
           }
-          await loadMatches() // Reload matches
-          setSelectedMatchForJoin(null)
+          await loadMatches(); // Reload matches
+          setSelectedMatchForJoin(null);
         } catch (error) {
-          toast.error("Error al unirse al partido")
+          toast.error("Error al unirse al partido");
         }
       }
     }
-  }
+  };
 
   const handleLeaveMatch = async (matchId: string) => {
-    if (!currentUser) return
-    
-    const match = matches.find((m) => m.id === matchId)
-    if (!match) return
+    if (!currentUser) return;
+
+    const match = matches.find((m) => m.id === matchId);
+    if (!match) return;
 
     // Can't leave if you're the creator
     if (match.createdBy === currentUser.id) {
-      toast.error("No puedes salirte de tu propio partido. Elimínalo si ya no lo necesitas.")
-      return
+      toast.error("No puedes salirte de tu propio partido. Elimínalo si ya no lo necesitas.");
+      return;
     }
 
     // Check if user is in a team for this match
-    const isInTeam = isUserInMatchTeam(match, currentUser.id)
+    const isInTeam = isUserInMatchTeam(match, currentUser.id);
     if (isInTeam) {
-      toast.error("No puedes abandonar un partido de equipo individualmente. Contacta al creador del equipo si quieres salirte.")
-      return
+      toast.error(
+        "No puedes abandonar un partido de equipo individualmente. Contacta al creador del equipo si quieres salirte."
+      );
+      return;
     }
 
     if (!confirm("¿Estás seguro de que quieres salirte de este partido?")) {
-      return
+      return;
     }
 
     try {
       // Remove from players
-      const updatedPlayers = match.players.filter(id => id !== currentUser.id)
+      const updatedPlayers = match.players.filter((id) => id !== currentUser.id);
       // Remove from pending requests if there
-      const updatedPendingRequests = match.pendingRequests.filter(id => id !== currentUser.id)
-      
+      const updatedPendingRequests = match.pendingRequests.filter((id) => id !== currentUser.id);
+
       await updateMatch(match.id, {
         players: updatedPlayers,
         pendingRequests: updatedPendingRequests,
         currentPlayers: updatedPlayers.length,
-      })
-      toast.success("Te has salido del partido")
+      });
+      toast.success("Te has salido del partido");
       // Refresh matches and teams to ensure data is up to date
-      await loadMatches()
-      await loadTeams()
+      await loadMatches();
+      await loadTeams();
       // Close modal if it's open for this match
       if (selectedMatchForModal?.id === matchId) {
-        setMatchModalOpen(false)
-        setSelectedMatchForModal(null)
+        setMatchModalOpen(false);
+        setSelectedMatchForModal(null);
       }
     } catch (error) {
-      toast.error("Error al salirse del partido")
+      toast.error("Error al salirse del partido");
     }
-  }
+  };
 
   const handleDeleteMatch = async (matchId: string) => {
     if (!confirm("¿Estás seguro de que quieres eliminar este partido? Esta acción no se puede deshacer.")) {
-      return
+      return;
     }
 
     try {
-      await deleteMatch(matchId)
-      toast.success("Partido eliminado exitosamente")
+      await deleteMatch(matchId);
+      toast.success("Partido eliminado exitosamente");
       // Refresh matches and teams to ensure data is up to date
-      await loadMatches()
-      await loadTeams()
+      await loadMatches();
+      await loadTeams();
       // Close modal if it's open for this match
       if (selectedMatchForModal?.id === matchId) {
-        setMatchModalOpen(false)
-        setSelectedMatchForModal(null)
+        setMatchModalOpen(false);
+        setSelectedMatchForModal(null);
       }
     } catch (error) {
-      toast.error("Error al eliminar el partido")
+      toast.error("Error al eliminar el partido");
     }
-  }
+  };
 
   const selectedMatchCreator = selectedMatch
     ? (usersData as User[]).find((u) => u.id === selectedMatch.createdBy)
-    : null
+    : null;
 
-  const matchForJoin = selectedMatchForJoin
-    ? matches.find((m) => m.id === selectedMatchForJoin)
-    : null
-  const creator = matchForJoin
-    ? (usersData as User[]).find((u) => u.id === matchForJoin.createdBy)
-    : null
+  const matchForJoin = selectedMatchForJoin ? matches.find((m) => m.id === selectedMatchForJoin) : null;
+  const creator = matchForJoin ? (usersData as User[]).find((u) => u.id === matchForJoin.createdBy) : null;
 
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-8">
@@ -378,9 +369,9 @@ export default function HomePage() {
           <Tabs value={selectedSport} onValueChange={setSelectedSport} className="w-full">
             <TabsList className="grid w-full grid-cols-4 max-w-xl mx-auto h-auto bg-muted/50">
               {(["Fútbol", "Baloncesto", "Tenis", "Pádel"] as string[]).map((sport) => (
-                <TabsTrigger 
-                  key={sport} 
-                  value={sport} 
+                <TabsTrigger
+                  key={sport}
+                  value={sport}
                   className="flex flex-col items-center gap-1.5 py-3 data-[state=active]:bg-background"
                 >
                   <SportIcon sport={sport} className="h-5 w-5" />
@@ -426,54 +417,57 @@ export default function HomePage() {
                   {userTeams.length > 0 ? (
                     <div className="space-y-2">
                       {userTeams.map((team) => {
-                        const isCreator = currentUser && team.createdBy === currentUser.id
-                        const role = isCreator ? "Creador" : "Miembro"
+                        const isCreator = currentUser && team.createdBy === currentUser.id;
+                        const role = isCreator ? "Creador" : "Miembro";
                         return (
                           <div key={team.id} className="flex items-center justify-between rounded-lg border p-3">
                             <div className="flex-1 min-w-0">
                               <p className="font-semibold text-sm truncate">{team.name}</p>
                               <p className="text-xs text-muted-foreground">
-                                {role} · Código: <span className="font-mono font-bold">{team.code}</span> · {team.members.length}/{team.maxMembers} miembros
+                                {role} · Código: <span className="font-mono font-bold">{team.code}</span> ·{" "}
+                                {team.members.length}/{team.maxMembers} miembros
                               </p>
                               {team.description && (
                                 <p className="text-xs text-muted-foreground mt-1 truncate">{team.description}</p>
                               )}
                             </div>
-                            <Button 
-                              variant="outline" 
-                              size="sm" 
+                            <Button
+                              variant="outline"
+                              size="sm"
                               className="text-xs flex-shrink-0 ml-2"
                               onClick={() => {
-                                setSelectedTeamForModal(team)
-                                setTeamModalOpen(true)
+                                setSelectedTeamForModal(team);
+                                setTeamModalOpen(true);
                               }}
                             >
                               Ver
                             </Button>
                           </div>
-                        )
+                        );
                       })}
                     </div>
                   ) : (
                     <div className="py-4 text-center">
-                      <p className="text-sm text-muted-foreground mb-3">No estás en ningún equipo de {getSportName(selectedSport)}</p>
+                      <p className="text-sm text-muted-foreground mb-3">
+                        No estás en ningún equipo de {getSportName(selectedSport)}
+                      </p>
                     </div>
                   )}
                   {/* Action buttons always visible for Fútbol and Baloncesto */}
                   <div className="flex gap-2 pt-2">
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="flex-1 text-xs" 
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex-1 text-xs"
                       onClick={() => router.push(`/teams/create?sport=${selectedSport}`)}
                     >
                       <Plus className="mr-1 h-3.5 w-3.5" />
                       Crear Equipo
                     </Button>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="flex-1 text-xs" 
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex-1 text-xs"
                       onClick={() => router.push("/teams/join")}
                     >
                       <UsersIcon className="mr-1 h-3.5 w-3.5" />
@@ -488,11 +482,7 @@ export default function HomePage() {
 
         {/* Action Buttons - Strava Style */}
         <div className="grid grid-cols-2 gap-3 mb-6">
-          <Button
-            size="lg"
-            onClick={() => router.push("/create")}
-            className="h-12 text-sm font-semibold"
-          >
+          <Button size="lg" onClick={() => router.push("/create")} className="h-12 text-sm font-semibold">
             <Plus className="mr-2 h-4 w-4" />
             Crear Partido
           </Button>
@@ -512,12 +502,14 @@ export default function HomePage() {
           <section>
             <h2 className="mb-4 text-2xl font-bold">Mis Partidos</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {matches.filter(m => 
-                (m.players.includes(currentUser.id) || 
-                m.pendingRequests.includes(currentUser.id) ||
-                m.createdBy === currentUser.id ||
-                isUserInMatchTeam(m, currentUser.id)) &&
-                m.sport === selectedSport
+              {matches.filter(
+                (m) =>
+                  (m.players.includes(currentUser.id) ||
+                    m.pendingRequests.includes(currentUser.id) ||
+                    m.createdBy === currentUser.id ||
+                    isUserInMatchTeam(m, currentUser.id)) &&
+                  m.sport === selectedSport &&
+                  m.status !== "completed" // ⬅️ añade esto
               ).length === 0 ? (
                 <Card className="col-span-full">
                   <CardContent className="py-8 text-center">
@@ -526,21 +518,21 @@ export default function HomePage() {
                 </Card>
               ) : (
                 matches
-                  .filter(m => 
-                    (m.players.includes(currentUser.id) || 
-                    m.pendingRequests.includes(currentUser.id) ||
-                    m.createdBy === currentUser.id ||
-                    isUserInMatchTeam(m, currentUser.id)) &&
-                    m.sport === selectedSport
+                  .filter(
+                    (m) =>
+                      (m.players.includes(currentUser.id) ||
+                        m.pendingRequests.includes(currentUser.id) ||
+                        m.createdBy === currentUser.id ||
+                        isUserInMatchTeam(m, currentUser.id)) &&
+                      m.sport === selectedSport &&
+                      m.status !== "completed" // ⬅️ y aquí también
                   )
                   .map((match) => (
                     <Card key={match.id} className="flex flex-col">
                       <CardContent className="p-4 flex flex-col gap-3">
                         {/* Deporte y Fecha */}
                         <div>
-                          <p className="text-sm font-semibold text-muted-foreground">
-                            {getSportName(match.sport)}
-                          </p>
+                          <p className="text-sm font-semibold text-muted-foreground">{getSportName(match.sport)}</p>
                           <p className="text-xs text-muted-foreground">
                             {new Date(match.date).toLocaleDateString("es-ES", {
                               weekday: "long",
@@ -564,13 +556,13 @@ export default function HomePage() {
                             size="sm"
                             className="w-full"
                             onClick={() => {
-                              setSelectedMatchForModal(match)
-                              setMatchModalOpen(true)
+                              setSelectedMatchForModal(match);
+                              setMatchModalOpen(true);
                             }}
                           >
                             Ver Detalles
                           </Button>
-                          
+
                           {/* Botón Eliminar o Abandonar */}
                           {match.createdBy === currentUser.id ? (
                             <Button
@@ -583,9 +575,9 @@ export default function HomePage() {
                               Eliminar Partido
                             </Button>
                           ) : (
-                            (match.players.includes(currentUser.id) || 
-                             match.pendingRequests.includes(currentUser.id) ||
-                             isUserInMatchTeam(match, currentUser.id)) && (
+                            (match.players.includes(currentUser.id) ||
+                              match.pendingRequests.includes(currentUser.id) ||
+                              isUserInMatchTeam(match, currentUser.id)) && (
                               <Button
                                 variant="outline"
                                 size="sm"
@@ -613,7 +605,7 @@ export default function HomePage() {
               <div className="relative h-64 w-full overflow-hidden rounded-lg md:h-96">
                 <MatchMap
                   matches={filteredMatches}
-                  teams={teams.filter(t => t.sport === selectedSport && t.location)}
+                  teams={teams.filter((t) => t.sport === selectedSport && t.location)}
                   onMatchSelect={handleMatchSelectFromMap}
                   center={[40.4168, -3.7038]}
                   zoom={13}
@@ -631,8 +623,8 @@ export default function HomePage() {
         open={searchModalOpen}
         onOpenChange={setSearchModalOpen}
         onSearch={(filters) => {
-          setSearchFilters(filters)
-          setSearchModalOpen(false)
+          setSearchFilters(filters);
+          setSearchModalOpen(false);
         }}
       />
 
@@ -642,52 +634,69 @@ export default function HomePage() {
           match={selectedMatchForModal}
           open={matchModalOpen}
           onOpenChange={setMatchModalOpen}
-          creator={(usersData as User[]).find(u => u.id === selectedMatchForModal.createdBy)}
-          participants={!selectedMatchForModal.isTeamMatch ? (usersData as User[]).filter(u => selectedMatchForModal.players.includes(u.id)) : []}
-          teams={selectedMatchForModal.isTeamMatch ? (() => {
-            const teamArray: Array<{ id: string; name: string; members: Array<{ id: string; name: string; username: string; avatar?: string }>; maxMembers: number }> = []
-            
-            if (selectedMatchForModal.team1Id) {
-              const team1 = teams.find(t => t.id === selectedMatchForModal.team1Id)
-              if (team1) {
-                teamArray.push({
-                  id: team1.id,
-                  name: team1.name,
-                  members: (usersData as User[]).filter(u => team1.members.includes(u.id)).map(u => ({
-                    id: u.id,
-                    name: u.name,
-                    username: u.username,
-                    avatar: u.avatar
-                  })),
-                  maxMembers: team1.maxMembers
-                })
-              }
-            }
-            
-            if (selectedMatchForModal.team2Id) {
-              const team2 = teams.find(t => t.id === selectedMatchForModal.team2Id)
-              if (team2) {
-                teamArray.push({
-                  id: team2.id,
-                  name: team2.name,
-                  members: (usersData as User[]).filter(u => team2.members.includes(u.id)).map(u => ({
-                    id: u.id,
-                    name: u.name,
-                    username: u.username,
-                    avatar: u.avatar
-                  })),
-                  maxMembers: team2.maxMembers
-                })
-              }
-            }
-            
-            return teamArray
-          })() : []}
+          creator={(usersData as User[]).find((u) => u.id === selectedMatchForModal.createdBy)}
+          participants={
+            !selectedMatchForModal.isTeamMatch
+              ? (usersData as User[]).filter((u) => selectedMatchForModal.players.includes(u.id))
+              : []
+          }
+          teams={
+            selectedMatchForModal.isTeamMatch
+              ? (() => {
+                  const teamArray: Array<{
+                    id: string;
+                    name: string;
+                    members: Array<{ id: string; name: string; username: string; avatar?: string }>;
+                    maxMembers: number;
+                  }> = [];
+
+                  if (selectedMatchForModal.team1Id) {
+                    const team1 = teams.find((t) => t.id === selectedMatchForModal.team1Id);
+                    if (team1) {
+                      teamArray.push({
+                        id: team1.id,
+                        name: team1.name,
+                        members: (usersData as User[])
+                          .filter((u) => team1.members.includes(u.id))
+                          .map((u) => ({
+                            id: u.id,
+                            name: u.name,
+                            username: u.username,
+                            avatar: u.avatar,
+                          })),
+                        maxMembers: team1.maxMembers,
+                      });
+                    }
+                  }
+
+                  if (selectedMatchForModal.team2Id) {
+                    const team2 = teams.find((t) => t.id === selectedMatchForModal.team2Id);
+                    if (team2) {
+                      teamArray.push({
+                        id: team2.id,
+                        name: team2.name,
+                        members: (usersData as User[])
+                          .filter((u) => team2.members.includes(u.id))
+                          .map((u) => ({
+                            id: u.id,
+                            name: u.name,
+                            username: u.username,
+                            avatar: u.avatar,
+                          })),
+                        maxMembers: team2.maxMembers,
+                      });
+                    }
+                  }
+
+                  return teamArray;
+                })()
+              : []
+          }
           onViewTeam={(teamId) => {
-            const team = teams.find(t => t.id === teamId)
+            const team = teams.find((t) => t.id === teamId);
             if (team) {
-              setSelectedTeamForModal(team)
-              setTeamModalOpen(true)
+              setSelectedTeamForModal(team);
+              setTeamModalOpen(true);
             }
           }}
         />
@@ -700,9 +709,9 @@ export default function HomePage() {
           open={teamModalOpen}
           onOpenChange={setTeamModalOpen}
           currentUser={currentUser || null}
-          teamMembers={(usersData as User[]).filter(u => selectedTeamForModal.members.includes(u.id))}
+          teamMembers={(usersData as User[]).filter((u) => selectedTeamForModal.members.includes(u.id))}
           onUpdate={() => {
-            loadTeams()
+            loadTeams();
           }}
         />
       )}
@@ -716,66 +725,87 @@ export default function HomePage() {
         creatorAvatar={selectedMatchCreator?.avatar}
         onClose={() => setSelectedMatch(null)}
         onJoin={(matchId) => {
-          handleJoinRequest(matchId)
-          setSelectedMatch(null)
+          handleJoinRequest(matchId);
+          setSelectedMatch(null);
         }}
         onViewTeam={(teamId) => {
-          const team = teams.find(t => t.id === teamId)
+          const team = teams.find((t) => t.id === teamId);
           if (team) {
-            setSelectedTeamForModal(team)
-            setTeamModalOpen(true)
+            setSelectedTeamForModal(team);
+            setTeamModalOpen(true);
           }
         }}
         currentUserId={currentUser?.id}
         isUserInTeam={isUserInMatchTeam}
-        participants={selectedMatch && !selectedMatch.isTeamMatch ? (selectedMatch.players || []).map(playerId => {
-          const player = (usersData as User[]).find(u => u.id === playerId)
-          return player ? {
-            id: player.id,
-            name: player.name,
-            username: player.username,
-            avatar: player.avatar
-          } : null
-        }).filter(Boolean) as Array<{ id: string; name: string; username: string; avatar?: string }> : []}
-        teams={selectedMatch && selectedMatch.isTeamMatch ? (() => {
-          const teamArray: Array<{ id: string; name: string; members: Array<{ id: string; name: string; username: string; avatar?: string }>; maxMembers: number }> = []
-          
-          if (selectedMatch.team1Id) {
-            const team1 = teams.find(t => t.id === selectedMatch.team1Id)
-            if (team1) {
-              teamArray.push({
-                id: team1.id,
-                name: team1.name,
-                members: (usersData as User[]).filter(u => team1.members.includes(u.id)).map(u => ({
-                  id: u.id,
-                  name: u.name,
-                  username: u.username,
-                  avatar: u.avatar
-                })),
-                maxMembers: team1.maxMembers
-              })
-            }
-          }
-          
-          if (selectedMatch.team2Id) {
-            const team2 = teams.find(t => t.id === selectedMatch.team2Id)
-            if (team2) {
-              teamArray.push({
-                id: team2.id,
-                name: team2.name,
-                members: (usersData as User[]).filter(u => team2.members.includes(u.id)).map(u => ({
-                  id: u.id,
-                  name: u.name,
-                  username: u.username,
-                  avatar: u.avatar
-                })),
-                maxMembers: team2.maxMembers
-              })
-            }
-          }
-          
-          return teamArray
-        })() : []}
+        participants={
+          selectedMatch && !selectedMatch.isTeamMatch
+            ? ((selectedMatch.players || [])
+                .map((playerId) => {
+                  const player = (usersData as User[]).find((u) => u.id === playerId);
+                  return player
+                    ? {
+                        id: player.id,
+                        name: player.name,
+                        username: player.username,
+                        avatar: player.avatar,
+                      }
+                    : null;
+                })
+                .filter(Boolean) as Array<{ id: string; name: string; username: string; avatar?: string }>)
+            : []
+        }
+        teams={
+          selectedMatch && selectedMatch.isTeamMatch
+            ? (() => {
+                const teamArray: Array<{
+                  id: string;
+                  name: string;
+                  members: Array<{ id: string; name: string; username: string; avatar?: string }>;
+                  maxMembers: number;
+                }> = [];
+
+                if (selectedMatch.team1Id) {
+                  const team1 = teams.find((t) => t.id === selectedMatch.team1Id);
+                  if (team1) {
+                    teamArray.push({
+                      id: team1.id,
+                      name: team1.name,
+                      members: (usersData as User[])
+                        .filter((u) => team1.members.includes(u.id))
+                        .map((u) => ({
+                          id: u.id,
+                          name: u.name,
+                          username: u.username,
+                          avatar: u.avatar,
+                        })),
+                      maxMembers: team1.maxMembers,
+                    });
+                  }
+                }
+
+                if (selectedMatch.team2Id) {
+                  const team2 = teams.find((t) => t.id === selectedMatch.team2Id);
+                  if (team2) {
+                    teamArray.push({
+                      id: team2.id,
+                      name: team2.name,
+                      members: (usersData as User[])
+                        .filter((u) => team2.members.includes(u.id))
+                        .map((u) => ({
+                          id: u.id,
+                          name: u.name,
+                          username: u.username,
+                          avatar: u.avatar,
+                        })),
+                      maxMembers: team2.maxMembers,
+                    });
+                  }
+                }
+
+                return teamArray;
+              })()
+            : []
+        }
       />
 
       {/* Join Request Dialog */}
@@ -799,15 +829,11 @@ export default function HomePage() {
                       >
                         <Avatar className="h-8 w-8">
                           <AvatarImage src={creator.avatar} />
-                          <AvatarFallback>
-                            {creator.name.charAt(0).toUpperCase()}
-                          </AvatarFallback>
+                          <AvatarFallback>{creator.name.charAt(0).toUpperCase()}</AvatarFallback>
                         </Avatar>
                         <div className="flex-1">
                           <p className="font-semibold">{creator.name}</p>
-                          <p className="text-sm text-muted-foreground">
-                            @{creator.username}
-                          </p>
+                          <p className="text-sm text-muted-foreground">@{creator.username}</p>
                           <p className="text-xs text-primary mt-1">Ver perfil →</p>
                         </div>
                       </Link>
@@ -826,10 +852,10 @@ export default function HomePage() {
                                 size="sm"
                                 className="h-auto p-0 text-xs"
                                 onClick={() => {
-                                  const team = teams.find(t => t.id === matchForJoin.team1Id)
+                                  const team = teams.find((t) => t.id === matchForJoin.team1Id);
                                   if (team) {
-                                    setSelectedTeamForModal(team)
-                                    setTeamModalOpen(true)
+                                    setSelectedTeamForModal(team);
+                                    setTeamModalOpen(true);
                                   }
                                 }}
                               >
@@ -847,10 +873,10 @@ export default function HomePage() {
                                 size="sm"
                                 className="h-auto p-0 text-xs"
                                 onClick={() => {
-                                  const team = teams.find(t => t.id === matchForJoin.team2Id)
+                                  const team = teams.find((t) => t.id === matchForJoin.team2Id);
                                   if (team) {
-                                    setSelectedTeamForModal(team)
-                                    setTeamModalOpen(true)
+                                    setSelectedTeamForModal(team);
+                                    setTeamModalOpen(true);
                                   }
                                 }}
                               >
@@ -893,6 +919,5 @@ export default function HomePage() {
         </DialogContent>
       </Dialog>
     </div>
-  )
+  );
 }
-
