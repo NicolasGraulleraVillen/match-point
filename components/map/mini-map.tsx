@@ -13,9 +13,7 @@ let LRef: typeof import("leaflet") | null = null;
 
 if (typeof window !== "undefined") {
   // Cargar Leaflet solo en cliente
-  // eslint-disable-next-line no-var-requires
   LRef = require("leaflet");
-  // eslint-disable-next-line no-var-requires
   require("leaflet/dist/leaflet.css");
 
   // Fix para los iconos por defecto en Next.js

@@ -12,9 +12,7 @@ let LRef: typeof import("leaflet") | null = null;
 
 // Fix for default marker icons - sólo en cliente
 if (typeof window !== "undefined") {
-  // eslint-disable-next-line no-var-requires
   LRef = require("leaflet");
-  // eslint-disable-next-line no-var-requires
   require("leaflet/dist/leaflet.css");
 
   delete (LRef.Icon.Default.prototype as any)._getIconUrl;
