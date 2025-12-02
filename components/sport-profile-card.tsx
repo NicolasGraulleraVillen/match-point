@@ -1,78 +1,76 @@
-"use client"
+"use client";
 
-import { useState, useRef } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Camera, Save } from "lucide-react"
-import { updateUser } from "@/lib/api-client"
-import { User } from "@/types"
-import { Toast } from "@/components/ui/toast"
+import { useState, useRef } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+//import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label";
+import { Camera, Save } from "lucide-react";
+import { updateUser } from "@/lib/api-client";
+import { User } from "@/types";
+import { Toast } from "@/components/ui/toast";
 
 interface SportProfileCardProps {
-  sport: string
-  user: User
-  onUpdate: () => void
+  sport: string;
+  user: User;
+  onUpdate: () => void;
 }
 
 export function SportProfileCard({ sport, user, onUpdate }: SportProfileCardProps) {
-  const [isEditing, setIsEditing] = useState(false)
-  const [avatarUrl, setAvatarUrl] = useState(
-    user.sportProfiles?.[sport]?.avatar || user.avatar
-  )
-  const [bio, setBio] = useState(user.sportProfiles?.[sport]?.bio || "")
-  const [isUploading, setIsUploading] = useState(false)
-  const [isSaving, setIsSaving] = useState(false)
-  const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null)
-  const fileInputRef = useRef<HTMLInputElement>(null)
+  const [isEditing, setIsEditing] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState(user.sportProfiles?.[sport]?.avatar || user.avatar);
+  const [bio, setBio] = useState(user.sportProfiles?.[sport]?.bio || "");
+  const [isUploading, setIsUploading] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
+    const file = e.target.files?.[0];
+    if (!file) return;
 
     // Validate file type
     if (!file.type.startsWith("image/")) {
-      setToast({ message: "Por favor selecciona una imagen", type: "error" })
-      return
+      setToast({ message: "Por favor selecciona una imagen", type: "error" });
+      return;
     }
 
     // Validate file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
-      setToast({ message: "La imagen debe ser menor a 5MB", type: "error" })
-      return
+      setToast({ message: "La imagen debe ser menor a 5MB", type: "error" });
+      return;
     }
 
-    setIsUploading(true)
+    setIsUploading(true);
 
     try {
-      const formData = new FormData()
-      formData.append("file", file)
-      formData.append("userId", user.id)
-      formData.append("type", "sport-avatar")
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("userId", user.id);
+      formData.append("type", "sport-avatar");
 
       const response = await fetch("/api/upload", {
         method: "POST",
         body: formData,
-      })
+      });
 
       if (!response.ok) {
-        throw new Error("Error al subir la imagen")
+        throw new Error("Error al subir la imagen");
       }
 
-      const data = await response.json()
-      setAvatarUrl(data.url)
-      setToast({ message: "Avatar actualizado", type: "success" })
+      const data = await response.json();
+      setAvatarUrl(data.url);
+      setToast({ message: "Avatar actualizado", type: "success" });
     } catch (error) {
-      setToast({ message: "Error al subir la imagen", type: "error" })
+      setToast({ message: "Error al subir la imagen", type: "error" });
     } finally {
-      setIsUploading(false)
+      setIsUploading(false);
     }
-  }
+  };
 
   const handleSave = async () => {
-    setIsSaving(true)
+    setIsSaving(true);
 
     try {
       const sportProfiles = {
@@ -82,24 +80,24 @@ export function SportProfileCard({ sport, user, onUpdate }: SportProfileCardProp
           avatar: avatarUrl,
           bio: bio,
         },
-      }
+      };
 
-      await updateUser(user.id, { sportProfiles })
-      setToast({ message: "Perfil de deporte actualizado", type: "success" })
-      setIsEditing(false)
-      onUpdate()
+      await updateUser(user.id, { sportProfiles });
+      setToast({ message: "Perfil de deporte actualizado", type: "success" });
+      setIsEditing(false);
+      onUpdate();
     } catch (error) {
-      setToast({ message: "Error al guardar", type: "error" })
+      setToast({ message: "Error al guardar", type: "error" });
     } finally {
-      setIsSaving(false)
+      setIsSaving(false);
     }
-  }
+  };
 
   const stats = user.sportProfiles?.[sport]?.stats || {
     wins: 0,
     losses: 0,
     matches: 0,
-  }
+  };
 
   return (
     <>
@@ -108,11 +106,7 @@ export function SportProfileCard({ sport, user, onUpdate }: SportProfileCardProp
           <div className="flex items-center justify-between">
             <CardTitle className="text-xl">{sport}</CardTitle>
             {!isEditing && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setIsEditing(true)}
-              >
+              <Button variant="outline" size="sm" onClick={() => setIsEditing(true)}>
                 Editar
               </Button>
             )}
@@ -124,9 +118,7 @@ export function SportProfileCard({ sport, user, onUpdate }: SportProfileCardProp
             <div className="relative">
               <Avatar className="h-20 w-20">
                 <AvatarImage src={avatarUrl} alt={`${sport} avatar`} />
-                <AvatarFallback>
-                  {user.name.charAt(0).toUpperCase()}
-                </AvatarFallback>
+                <AvatarFallback>{user.name.charAt(0).toUpperCase()}</AvatarFallback>
               </Avatar>
               {isEditing && (
                 <button
@@ -137,13 +129,7 @@ export function SportProfileCard({ sport, user, onUpdate }: SportProfileCardProp
                   <Camera className="h-4 w-4" />
                 </button>
               )}
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleAvatarUpload}
-                className="hidden"
-              />
+              <input ref={fileInputRef} type="file" accept="image/*" onChange={handleAvatarUpload} className="hidden" />
             </div>
             <div className="flex-1">
               {isEditing ? (
@@ -187,18 +173,14 @@ export function SportProfileCard({ sport, user, onUpdate }: SportProfileCardProp
                 variant="outline"
                 className="flex-1"
                 onClick={() => {
-                  setIsEditing(false)
-                  setAvatarUrl(user.sportProfiles?.[sport]?.avatar || user.avatar)
-                  setBio(user.sportProfiles?.[sport]?.bio || "")
+                  setIsEditing(false);
+                  setAvatarUrl(user.sportProfiles?.[sport]?.avatar || user.avatar);
+                  setBio(user.sportProfiles?.[sport]?.bio || "");
                 }}
               >
                 Cancelar
               </Button>
-              <Button
-                className="flex-1"
-                onClick={handleSave}
-                disabled={isSaving || isUploading}
-              >
+              <Button className="flex-1" onClick={handleSave} disabled={isSaving || isUploading}>
                 <Save className="h-4 w-4 mr-2" />
                 {isSaving ? "Guardando..." : "Guardar"}
               </Button>
@@ -207,14 +189,7 @@ export function SportProfileCard({ sport, user, onUpdate }: SportProfileCardProp
         </CardContent>
       </Card>
 
-      {toast && (
-        <Toast
-          message={toast.message}
-          type={toast.type}
-          onClose={() => setToast(null)}
-        />
-      )}
+      {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
     </>
-  )
+  );
 }
-

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { Match } from "@/types";
+import type { DivIcon } from "leaflet";
 
 const MapContainer = dynamic(() => import("react-leaflet").then((mod) => mod.MapContainer), { ssr: false });
 const TileLayer = dynamic(() => import("react-leaflet").then((mod) => mod.TileLayer), { ssr: false });
@@ -50,8 +51,8 @@ export function MiniMap({ match, className = "" }: MiniMapProps) {
     );
   }
 
-  const getSportIcon = (sport: string) => {
-    if (!LRef) return undefined as any;
+  const getSportIcon = (sport: string): DivIcon | undefined => {
+    if (!LRef) return undefined;
 
     // Un poco más pequeño que en el mapa grande
     const size = 20;
