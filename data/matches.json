@@ -24,7 +24,7 @@
     "team1Name": "Los Leones UPM",
     "team2Id": "4",
     "team2Name": "Furia Roja UCM",
-    "players": ["2", "4", "1", "3", "10", "14", "18", "6", "12", "5", "8", "16", "19", "20"],
+    "players": ["2", "4", "11", "3", "10", "14", "18", "6", "12", "5", "8", "16", "19", "20"],
     "pendingRequests": []
   },
   {
@@ -59,8 +59,8 @@
     "id": "3",
     "sport": "Fútbol",
     "createdBy": "1",
-    "createdByName": "GabrielSP",
-    "createdByUsername": "gabrisp",
+    "createdByName": "Jaime",
+    "createdByUsername": "JRobledo",
     "date": "2025-11-20",
     "time": "18:30",
     "location": {
@@ -183,7 +183,7 @@
       "address": "Campo de fútbol U-tad, Las Rozas de Madrid"
     },
     "totalPlayers": 14,
-    "currentPlayers": 7,
+    "currentPlayers": 6,
     "requiresApproval": true,
     "distance": 300,
     "status": "active",
@@ -192,7 +192,7 @@
     "team1Name": "Los Leones UPM",
     "team2Id": "4",
     "team2Name": "Furia Roja UCM",
-    "players": ["6", "4", "1", "3", "10", "14", "18"],
+    "players": ["6", "4", "3", "10", "14", "18"],
     "pendingRequests": ["2", "5"]
   },
   {
@@ -267,7 +267,7 @@
       "address": "Campo de fútbol U-tad, Las Rozas de Madrid"
     },
     "totalPlayers": 14,
-    "currentPlayers": 7,
+    "currentPlayers": 6,
     "requiresApproval": false,
     "distance": 400,
     "status": "active",
@@ -276,15 +276,15 @@
     "team1Name": "Los Leones UPM",
     "team2Id": "4",
     "team2Name": "Furia Roja UCM",
-    "players": ["6", "4", "1", "3", "10", "14", "18"],
+    "players": ["6", "4", "3", "10", "14", "18"],
     "pendingRequests": []
   },
   {
     "id": "11",
     "sport": "Fútbol",
     "createdBy": "1",
-    "createdByName": "GabrielSP",
-    "createdByUsername": "gabrisp",
+    "createdByName": "Jaime",
+    "createdByUsername": "JRobledo",
     "date": "2025-12-18",
     "time": "19:45",
     "location": {
@@ -339,8 +339,8 @@
     "id": "13",
     "sport": "Tenis",
     "createdBy": "1",
-    "createdByName": "GabrielSP",
-    "createdByUsername": "gabrisp",
+    "createdByName": "Jaime",
+    "createdByUsername": "JRobledo",
     "date": "2025-11-08",
     "time": "17:00",
     "location": {
@@ -555,8 +555,8 @@
     "id": "22",
     "sport": "Tenis",
     "createdBy": "1",
-    "createdByName": "GabrielSP",
-    "createdByUsername": "gabrisp",
+    "createdByName": "Jaime",
+    "createdByUsername": "JRobledo",
     "date": "2025-12-12",
     "time": "15:00",
     "location": {
@@ -994,8 +994,8 @@
     "location": {
       "id": "upm-padel",
       "name": "Pista pádel Daoíz y Velarde UPM",
-      "lat": 40.4013854,
-      "lng": -3.6828634,
+      "lat": 40.4007442,
+      "lng": -3.6811371,
       "address": "Centro Deportivo Municipal Daoiz y Velarde 1, Madrid"
     },
     "totalPlayers": 2,
@@ -1042,8 +1042,8 @@
     "location": {
       "id": "upm-padel",
       "name": "Pista pádel Daoíz y Velarde UPM",
-      "lat": 40.4013854,
-      "lng": -3.6828634,
+      "lat": 40.4007442,
+      "lng": -3.6811371,
       "address": "Centro Deportivo Municipal Daoiz y Velarde 1, Madrid"
     },
     "totalPlayers": 2,
@@ -1090,8 +1090,8 @@
     "location": {
       "id": "upm-padel",
       "name": "Pista pádel Daoíz y Velarde UPM",
-      "lat": 40.4013854,
-      "lng": -3.6828634,
+      "lat": 40.4007442,
+      "lng": -3.6811371,
       "address": "Centro Deportivo Municipal Daoiz y Velarde 1, Madrid"
     },
     "totalPlayers": 2,
@@ -1138,8 +1138,8 @@
     "location": {
       "id": "upm-padel",
       "name": "Pista pádel Daoíz y Velarde UPM",
-      "lat": 40.4013854,
-      "lng": -3.6828634,
+      "lat": 40.4007442,
+      "lng": -3.6811371,
       "address": "Centro Deportivo Municipal Daoiz y Velarde 1, Madrid"
     },
     "totalPlayers": 2,
@@ -1179,15 +1179,15 @@
     "id": "46",
     "sport": "Pádel",
     "createdBy": "1",
-    "createdByName": "GabrielSP",
-    "createdByUsername": "gabrisp",
+    "createdByName": "Jaime",
+    "createdByUsername": "JRobledo",
     "date": "2025-12-14",
     "time": "11:30",
     "location": {
       "id": "upm-padel",
       "name": "Pista pádel Daoíz y Velarde UPM",
-      "lat": 40.4013854,
-      "lng": -3.6828634,
+      "lat": 40.4007442,
+      "lng": -3.6811371,
       "address": "Centro Deportivo Municipal Daoiz y Velarde 1, Madrid"
     },
     "totalPlayers": 2,
@@ -1234,8 +1234,8 @@
     "location": {
       "id": "upm-padel",
       "name": "Pista pádel Daoíz y Velarde UPM",
-      "lat": 40.4013854,
-      "lng": -3.6828634,
+      "lat": 40.4007442,
+      "lng": -3.6811371,
       "address": "Centro Deportivo Municipal Daoiz y Velarde 1, Madrid"
     },
     "totalPlayers": 2,

@@ -11,6 +11,7 @@ import { User } from "@/types";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AvatarUpload } from "@/components/avatar-upload";
 import { SportTabContent } from "@/components/sport-tab-content";
+import Image from "next/image";
 
 export default function ProfilePage() {
   const { currentUser, isLoggedIn, loading } = useAuth();
@@ -36,22 +37,20 @@ export default function ProfilePage() {
 
   const user = currentUser as User;
 
-  const completionPercentage = user.profileCompletion || 0;
-
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-8">
       <Navbar />
       <main className="container mx-auto px-4 py-6 md:py-8 max-w-4xl">
         {/* Cover Photo */}
-        <div className="h-48 w-full bg-muted md:h-64 rounded-lg mb-6"></div>
+        <div className="relative h-48 w-full md:h-64 rounded-lg mb-6 overflow-hidden">
+          <Image src={user.coverPhoto || "/images/cover-default.jpg"} alt="Cover" fill className="object-cover" />
+        </div>
         {/* Profile Header */}
         <div className="relative -mt-16 mb-6">
           <div className="flex flex-col items-center gap-4 md:flex-row md:items-end">
             <AvatarUpload user={user} currentAvatar={user.avatar} onUpdate={refreshUser} />
             <div className="flex-1 text-center md:text-left">
-              <h1 className="text-2xl font-bold md:text-3xl">
-                {user.name} ({completionPercentage < 100 ? `-${100 - completionPercentage}%` : "100%"})
-              </h1>
+              <h1 className="text-2xl font-bold md:text-3xl">{user.name}</h1>
               <p className="text-muted-foreground">@{user.username}</p>
               <div className="mt-2 flex flex-wrap gap-2 text-sm text-muted-foreground">
                 <span>{user.university}</span>

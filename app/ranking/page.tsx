@@ -58,6 +58,9 @@ export default function RankingPage() {
       ...user,
       sportPoints: getSportPoints(user, selectedSport),
     }))
+    // NUEVO FILTRO: Excluir usuarios con 0 puntos en el deporte seleccionado
+    .filter((user) => user.sportPoints > 0)
+    // Fin del nuevo filtro
     .sort((a, b) => b.sportPoints - a.sportPoints);
 
   const getMedalIcon = (position: number) => {

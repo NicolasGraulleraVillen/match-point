@@ -7,7 +7,7 @@ import { Navbar } from "@/components/navbar";
 import { MobileBottomNav } from "@/components/mobile-bottom-nav";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"; // Añadido AvatarImage
 import { useAuth } from "@/hooks/use-auth";
 import { Toast } from "@/components/ui/toast";
 import { getTeams, deleteTeam } from "@/lib/api-client";
@@ -146,6 +146,10 @@ export default function TeamDetailPage() {
                     <div key={member.id} className="flex items-center justify-between rounded-lg border p-3">
                       <div className="flex items-center gap-3">
                         <Avatar>
+                          {/* CÓDIGO MODIFICADO: Añadir AvatarImage */}
+                          {/* Si member.avatar existe, muestra la imagen */}
+                          {member.avatar && <AvatarImage src={member.avatar} alt={`@${member.username}'s avatar`} />}
+                          {/* Si no hay avatar, muestra la inicial */}
                           <AvatarFallback>{member.name.charAt(0).toUpperCase()}</AvatarFallback>
                         </Avatar>
                         <div>

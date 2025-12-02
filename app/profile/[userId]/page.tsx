@@ -15,6 +15,7 @@ import { getUsers } from "@/lib/api-client";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getTeams } from "@/lib/api-client";
 import { Team } from "@/types";
+import Image from "next/image";
 
 export default function UserProfilePage() {
   const params = useParams();
@@ -84,7 +85,9 @@ export default function UserProfilePage() {
     <div className="min-h-screen bg-background pb-20 md:pb-8">
       <Navbar />
       {/* Cover Photo */}
-      <div className="h-48 w-full bg-muted md:h-64"></div>
+      <div className="relative h-48 w-full md:h-64 rounded-lg mb-6 overflow-hidden">
+        <Image src={user.coverPhoto || "/images/cover-default.jpg"} alt="Cover" fill className="object-cover" />
+      </div>
 
       <div className="flex-1 p-4 md:container md:mx-auto md:max-w-4xl md:py-8">
         {/* Header */}

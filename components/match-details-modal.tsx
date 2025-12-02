@@ -138,6 +138,7 @@ export function MatchDetailsModal({
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <Avatar>
+                    <AvatarImage src={creator.avatar} />
                     <AvatarFallback>{creator.name.charAt(0).toUpperCase()}</AvatarFallback>
                   </Avatar>
                   <div>

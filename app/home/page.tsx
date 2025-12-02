@@ -152,7 +152,8 @@ export default function HomePage() {
       (m.players.includes(currentUser.id) ||
         m.pendingRequests.includes(currentUser.id) ||
         m.createdBy === currentUser.id)
-  );*/
+  );
+  */
 
   // Get user's teams for the selected sport - same logic as in /profile
   const userTeams = currentUser

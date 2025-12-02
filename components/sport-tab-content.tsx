@@ -11,7 +11,7 @@ import { Trophy, TrendingUp, Target } from "lucide-react";
 import { SportIcon, getSportName } from "@/lib/sport-utils";
 //import { Level } from "@/types";
 import { TeamDetailsModal } from "@/components/team-details-modal";
-import { getTeams, deleteTeam } from "@/lib/api-client";
+import { getTeams, deleteTeam, updateTeam } from "@/lib/api-client";
 import { Team, User } from "@/types";
 import usersData from "@/data/users.json";
 import { LogOut, Users } from "lucide-react";
@@ -49,27 +49,28 @@ export function SportTabContent({ sport, user, onUpdate }: SportTabContentProps)
   const handleLeaveTeam = async (teamToLeave: Team) => {
     try {
       const updatedMembers = teamToLeave.members.filter((m) => m !== user.id);
+
       if (updatedMembers.length === 0) {
-        // If no members left, delete the team
+        // 1. Caso: Último miembro abandona -> Borrar equipo
         await deleteTeam(teamToLeave.id);
+        console.log(`Equipo ${teamToLeave.name} borrado.`);
       } else {
-        // Update team members
-        const response = await fetch("/api/teams", {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            id: teamToLeave.id,
-            members: updatedMembers,
-          }),
+        // 2. Caso: Hay más miembros -> Actualizar equipo
+        // **USAMOS LA FUNCIÓN updateTeam PROPORCIONADA**
+        await updateTeam(teamToLeave.id, {
+          members: updatedMembers,
         });
-        if (!response.ok) throw new Error("Error al salir del equipo");
+        console.log(`Miembro ${user.id} salió del equipo ${teamToLeave.name}.`);
       }
 
+      // Recargar la lista de equipos y cerrar el diálogo
       await loadTeams();
       setShowLeaveDialog(false);
       onUpdate();
     } catch (error) {
-      console.error("Error leaving team:", error);
+      console.error("Error al salir del equipo:", error);
+      // Mostrar una alerta básica al usuario sobre el fallo
+      alert(`No se pudo salir del equipo: ${error instanceof Error ? error.message : "Error desconocido"}`);
     }
   };
 
