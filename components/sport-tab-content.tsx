@@ -78,15 +78,17 @@ export function SportTabContent({ sport, user, onUpdate }: SportTabContentProps)
     setTeamModalOpen(true);
   };
 
-  const stats = user.sportProfiles?.[sport]?.stats || {
-    wins: 0,
-    losses: 0,
-    matches: 0,
-    winRate: 0,
-    skillRating: 50,
-    stamina: 50,
-    technique: 50,
-    teamwork: 50,
+  const rawStats = user.sportProfiles?.[sport]?.stats ?? {};
+
+  const stats = {
+    wins: rawStats.wins ?? 0,
+    losses: rawStats.losses ?? 0,
+    matches: rawStats.matches ?? 0,
+    winRate: rawStats.winRate ?? 0,
+    skillRating: rawStats.skillRating ?? 50,
+    stamina: rawStats.stamina ?? 50,
+    technique: rawStats.technique ?? 50,
+    teamwork: rawStats.teamwork ?? 50,
   };
 
   const winRate = stats.matches > 0 ? Math.round((stats.wins / stats.matches) * 100) : 0;
