@@ -13,7 +13,8 @@ import { useAuth } from "@/hooks/use-auth";
 import { Toast } from "@/components/ui/toast";
 import { createMatch, getTeams } from "@/lib/api-client";
 import usersData from "@/data/users.json";
-import { Team } from "@/types";
+import { Team, Match } from "@/types";
+type CreateMatchPayload = Omit<Match, "id" | "status" | "currentPlayers" | "players" | "pendingRequests">;
 import { LocationPicker } from "@/components/map/location-picker";
 
 // Ubicaciones predefinidas
@@ -74,7 +75,6 @@ export default function CreatePage() {
   const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
   const [teams, setTeams] = useState<Team[]>([]);
   const [selectedTeamId, setSelectedTeamId] = useState("");
-  const [isTeamMatch, setIsTeamMatch] = useState(false);
 
   const isTeamSport = sport === "Fútbol" || sport === "Baloncesto";
 
@@ -137,7 +137,7 @@ export default function CreatePage() {
         totalPlayers = parseInt(players) || 2;
       }
 
-      const matchData: any = {
+      const matchData: CreateMatchPayload = {
         sport,
         createdBy: currentUser.id,
         createdByName: user.name,
@@ -196,7 +196,6 @@ export default function CreatePage() {
               value={sport}
               onChange={(e) => {
                 setSport(e.target.value);
-                setIsTeamMatch(false);
                 setSelectedTeamId("");
               }}
               className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"

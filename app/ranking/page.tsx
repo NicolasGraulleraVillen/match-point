@@ -1,32 +1,32 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Navbar } from "@/components/navbar"
-import { MobileBottomNav } from "@/components/mobile-bottom-nav"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Trophy, Medal, User } from "lucide-react"
-import { useAuth } from "@/hooks/use-auth"
-import { getSportName } from "@/lib/sport-utils"
-import usersData from "@/data/users.json"
-import { User as UserType } from "@/types"
+import { useState, useEffect } from "react";
+import { Navbar } from "@/components/navbar";
+import { MobileBottomNav } from "@/components/mobile-bottom-nav";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Trophy, Medal } from "lucide-react";
+import { useAuth } from "@/hooks/use-auth";
+import { getSportName } from "@/lib/sport-utils";
+import usersData from "@/data/users.json";
+import { User as UserType } from "@/types";
 
 export default function RankingPage() {
-  const { isLoggedIn, loading, currentUser } = useAuth()
-  const mainSport = currentUser?.mainSport || currentUser?.sports?.[0] || "Fútbol"
-  const [selectedSport, setSelectedSport] = useState(mainSport)
-  const [selectedUniversity, setSelectedUniversity] = useState<string>("all")
+  const { isLoggedIn, loading, currentUser } = useAuth();
+  const mainSport = currentUser?.mainSport || currentUser?.sports?.[0] || "Fútbol";
+  const [selectedSport, setSelectedSport] = useState(mainSport);
+  const [selectedUniversity, setSelectedUniversity] = useState<string>("all");
 
   // Update selectedSport when currentUser changes
   useEffect(() => {
     if (currentUser) {
-      const newMainSport = currentUser.mainSport || currentUser.sports?.[0] || "Fútbol"
+      const newMainSport = currentUser.mainSport || currentUser.sports?.[0] || "Fútbol";
       if (newMainSport !== selectedSport) {
-        setSelectedSport(newMainSport)
+        setSelectedSport(newMainSport);
       }
     }
-  }, [currentUser?.mainSport, currentUser?.sports])
+  }, [currentUser?.mainSport, currentUser?.sports]);
 
   if (loading) {
     return (
@@ -36,45 +36,45 @@ export default function RankingPage() {
           <p className="text-muted-foreground">Cargando...</p>
         </div>
       </div>
-    )
+    );
   }
 
-  if (!isLoggedIn) return null
+  if (!isLoggedIn) return null;
 
   // Calculate rankings by sport - using sportProfiles points
   const getSportPoints = (user: UserType, sport: string): number => {
-    return user.sportProfiles?.[sport]?.stats?.matches 
+    return user.sportProfiles?.[sport]?.stats?.matches
       ? (user.sportProfiles[sport].stats.wins || 0) * 10 + (user.sportProfiles[sport].stats.matches || 0) * 2
-      : 0
-  }
+      : 0;
+  };
 
   // Filter and sort users by sport-specific points
   const sortedUsers = [...(usersData as UserType[])]
-    .filter(user => {
-      if (selectedUniversity !== "all" && user.university !== selectedUniversity) return false
-      return true
+    .filter((user) => {
+      if (selectedUniversity !== "all" && user.university !== selectedUniversity) return false;
+      return true;
     })
-    .map(user => ({
+    .map((user) => ({
       ...user,
-      sportPoints: getSportPoints(user, selectedSport)
+      sportPoints: getSportPoints(user, selectedSport),
     }))
-    .sort((a, b) => b.sportPoints - a.sportPoints)
+    .sort((a, b) => b.sportPoints - a.sportPoints);
 
   const getMedalIcon = (position: number) => {
     switch (position) {
       case 1:
-        return <Trophy className="h-6 w-6 text-yellow-500" />
+        return <Trophy className="h-6 w-6 text-yellow-500" />;
       case 2:
-        return <Medal className="h-6 w-6 text-gray-400" />
+        return <Medal className="h-6 w-6 text-gray-400" />;
       case 3:
-        return <Medal className="h-6 w-6 text-amber-600" />
+        return <Medal className="h-6 w-6 text-amber-600" />;
       default:
-        return <span className="text-muted-foreground font-semibold">{position}º</span>
+        return <span className="text-muted-foreground font-semibold">{position}º</span>;
     }
-  }
+  };
 
   // Get unique universities
-  const universities = Array.from(new Set((usersData as UserType[]).map(u => u.university)))
+  const universities = Array.from(new Set((usersData as UserType[]).map((u) => u.university)));
 
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-8">
@@ -112,7 +112,9 @@ export default function RankingPage() {
             <SelectContent>
               <SelectItem value="all">Todas las universidades</SelectItem>
               {universities.map((uni) => (
-                <SelectItem key={uni} value={uni}>{uni}</SelectItem>
+                <SelectItem key={uni} value={uni}>
+                  {uni}
+                </SelectItem>
               ))}
             </SelectContent>
           </Select>
@@ -143,7 +145,7 @@ export default function RankingPage() {
                     </tr>
                   ) : (
                     sortedUsers.map((user, index) => {
-                      const isCurrentUser = currentUser?.id === user.id
+                      const isCurrentUser = currentUser?.id === user.id;
                       return (
                         <tr
                           key={user.id}
@@ -152,16 +154,12 @@ export default function RankingPage() {
                           }`}
                         >
                           <td className="p-4">
-                            <div className="flex items-center justify-center">
-                              {getMedalIcon(index + 1)}
-                            </div>
+                            <div className="flex items-center justify-center">{getMedalIcon(index + 1)}</div>
                           </td>
                           <td className="p-4">
                             <div className="flex items-center gap-2">
                               <Avatar className="h-10 w-10">
-                                <AvatarFallback>
-                                  {user.name.charAt(0).toUpperCase()}
-                                </AvatarFallback>
+                                <AvatarFallback>{user.name.charAt(0).toUpperCase()}</AvatarFallback>
                               </Avatar>
                               <div>
                                 <div className={`font-semibold ${isCurrentUser ? "text-primary" : ""}`}>
@@ -172,20 +170,16 @@ export default function RankingPage() {
                                     </span>
                                   )}
                                 </div>
-                                <div className="text-sm text-muted-foreground sm:hidden">
-                                  {user.university}
-                                </div>
+                                <div className="text-sm text-muted-foreground sm:hidden">{user.university}</div>
                               </div>
                             </div>
                           </td>
-                          <td className="p-4 text-muted-foreground hidden sm:table-cell">
-                            {user.university}
-                          </td>
+                          <td className="p-4 text-muted-foreground hidden sm:table-cell">{user.university}</td>
                           <td className="p-4 text-right">
                             <div className="font-bold text-primary">{user.sportPoints}</div>
                           </td>
                         </tr>
-                      )
+                      );
                     })
                   )}
                 </tbody>
@@ -197,6 +191,5 @@ export default function RankingPage() {
 
       <MobileBottomNav />
     </div>
-  )
+  );
 }
-

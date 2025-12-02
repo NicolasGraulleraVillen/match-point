@@ -1,49 +1,43 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
-import Link from "next/link"
-import { Navbar } from "@/components/navbar"
-import { MobileBottomNav } from "@/components/mobile-bottom-nav"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Switch } from "@/components/ui/switch"
-import { useTheme } from "next-themes"
-import { Moon, Sun } from "lucide-react"
-import { useAuth } from "@/hooks/use-auth"
-import { User } from "@/types"
-import { updateUser, changePassword } from "@/lib/api-client"
-import { Toast } from "@/components/ui/toast"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
+import { useState, useEffect } from "react";
+//import { useRouter } from "next/navigation"
+import Link from "next/link";
+import { Navbar } from "@/components/navbar";
+import { MobileBottomNav } from "@/components/mobile-bottom-nav";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Switch } from "@/components/ui/switch";
+import { useTheme } from "next-themes";
+import { Moon, Sun } from "lucide-react";
+import { useAuth } from "@/hooks/use-auth";
+import { User } from "@/types";
+import { updateUser, changePassword } from "@/lib/api-client";
+import { Toast } from "@/components/ui/toast";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 export default function SettingsPage() {
-  const router = useRouter()
-  const { theme, setTheme } = useTheme()
-  const { currentUser, isLoggedIn, loading, logout } = useAuth()
-  const [notifications, setNotifications] = useState(true)
-  const [location, setLocation] = useState(true)
+  //const router = useRouter()
+  const { theme, setTheme } = useTheme();
+  const { currentUser, isLoggedIn, loading, logout } = useAuth();
+  const [notifications, setNotifications] = useState(true);
+  const [location, setLocation] = useState(true);
   const [formData, setFormData] = useState({
     name: "",
     username: "",
     email: "",
     university: "",
-  })
-  const [isSaving, setIsSaving] = useState(false)
-  const [showPasswordDialog, setShowPasswordDialog] = useState(false)
+  });
+  const [isSaving, setIsSaving] = useState(false);
+  const [showPasswordDialog, setShowPasswordDialog] = useState(false);
   const [passwordData, setPasswordData] = useState({
     current: "",
     new: "",
     confirm: "",
-  })
-  const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null)
+  });
+  const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
 
   useEffect(() => {
     if (currentUser) {
@@ -52,9 +46,9 @@ export default function SettingsPage() {
         username: currentUser.username,
         email: currentUser.email,
         university: currentUser.university,
-      })
+      });
     }
-  }, [currentUser])
+  }, [currentUser]);
 
   if (loading) {
     return (
@@ -64,52 +58,52 @@ export default function SettingsPage() {
           <p className="text-muted-foreground">Cargando...</p>
         </div>
       </div>
-    )
+    );
   }
 
-  if (!isLoggedIn || !currentUser) return null
+  if (!isLoggedIn || !currentUser) return null;
 
-  const user = currentUser as User
+  const user = currentUser as User;
 
   const handleSaveProfile = async () => {
-    setIsSaving(true)
+    setIsSaving(true);
     try {
-      await updateUser(user.id, formData)
-      setToast({ message: "Perfil actualizado exitosamente", type: "success" })
+      await updateUser(user.id, formData);
+      setToast({ message: "Perfil actualizado exitosamente", type: "success" });
       // Refresh page to show updated data
       setTimeout(() => {
-        window.location.reload()
-      }, 1000)
+        window.location.reload();
+      }, 1000);
     } catch (error) {
       setToast({
         message: "Error al actualizar el perfil",
         type: "error",
-      })
+      });
     } finally {
-      setIsSaving(false)
+      setIsSaving(false);
     }
-  }
+  };
 
   const handleChangePassword = async () => {
     if (passwordData.new !== passwordData.confirm) {
-      setToast({ message: "Las contraseñas no coinciden", type: "error" })
-      return
+      setToast({ message: "Las contraseñas no coinciden", type: "error" });
+      return;
     }
 
     if (passwordData.new.length < 6) {
-      setToast({ message: "La contraseña debe tener al menos 6 caracteres", type: "error" })
-      return
+      setToast({ message: "La contraseña debe tener al menos 6 caracteres", type: "error" });
+      return;
     }
 
     try {
-      await changePassword(user.id, passwordData.new)
-      setToast({ message: "Contraseña cambiada exitosamente", type: "success" })
-      setShowPasswordDialog(false)
-      setPasswordData({ current: "", new: "", confirm: "" })
+      await changePassword(user.id, passwordData.new);
+      setToast({ message: "Contraseña cambiada exitosamente", type: "success" });
+      setShowPasswordDialog(false);
+      setPasswordData({ current: "", new: "", confirm: "" });
     } catch (error) {
-      setToast({ message: "Error al cambiar la contraseña", type: "error" })
+      setToast({ message: "Error al cambiar la contraseña", type: "error" });
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-8">
@@ -177,21 +171,14 @@ export default function SettingsPage() {
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
                   <Label>Notificaciones</Label>
-                  <p className="text-sm text-muted-foreground">
-                    Recibir notificaciones de partidos
-                  </p>
+                  <p className="text-sm text-muted-foreground">Recibir notificaciones de partidos</p>
                 </div>
-                <Switch
-                  checked={notifications}
-                  onCheckedChange={setNotifications}
-                />
+                <Switch checked={notifications} onCheckedChange={setNotifications} />
               </div>
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
                   <Label>Ubicación</Label>
-                  <p className="text-sm text-muted-foreground">
-                    Compartir ubicación para partidos cercanos
-                  </p>
+                  <p className="text-sm text-muted-foreground">Compartir ubicación para partidos cercanos</p>
                 </div>
                 <Switch checked={location} onCheckedChange={setLocation} />
               </div>
@@ -206,11 +193,7 @@ export default function SettingsPage() {
             <CardContent>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  {theme === "dark" ? (
-                    <Moon className="h-5 w-5" />
-                  ) : (
-                    <Sun className="h-5 w-5" />
-                  )}
+                  {theme === "dark" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
                   <Label>Tema</Label>
                 </div>
                 <div className="flex gap-2">
@@ -221,11 +204,7 @@ export default function SettingsPage() {
                   >
                     Claro
                   </Button>
-                  <Button
-                    variant={theme === "dark" ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setTheme("dark")}
-                  >
+                  <Button variant={theme === "dark" ? "default" : "outline"} size="sm" onClick={() => setTheme("dark")}>
                     Oscuro
                   </Button>
                 </div>
@@ -239,18 +218,10 @@ export default function SettingsPage() {
               <CardTitle>Cuenta</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <Button
-                variant="outline"
-                className="w-full"
-                onClick={() => setShowPasswordDialog(true)}
-              >
+              <Button variant="outline" className="w-full" onClick={() => setShowPasswordDialog(true)}>
                 Cambiar Contraseña
               </Button>
-              <Button
-                variant="destructive"
-                className="w-full"
-                onClick={logout}
-              >
+              <Button variant="destructive" className="w-full" onClick={logout}>
                 Cerrar Sesión
               </Button>
             </CardContent>
@@ -261,22 +232,14 @@ export default function SettingsPage() {
       <MobileBottomNav />
 
       {/* Toast Notification */}
-      {toast && (
-        <Toast
-          message={toast.message}
-          type={toast.type}
-          onClose={() => setToast(null)}
-        />
-      )}
+      {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
 
       {/* Change Password Dialog */}
       <Dialog open={showPasswordDialog} onOpenChange={setShowPasswordDialog}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Cambiar Contraseña</DialogTitle>
-            <DialogDescription>
-              Ingresa tu nueva contraseña
-            </DialogDescription>
+            <DialogDescription>Ingresa tu nueva contraseña</DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
@@ -285,9 +248,7 @@ export default function SettingsPage() {
                 id="new-password"
                 type="password"
                 value={passwordData.new}
-                onChange={(e) =>
-                  setPasswordData({ ...passwordData, new: e.target.value })
-                }
+                onChange={(e) => setPasswordData({ ...passwordData, new: e.target.value })}
                 placeholder="Mínimo 6 caracteres"
               />
             </div>
@@ -297,9 +258,7 @@ export default function SettingsPage() {
                 id="confirm-password"
                 type="password"
                 value={passwordData.confirm}
-                onChange={(e) =>
-                  setPasswordData({ ...passwordData, confirm: e.target.value })
-                }
+                onChange={(e) => setPasswordData({ ...passwordData, confirm: e.target.value })}
                 placeholder="Repite la contraseña"
               />
             </div>
@@ -308,8 +267,8 @@ export default function SettingsPage() {
                 variant="outline"
                 className="flex-1"
                 onClick={() => {
-                  setShowPasswordDialog(false)
-                  setPasswordData({ current: "", new: "", confirm: "" })
+                  setShowPasswordDialog(false);
+                  setPasswordData({ current: "", new: "", confirm: "" });
                 }}
               >
                 Cancelar
@@ -322,6 +281,5 @@ export default function SettingsPage() {
         </DialogContent>
       </Dialog>
     </div>
-  )
+  );
 }
-

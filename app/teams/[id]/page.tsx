@@ -1,77 +1,71 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { useRouter, useParams } from "next/navigation"
-import Link from "next/link"
-import { Navbar } from "@/components/navbar"
-import { MobileBottomNav } from "@/components/mobile-bottom-nav"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { useAuth } from "@/hooks/use-auth"
-import { Toast } from "@/components/ui/toast"
-import { getTeams, updateTeam, deleteTeam } from "@/lib/api-client"
-import { Team } from "@/types"
-import usersData from "@/data/users.json"
-import { User } from "@/types"
-import { Trash2, Users, Calendar, Trophy } from "lucide-react"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog"
+import { useState, useEffect } from "react";
+import { useRouter, useParams } from "next/navigation";
+import Link from "next/link";
+import { Navbar } from "@/components/navbar";
+import { MobileBottomNav } from "@/components/mobile-bottom-nav";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useAuth } from "@/hooks/use-auth";
+import { Toast } from "@/components/ui/toast";
+import { getTeams, deleteTeam } from "@/lib/api-client";
+import { Team } from "@/types";
+import usersData from "@/data/users.json";
+import { User } from "@/types";
+import { Trash2, Users, Trophy } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 export default function TeamDetailPage() {
-  const router = useRouter()
-  const params = useParams()
-  const teamId = params.id as string
-  const { currentUser, isLoggedIn, loading } = useAuth()
-  const [team, setTeam] = useState<Team | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null)
-  const [showDeleteDialog, setShowDeleteDialog] = useState(false)
+  const router = useRouter();
+  const params = useParams();
+  const teamId = params.id as string;
+  const { currentUser, isLoggedIn, loading } = useAuth();
+  const [team, setTeam] = useState<Team | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [toast, setToast] = useState<{ message: string; type: "success" | "error" } | null>(null);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
   useEffect(() => {
     if (isLoggedIn) {
-      loadTeam()
+      loadTeam();
     }
-  }, [isLoggedIn, teamId])
+  }, [isLoggedIn, teamId]);
 
   const loadTeam = async () => {
     try {
-      const teams = await getTeams()
-      const foundTeam = teams.find(t => t.id === teamId)
+      const teams = await getTeams();
+      const foundTeam = teams.find((t) => t.id === teamId);
       if (foundTeam) {
-        setTeam(foundTeam)
+        setTeam(foundTeam);
       } else {
-        setToast({ message: "Equipo no encontrado", type: "error" })
-        setTimeout(() => router.push("/profile"), 2000)
+        setToast({ message: "Equipo no encontrado", type: "error" });
+        setTimeout(() => router.push("/profile"), 2000);
       }
     } catch (error) {
-      setToast({ message: "Error al cargar el equipo", type: "error" })
+      setToast({ message: "Error al cargar el equipo", type: "error" });
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   const handleDelete = async () => {
-    if (!team) return
+    if (!team) return;
 
     try {
-      await deleteTeam(team.id)
-      setToast({ message: "Equipo eliminado exitosamente", type: "success" })
-      setTimeout(() => router.push("/profile"), 1500)
+      await deleteTeam(team.id);
+      setToast({ message: "Equipo eliminado exitosamente", type: "success" });
+      setTimeout(() => router.push("/profile"), 1500);
     } catch (error) {
-      setToast({ message: "Error al eliminar el equipo", type: "error" })
+      setToast({ message: "Error al eliminar el equipo", type: "error" });
     } finally {
-      setShowDeleteDialog(false)
+      setShowDeleteDialog(false);
     }
-  }
+  };
 
-  const isCreator = currentUser && team?.createdBy === currentUser.id
-  const isMember = currentUser && team?.members.includes(currentUser.id)
+  const isCreator = currentUser && team?.createdBy === currentUser.id;
+  const isMember = currentUser && team?.members.includes(currentUser.id);
 
   if (loading || isLoading) {
     return (
@@ -81,12 +75,12 @@ export default function TeamDetailPage() {
           <p className="text-muted-foreground">Cargando...</p>
         </div>
       </div>
-    )
+    );
   }
 
-  if (!isLoggedIn || !team) return null
+  if (!isLoggedIn || !team) return null;
 
-  const teamMembers = (usersData as User[]).filter(u => team.members.includes(u.id))
+  const teamMembers = (usersData as User[]).filter((u) => team.members.includes(u.id));
 
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-8">
@@ -98,11 +92,7 @@ export default function TeamDetailPage() {
             <Button variant="ghost">← Volver</Button>
           </Link>
           {isCreator && (
-            <Button
-              variant="destructive"
-              size="sm"
-              onClick={() => setShowDeleteDialog(true)}
-            >
+            <Button variant="destructive" size="sm" onClick={() => setShowDeleteDialog(true)}>
               <Trash2 className="h-4 w-4 mr-2" />
               Eliminar
             </Button>
@@ -122,7 +112,9 @@ export default function TeamDetailPage() {
                   </div>
                   <div className="flex items-center gap-1">
                     <Users className="h-4 w-4" />
-                    <span>{team.members.length}/{team.maxMembers} miembros</span>
+                    <span>
+                      {team.members.length}/{team.maxMembers} miembros
+                    </span>
                   </div>
                   <div className="flex items-center gap-1">
                     <span className="font-mono font-bold text-primary">{team.code}</span>
@@ -145,40 +137,27 @@ export default function TeamDetailPage() {
           </CardHeader>
           <CardContent>
             {teamMembers.length === 0 ? (
-              <p className="text-muted-foreground text-center py-4">
-                No hay miembros en el equipo
-              </p>
+              <p className="text-muted-foreground text-center py-4">No hay miembros en el equipo</p>
             ) : (
               <div className="space-y-3">
                 {teamMembers.map((member) => {
-                  const isTeamCreator = member.id === team.createdBy
+                  const isTeamCreator = member.id === team.createdBy;
                   return (
-                    <div
-                      key={member.id}
-                      className="flex items-center justify-between rounded-lg border p-3"
-                    >
+                    <div key={member.id} className="flex items-center justify-between rounded-lg border p-3">
                       <div className="flex items-center gap-3">
                         <Avatar>
-                          <AvatarFallback>
-                            {member.name.charAt(0).toUpperCase()}
-                          </AvatarFallback>
+                          <AvatarFallback>{member.name.charAt(0).toUpperCase()}</AvatarFallback>
                         </Avatar>
                         <div>
                           <p className="font-semibold">
                             {member.name}
-                            {isTeamCreator && (
-                              <span className="ml-2 text-xs text-muted-foreground">
-                                (Creador)
-                              </span>
-                            )}
+                            {isTeamCreator && <span className="ml-2 text-xs text-muted-foreground">(Creador)</span>}
                           </p>
-                          <p className="text-sm text-muted-foreground">
-                            @{member.username}
-                          </p>
+                          <p className="text-sm text-muted-foreground">@{member.username}</p>
                         </div>
                       </div>
                     </div>
-                  )
+                  );
                 })}
               </div>
             )}
@@ -190,9 +169,7 @@ export default function TeamDetailPage() {
           <div className="mt-6">
             <Card className="border-primary">
               <CardContent className="pt-6">
-                <p className="text-center text-muted-foreground mb-4">
-                  ¿Quieres unirte a este equipo?
-                </p>
+                <p className="text-center text-muted-foreground mb-4">¿Quieres unirte a este equipo?</p>
                 <Link href={`/teams/join?code=${team.code}`}>
                   <Button className="w-full">Unirse con código: {team.code}</Button>
                 </Link>
@@ -215,13 +192,7 @@ export default function TeamDetailPage() {
 
       <MobileBottomNav />
 
-      {toast && (
-        <Toast
-          message={toast.message}
-          type={toast.type}
-          onClose={() => setToast(null)}
-        />
-      )}
+      {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
 
       {/* Delete Dialog */}
       <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
@@ -229,28 +200,19 @@ export default function TeamDetailPage() {
           <DialogHeader>
             <DialogTitle>Eliminar Equipo</DialogTitle>
             <DialogDescription>
-              ¿Estás seguro de que quieres eliminar el equipo "{team.name}"? Esta acción no se puede deshacer.
+              ¿Estás seguro de que quieres eliminar el equipo &quot;{team.name}&quot;? Esta acción no se puede deshacer.{" "}
             </DialogDescription>
           </DialogHeader>
           <div className="flex gap-2 mt-4">
-            <Button
-              variant="outline"
-              className="flex-1"
-              onClick={() => setShowDeleteDialog(false)}
-            >
+            <Button variant="outline" className="flex-1" onClick={() => setShowDeleteDialog(false)}>
               Cancelar
             </Button>
-            <Button
-              variant="destructive"
-              className="flex-1"
-              onClick={handleDelete}
-            >
+            <Button variant="destructive" className="flex-1" onClick={handleDelete}>
               Eliminar
             </Button>
           </div>
         </DialogContent>
       </Dialog>
     </div>
-  )
+  );
 }
-

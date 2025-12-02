@@ -1,27 +1,25 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { Navbar } from "@/components/navbar"
-import { MobileBottomNav } from "@/components/mobile-bottom-nav"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Heart, List, XCircle, Info } from "lucide-react"
-import usersData from "@/data/users.json"
-import { useAuth } from "@/hooks/use-auth"
-import { User } from "@/types"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { AvatarUpload } from "@/components/avatar-upload"
-import { SportTabContent } from "@/components/sport-tab-content"
+import { useState } from "react";
+import Link from "next/link";
+import { Navbar } from "@/components/navbar";
+import { MobileBottomNav } from "@/components/mobile-bottom-nav";
+import { Button } from "@/components/ui/button";
+import { Heart, List, XCircle, Info } from "lucide-react";
+import { useAuth } from "@/hooks/use-auth";
+import { User } from "@/types";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { AvatarUpload } from "@/components/avatar-upload";
+import { SportTabContent } from "@/components/sport-tab-content";
 
 export default function ProfilePage() {
-  const { currentUser, isLoggedIn, loading } = useAuth()
-  const [activeTab, setActiveTab] = useState("Fútbol")
+  const { currentUser, isLoggedIn, loading } = useAuth();
+  const [activeTab, setActiveTab] = useState("Fútbol");
 
   const refreshUser = () => {
     // Reload user data after profile update
-    window.location.reload()
-  }
+    window.location.reload();
+  };
 
   if (loading) {
     return (
@@ -31,14 +29,14 @@ export default function ProfilePage() {
           <p className="text-muted-foreground">Cargando...</p>
         </div>
       </div>
-    )
+    );
   }
 
-  if (!isLoggedIn || !currentUser) return null
+  if (!isLoggedIn || !currentUser) return null;
 
-  const user = currentUser as User
+  const user = currentUser as User;
 
-  const completionPercentage = user.profileCompletion || 0
+  const completionPercentage = user.profileCompletion || 0;
 
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-8">
@@ -49,11 +47,7 @@ export default function ProfilePage() {
         {/* Profile Header */}
         <div className="relative -mt-16 mb-6">
           <div className="flex flex-col items-center gap-4 md:flex-row md:items-end">
-            <AvatarUpload
-              user={user}
-              currentAvatar={user.avatar}
-              onUpdate={refreshUser}
-            />
+            <AvatarUpload user={user} currentAvatar={user.avatar} onUpdate={refreshUser} />
             <div className="flex-1 text-center md:text-left">
               <h1 className="text-2xl font-bold md:text-3xl">
                 {user.name} ({completionPercentage < 100 ? `-${100 - completionPercentage}%` : "100%"})
@@ -93,24 +87,32 @@ export default function ProfilePage() {
         <div className="w-full overflow-hidden">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-4">
-              <TabsTrigger value="Fútbol" className="truncate">Fútbol</TabsTrigger>
-              <TabsTrigger value="Baloncesto" className="truncate">Baloncesto</TabsTrigger>
-              <TabsTrigger value="Tenis" className="truncate">Tenis</TabsTrigger>
-              <TabsTrigger value="Pádel" className="truncate">Pádel</TabsTrigger>
+              <TabsTrigger value="Fútbol" className="truncate">
+                Fútbol
+              </TabsTrigger>
+              <TabsTrigger value="Baloncesto" className="truncate">
+                Baloncesto
+              </TabsTrigger>
+              <TabsTrigger value="Tenis" className="truncate">
+                Tenis
+              </TabsTrigger>
+              <TabsTrigger value="Pádel" className="truncate">
+                Pádel
+              </TabsTrigger>
             </TabsList>
-            
+
             <TabsContent value="Fútbol" className="mt-6">
               <SportTabContent sport="Fútbol" user={user} onUpdate={refreshUser} />
             </TabsContent>
-            
+
             <TabsContent value="Baloncesto" className="mt-6">
               <SportTabContent sport="Baloncesto" user={user} onUpdate={refreshUser} />
             </TabsContent>
-            
+
             <TabsContent value="Tenis" className="mt-6">
               <SportTabContent sport="Tenis" user={user} onUpdate={refreshUser} />
             </TabsContent>
-            
+
             <TabsContent value="Pádel" className="mt-6">
               <SportTabContent sport="Pádel" user={user} onUpdate={refreshUser} />
             </TabsContent>
@@ -120,6 +122,5 @@ export default function ProfilePage() {
 
       <MobileBottomNav />
     </div>
-  )
+  );
 }
-

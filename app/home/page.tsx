@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Navbar } from "@/components/navbar";
 import { MobileBottomNav } from "@/components/mobile-bottom-nav";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -51,12 +51,12 @@ export default function HomePage() {
     Pádel: "padel",
   };
 
-  const reverseSportMap: Record<string, string> = {
-    football: "Fútbol",
-    basketball: "Baloncesto",
-    tennis: "Tenis",
-    padel: "Pádel",
-  };
+  //const reverseSportMap: Record<string, string> = {
+  //football: "Fútbol",
+  //basketball: "Baloncesto",
+  //tennis: "Tenis",
+  //padel: "Pádel",
+  //};
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -145,22 +145,24 @@ export default function HomePage() {
     }
   }
 
+  /*
   const myMatches = filteredMatches.filter(
     (m) =>
       currentUser &&
       (m.players.includes(currentUser.id) ||
         m.pendingRequests.includes(currentUser.id) ||
         m.createdBy === currentUser.id)
-  );
+  );*/
 
   // Get user's teams for the selected sport - same logic as in /profile
   const userTeams = currentUser
     ? teams.filter((t) => t.members.includes(currentUser.id) && t.sport === selectedSport)
     : [];
 
+  /*
   const handleMatchSelect = (match: Match) => {
     setSelectedMatch(match);
-  };
+  };*/
 
   const handleMatchSelectFromMap = (match: Match) => {
     setSelectedMatch(match);
@@ -181,7 +183,7 @@ export default function HomePage() {
   };
 
   // Calculate total players in team match
-  const getTeamMatchPlayersCount = (match: Match): { current: number; total: number } => {
+  /*const getTeamMatchPlayersCount = (match: Match): { current: number; total: number } => {
     if (!match.isTeamMatch) {
       return { current: match.currentPlayers, total: match.totalPlayers };
     }
@@ -206,7 +208,7 @@ export default function HomePage() {
     }
 
     return { current, total };
-  };
+  };*/
 
   const handleJoinRequest = async (matchId: string) => {
     if (!currentUser) return;

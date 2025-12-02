@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { Navbar } from "@/components/navbar";
 import { MobileBottomNav } from "@/components/mobile-bottom-nav";
 import { Card, CardContent } from "@/components/ui/card";
@@ -11,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Calendar, Trophy, Info } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
-import { HistoryMatch, Level } from "@/types";
+import { HistoryMatch, Match, Level } from "@/types";
 import { SportIcon, getSportName } from "@/lib/sport-utils";
 import { HistoryDetailsModal } from "@/components/history-details-modal";
 
@@ -35,7 +34,7 @@ export default function HistorialPage() {
       // Cargar partidos desde la API
       const response = await fetch("/api/matches");
       if (response.ok) {
-        const matches = await response.json();
+        const matches = (await response.json()) as Match[];
 
         // Ciclo de resultados y marcadores coherentes
         const resultCycle: ("win" | "loss" | "draw")[] = ["win", "loss", "draw"];
@@ -48,13 +47,12 @@ export default function HistorialPage() {
         // Convertir partidos completados al formato de historial
         const completedMatches = matches
           .filter(
-            (m: any) =>
-              m.status === "completed" && (m.players.includes(currentUser!.id) || m.createdBy === currentUser!.id)
+            (m) => m.status === "completed" && (m.players.includes(currentUser!.id) || m.createdBy === currentUser!.id)
           )
-          .map((m: any, index: number) => {
+          .map((m, index: number) => {
             const opponents = matches
-              .filter((other: any) => other.id !== m.id && other.sport === m.sport)
-              .map((other: any) => other.createdByName);
+              .filter((other) => other.id !== m.id && other.sport === m.sport)
+              .map((other) => other.createdByName);
 
             const result = resultCycle[index % resultCycle.length];
             const scoresForResult = scoreByResult[result];
