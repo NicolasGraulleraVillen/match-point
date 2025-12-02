@@ -1,10 +1,10 @@
 [
   {
     "id": "1",
-    "username": "gabrisp",
-    "email": "gabriel@example.com",
-    "password": "password123",
-    "name": "GabrielSP",
+    "username": "JRobledo",
+    "email": "jaime@example.com",
+    "password": "123456",
+    "name": "Jaime",
     "age": 22,
     "university": "U-tad",
     "course": "4to MAIS",

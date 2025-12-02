@@ -89,7 +89,7 @@ export default function CreatePage() {
     if (isLoggedIn && isTeamSport && currentUser) {
       loadUserTeams();
     }
-  }, [isLoggedIn, isTeamSport, currentUser]);
+  }, [isLoggedIn, isTeamSport, currentUser, sport]);
 
   const loadUserTeams = async () => {
     try {

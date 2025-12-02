@@ -4,37 +4,38 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Home, User, Trophy, Clock } from "lucide-react";
 import { useState } from "react";
-import { Logo } from "./logo";
 
 export const Navbar = () => {
   const { currentUser, logout } = useAuth();
-  //const router = useRouter()
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const handleLogout = () => {
-    logout();
-  };
-
   if (!currentUser) return null;
 
+  const handleLogout = () => logout();
+
   const navLinks = [
-    { href: "/home", label: "Dashboard" },
-    { href: "/profile", label: "Perfil" },
-    { href: "/ranking", label: "Ranking" },
-    { href: "/historial", label: "Historial" },
+    { href: "/home", label: "Dashboard", icon: <Home className="h-4 w-4 mr-2" /> },
+    { href: "/profile", label: "Perfil", icon: <User className="h-4 w-4 mr-2" /> },
+    { href: "/ranking", label: "Ranking", icon: <Trophy className="h-4 w-4 mr-2" /> },
+    { href: "/historial", label: "Historial", icon: <Clock className="h-4 w-4 mr-2" /> },
   ];
 
   return (
-    <nav className="hidden md:block sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border shadow-sm">
+    <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border shadow-sm">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href={currentUser ? "/home" : "/"} className="hover:opacity-80 transition-opacity">
-            <Logo className="h-8 w-8" showText={true} />
-          </Link>
+          <a
+            href="https://courtconnect-campus.lovable.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-2xl font-extrabold text-primary hover:opacity-80 hover:scale-105 transition-all"
+          >
+            MatchPoint
+          </a>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-4">
@@ -42,10 +43,11 @@ export const Navbar = () => {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
+                className={`flex items-center text-sm font-medium transition-colors hover:text-primary ${
                   pathname === link.href ? "text-primary" : "text-muted-foreground"
                 }`}
               >
+                {link.icon}
                 {link.label}
               </Link>
             ))}
@@ -62,27 +64,35 @@ export const Navbar = () => {
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-3 space-y-1 border-t border-border">
+          <div className="md:hidden py-3 space-y-1 border-t border-border bg-background/95 backdrop-blur-sm rounded-b-lg shadow-md">
             {navLinks.map((link) => (
               <Button
                 key={link.href}
                 variant="ghost"
-                className="w-full justify-start text-sm"
+                className={`w-full justify-start text-sm flex items-center ${
+                  pathname === link.href ? "text-primary" : "text-muted-foreground"
+                }`}
                 asChild
                 onClick={() => setMobileMenuOpen(false)}
               >
-                <Link href={link.href}>{link.label}</Link>
+                <Link href={link.href}>
+                  <span className="flex items-center">
+                    {link.icon}
+                    {link.label}
+                  </span>
+                </Link>
               </Button>
             ))}
             <Button
               variant="outline"
               size="sm"
-              className="w-full justify-start text-sm mt-2"
+              className="w-full justify-start text-sm mt-2 flex items-center"
               onClick={() => {
                 setMobileMenuOpen(false);
                 handleLogout();
               }}
             >
+              <X className="h-4 w-4 mr-2" />
               Cerrar Sesión
             </Button>
           </div>
