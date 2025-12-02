@@ -16,7 +16,7 @@ if (typeof window !== "undefined") {
   LRef = require("leaflet");
   require("leaflet/dist/leaflet.css");
 
-  +delete (LRef.Icon.Default.prototype as unknown as Record<string, unknown>)._getIconUrl;
+  delete (LRef.Icon.Default.prototype as unknown as Record<string, unknown>)._getIconUrl;
   LRef.Icon.Default.mergeOptions({
     iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png",
     iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png",

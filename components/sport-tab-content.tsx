@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+//import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { Trophy, TrendingUp, Target, Activity } from "lucide-react";
+import { Trophy, TrendingUp, Target } from "lucide-react";
 import { SportIcon, getSportName } from "@/lib/sport-utils";
-import { Level } from "@/types";
+//import { Level } from "@/types";
 import { TeamDetailsModal } from "@/components/team-details-modal";
 import { getTeams, deleteTeam } from "@/lib/api-client";
 import { Team, User } from "@/types";
@@ -221,6 +221,7 @@ export function SportTabContent({ sport, user, onUpdate }: SportTabContentProps)
                 <div className="space-y-3">
                   {teams.map((team) => {
                     const teamMembers = (usersData as User[]).filter((u) => team.members.includes(u.id));
+                    console.log(teamMembers);
                     return (
                       <div key={team.id} className="flex items-center justify-between rounded-lg border p-4">
                         <div className="flex-1">
@@ -276,7 +277,8 @@ export function SportTabContent({ sport, user, onUpdate }: SportTabContentProps)
               <DialogHeader>
                 <DialogTitle>Salir del Equipo</DialogTitle>
                 <DialogDescription>
-                  ¿Estás seguro de que quieres salir de "{selectedTeam?.name}"? Esta acción no se puede deshacer.
+                  ¿Estás seguro de que quieres salir de &quot;{selectedTeam?.name}&quot;? Esta acción no se puede
+                  deshacer.
                 </DialogDescription>
               </DialogHeader>
               <div className="flex gap-2 mt-4">

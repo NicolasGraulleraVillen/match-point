@@ -1,17 +1,17 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Card, CardContent } from "@/components/ui/card"
-import { Team, User } from "@/types"
-import { Users, Trophy, Calendar, X, Edit2, Trash2 } from "lucide-react"
-import { toast } from "sonner"
-import { updateTeam, deleteTeam } from "@/lib/api-client"
-import Link from "next/link"
+import { useState } from "react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+//import { Label } from "@/components/ui/label"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent } from "@/components/ui/card";
+import { Team, User } from "@/types";
+import { Users, Trophy, Calendar, X, Edit2, Trash2 } from "lucide-react";
+import { toast } from "sonner";
+import { updateTeam, deleteTeam } from "@/lib/api-client";
+import Link from "next/link";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -21,15 +21,15 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
+} from "@/components/ui/alert-dialog";
 
 interface TeamDetailsModalProps {
-  team: Team | null
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  currentUser: User | null
-  teamMembers: User[]
-  onUpdate: () => void
+  team: Team | null;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  currentUser: User | null;
+  teamMembers: User[];
+  onUpdate: () => void;
 }
 
 export function TeamDetailsModal({
@@ -40,56 +40,56 @@ export function TeamDetailsModal({
   teamMembers,
   onUpdate,
 }: TeamDetailsModalProps) {
-  const [isEditing, setIsEditing] = useState(false)
-  const [teamName, setTeamName] = useState(team?.name || "")
-  const [showDeleteDialog, setShowDeleteDialog] = useState(false)
-  const [memberToRemove, setMemberToRemove] = useState<string | null>(null)
+  const [isEditing, setIsEditing] = useState(false);
+  const [teamName, setTeamName] = useState(team?.name || "");
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [memberToRemove, setMemberToRemove] = useState<string | null>(null);
 
-  if (!team) return null
+  if (!team) return null;
 
-  const isCreator = currentUser?.id === team.createdBy
-  const isMember = currentUser && team.members.includes(currentUser.id)
+  const isCreator = currentUser?.id === team.createdBy;
+  //const isMember = currentUser && team.members.includes(currentUser.id)
 
   const handleUpdateName = async () => {
     if (!teamName.trim()) {
-      toast.error("El nombre no puede estar vacío")
-      return
+      toast.error("El nombre no puede estar vacío");
+      return;
     }
 
     try {
-      await updateTeam(team.id, { name: teamName })
-      toast.success("Nombre del equipo actualizado")
-      setIsEditing(false)
-      onUpdate()
+      await updateTeam(team.id, { name: teamName });
+      toast.success("Nombre del equipo actualizado");
+      setIsEditing(false);
+      onUpdate();
     } catch (error) {
-      toast.error("Error al actualizar el nombre")
+      toast.error("Error al actualizar el nombre");
     }
-  }
+  };
 
   const handleRemoveMember = async (memberId: string) => {
-    if (!isCreator) return
+    if (!isCreator) return;
 
     try {
-      const updatedMembers = team.members.filter((id) => id !== memberId)
-      await updateTeam(team.id, { members: updatedMembers })
-      toast.success("Miembro expulsado del equipo")
-      setMemberToRemove(null)
-      onUpdate()
+      const updatedMembers = team.members.filter((id) => id !== memberId);
+      await updateTeam(team.id, { members: updatedMembers });
+      toast.success("Miembro expulsado del equipo");
+      setMemberToRemove(null);
+      onUpdate();
     } catch (error) {
-      toast.error("Error al expulsar al miembro")
+      toast.error("Error al expulsar al miembro");
     }
-  }
+  };
 
   const handleDeleteTeam = async () => {
     try {
-      await deleteTeam(team.id)
-      toast.success("Equipo eliminado")
-      onOpenChange(false)
-      onUpdate()
+      await deleteTeam(team.id);
+      toast.success("Equipo eliminado");
+      onOpenChange(false);
+      onUpdate();
     } catch (error) {
-      toast.error("Error al eliminar el equipo")
+      toast.error("Error al eliminar el equipo");
     }
-  }
+  };
 
   return (
     <>
@@ -102,11 +102,7 @@ export function TeamDetailsModal({
                 <div>
                   {isEditing ? (
                     <div className="flex items-center gap-2">
-                      <Input
-                        value={teamName}
-                        onChange={(e) => setTeamName(e.target.value)}
-                        className="h-8"
-                      />
+                      <Input value={teamName} onChange={(e) => setTeamName(e.target.value)} className="h-8" />
                       <Button size="sm" onClick={handleUpdateName}>
                         Guardar
                       </Button>
@@ -114,8 +110,8 @@ export function TeamDetailsModal({
                         size="sm"
                         variant="ghost"
                         onClick={() => {
-                          setIsEditing(false)
-                          setTeamName(team.name)
+                          setIsEditing(false);
+                          setTeamName(team.name);
                         }}
                       >
                         Cancelar
@@ -125,12 +121,7 @@ export function TeamDetailsModal({
                     <>
                       <DialogTitle className="text-2xl">{team.name}</DialogTitle>
                       {isCreator && (
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          onClick={() => setIsEditing(true)}
-                          className="mt-1"
-                        >
+                        <Button size="sm" variant="ghost" onClick={() => setIsEditing(true)} className="mt-1">
                           <Edit2 className="h-3 w-3 mr-1" />
                           Editar nombre
                         </Button>
@@ -140,11 +131,7 @@ export function TeamDetailsModal({
                 </div>
               </div>
               {isCreator && (
-                <Button
-                  size="sm"
-                  variant="destructive"
-                  onClick={() => setShowDeleteDialog(true)}
-                >
+                <Button size="sm" variant="destructive" onClick={() => setShowDeleteDialog(true)}>
                   <Trash2 className="h-4 w-4" />
                 </Button>
               )}
@@ -157,7 +144,9 @@ export function TeamDetailsModal({
                 </div>
                 <div className="flex items-center gap-1">
                   <Users className="h-4 w-4" />
-                  <span>{team.members.length}/{team.maxMembers} miembros</span>
+                  <span>
+                    {team.members.length}/{team.maxMembers} miembros
+                  </span>
                 </div>
                 <div>
                   <span className="font-mono font-bold text-primary">{team.code}</span>
@@ -182,45 +171,30 @@ export function TeamDetailsModal({
               </h3>
               <div className="space-y-2">
                 {teamMembers.map((member) => {
-                  const isTeamCreator = member.id === team.createdBy
-                  const canRemove = isCreator && member.id !== team.createdBy
+                  const isTeamCreator = member.id === team.createdBy;
+                  const canRemove = isCreator && member.id !== team.createdBy;
 
                   return (
-                    <div
-                      key={member.id}
-                      className="flex items-center justify-between rounded-lg border p-3"
-                    >
+                    <div key={member.id} className="flex items-center justify-between rounded-lg border p-3">
                       <Link
                         href={`/profile/${member.id}`}
                         className="flex items-center gap-3 flex-1 hover:opacity-80 transition-opacity"
                       >
                         <Avatar>
                           <AvatarImage src={member.avatar} />
-                          <AvatarFallback>
-                            {member.name.charAt(0).toUpperCase()}
-                          </AvatarFallback>
+                          <AvatarFallback>{member.name.charAt(0).toUpperCase()}</AvatarFallback>
                         </Avatar>
                         <div>
                           <p className="font-semibold">
                             {member.name}
-                            {isTeamCreator && (
-                              <span className="ml-2 text-xs text-muted-foreground">
-                                (Creador)
-                              </span>
-                            )}
+                            {isTeamCreator && <span className="ml-2 text-xs text-muted-foreground">(Creador)</span>}
                           </p>
-                          <p className="text-sm text-muted-foreground">
-                            @{member.username}
-                          </p>
+                          <p className="text-sm text-muted-foreground">@{member.username}</p>
                         </div>
                       </Link>
                       <div className="flex items-center gap-2">
                         <Link href={`/profile/${member.id}`}>
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            className="text-xs"
-                          >
+                          <Button size="sm" variant="ghost" className="text-xs">
                             Ver perfil
                           </Button>
                         </Link>
@@ -236,7 +210,7 @@ export function TeamDetailsModal({
                         )}
                       </div>
                     </div>
-                  )
+                  );
                 })}
               </div>
             </div>
@@ -250,19 +224,14 @@ export function TeamDetailsModal({
 
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
               <Calendar className="h-3 w-3" />
-              <span>
-                Creado el {new Date(team.createdAt).toLocaleDateString("es-ES")}
-              </span>
+              <span>Creado el {new Date(team.createdAt).toLocaleDateString("es-ES")}</span>
             </div>
           </div>
         </DialogContent>
       </Dialog>
 
       {/* Remove Member Dialog */}
-      <AlertDialog
-        open={!!memberToRemove}
-        onOpenChange={() => setMemberToRemove(null)}
-      >
+      <AlertDialog open={!!memberToRemove} onOpenChange={() => setMemberToRemove(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Expulsar miembro</AlertDialogTitle>
@@ -288,21 +257,17 @@ export function TeamDetailsModal({
           <AlertDialogHeader>
             <AlertDialogTitle>Eliminar equipo</AlertDialogTitle>
             <AlertDialogDescription>
-              ¿Estás seguro de que quieres eliminar el equipo "{team.name}"? Esta acción no se puede deshacer.
+              ¿Estás seguro de que quieres eliminar el equipo &quot;{team.name}&quot;? Esta acción no se puede deshacer.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={handleDeleteTeam}
-              className="bg-destructive text-destructive-foreground"
-            >
+            <AlertDialogAction onClick={handleDeleteTeam} className="bg-destructive text-destructive-foreground">
               Eliminar
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
     </>
-  )
+  );
 }
-

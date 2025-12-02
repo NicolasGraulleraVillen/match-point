@@ -1,33 +1,33 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
-import { Navbar } from "@/components/navbar"
-import { MobileBottomNav } from "@/components/mobile-bottom-nav"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { useAuth } from "@/hooks/use-auth"
-import { toast } from "sonner"
-import { createTeam } from "@/lib/api-client"
-import { User } from "@/types"
-import { UserSearchInput } from "@/components/user-search-input"
+import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Navbar } from "@/components/navbar";
+import { MobileBottomNav } from "@/components/mobile-bottom-nav";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useAuth } from "@/hooks/use-auth";
+import { toast } from "sonner";
+import { createTeam } from "@/lib/api-client";
+import { User } from "@/types";
+import { UserSearchInput } from "@/components/user-search-input";
 
 export default function CreateTeamPage() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const { isLoggedIn, loading, currentUser } = useAuth()
-  const [name, setName] = useState("")
-  const [code, setCode] = useState("")
-  const sportParam = searchParams.get("sport")
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const { isLoggedIn, loading, currentUser } = useAuth();
+  const [name, setName] = useState("");
+  const [code, setCode] = useState("");
+  const sportParam = searchParams.get("sport");
   const [sport, setSport] = useState<"Fútbol" | "Baloncesto">(
-    (sportParam === "Fútbol" || sportParam === "Baloncesto") ? sportParam : "Fútbol"
-  )
-  const [description, setDescription] = useState("")
+    sportParam === "Fútbol" || sportParam === "Baloncesto" ? sportParam : "Fútbol"
+  );
+  const [description, setDescription] = useState("");
   // Fixed maxMembers based on sport: 7 for Fútbol, 5 for Baloncesto
-  const maxMembers = sport === "Fútbol" ? 7 : 5
-  const [selectedUsers, setSelectedUsers] = useState<User[]>([])
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const maxMembers = sport === "Fútbol" ? 7 : 5;
+  const [selectedUsers, setSelectedUsers] = useState<User[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (loading) {
     return (
@@ -37,19 +37,19 @@ export default function CreateTeamPage() {
           <p className="text-muted-foreground">Cargando...</p>
         </div>
       </div>
-    )
+    );
   }
 
-  if (!isLoggedIn || !currentUser) return null
+  if (!isLoggedIn || !currentUser) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
 
     try {
       // Include creator and selected users as members
-      const members = [currentUser.id, ...selectedUsers.map(u => u.id)]
-      
+      const members = [currentUser.id, ...selectedUsers.map((u) => u.id)];
+
       const team = await createTeam({
         name,
         code: code.toUpperCase() || undefined,
@@ -60,18 +60,19 @@ export default function CreateTeamPage() {
         description,
         maxMembers,
         members, // Include selected users automatically
-      })
+      });
 
-      toast.success("Equipo creado exitosamente")
+      console.log(team);
+      toast.success("Equipo creado exitosamente");
       setTimeout(() => {
-        router.push("/home")
-      }, 1500)
+        router.push("/home");
+      }, 1500);
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Error al crear el equipo")
+      toast.error(error instanceof Error ? error.message : "Error al crear el equipo");
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-8">
@@ -111,8 +112,8 @@ export default function CreateTeamPage() {
               id="sport"
               value={sport}
               onChange={(e) => {
-                setSport(e.target.value as "Fútbol" | "Baloncesto")
-                setSelectedUsers([]) // Reset selected users when sport changes
+                setSport(e.target.value as "Fútbol" | "Baloncesto");
+                setSelectedUsers([]); // Reset selected users when sport changes
               }}
               className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               required
@@ -134,7 +135,8 @@ export default function CreateTeamPage() {
               maxUsers={maxMembers - 1}
             />
             <p className="text-xs text-muted-foreground">
-              Puedes invitar hasta {maxMembers - 1} miembros más (incluyéndote a ti, el equipo tendrá {maxMembers} miembros)
+              Puedes invitar hasta {maxMembers - 1} miembros más (incluyéndote a ti, el equipo tendrá {maxMembers}{" "}
+              miembros)
             </p>
           </div>
 
@@ -157,6 +159,5 @@ export default function CreateTeamPage() {
 
       <MobileBottomNav />
     </div>
-  )
+  );
 }
-

@@ -17,7 +17,9 @@
     "requiresApproval": true,
     "distance": 300,
     "status": "active",
-    "players": ["2"],
+    "players": [
+      "2"
+    ],
     "pendingRequests": []
   },
   {
@@ -38,8 +40,12 @@
     "requiresApproval": true,
     "distance": 2000,
     "status": "active",
-    "players": ["2"],
-    "pendingRequests": ["1"]
+    "players": [
+      "2"
+    ],
+    "pendingRequests": [
+      "1"
+    ]
   },
   {
     "id": "3",
@@ -59,7 +65,9 @@
     "requiresApproval": true,
     "distance": 400,
     "status": "active",
-    "players": ["3"],
+    "players": [
+      "3"
+    ],
     "pendingRequests": []
   },
   {
@@ -80,8 +88,12 @@
     "requiresApproval": true,
     "distance": 600,
     "status": "active",
-    "players": ["4"],
-    "pendingRequests": ["1"]
+    "players": [
+      "4"
+    ],
+    "pendingRequests": [
+      "1"
+    ]
   },
   {
     "id": "5",
@@ -101,7 +113,11 @@
     "requiresApproval": false,
     "distance": 1500,
     "status": "active",
-    "players": ["5", "3", "1"],
+    "players": [
+      "5",
+      "3",
+      "1"
+    ],
     "pendingRequests": []
   },
   {
@@ -122,86 +138,13 @@
     "requiresApproval": true,
     "distance": 300,
     "status": "active",
-    "players": ["1"],
+    "players": [
+      "1"
+    ],
     "pendingRequests": [],
     "isTeamMatch": true,
     "team1Id": "2",
     "team1Name": "Los Halcones",
-    "lookingForTeam": true
-  },
-  {
-    "id": "8",
-    "sport": "Fútbol",
-    "createdBy": "1",
-    "createdByName": "GabrielSP",
-    "createdByUsername": "gabrisp",
-    "date": "2025-11-30",
-    "time": "23:39",
-    "location": {
-      "lat": 40.18726672309203,
-      "lng": -3.2189941406250004,
-      "address": "40.4396, -3.7024"
-    },
-    "totalPlayers": 7,
-    "currentPlayers": 1,
-    "requiresApproval": true,
-    "distance": 0,
-    "status": "active",
-    "players": ["1"],
-    "pendingRequests": [],
-    "isTeamMatch": true,
-    "team1Id": "6",
-    "team1Name": "PEPE",
-    "lookingForTeam": true
-  },
-  {
-    "id": "9",
-    "sport": "Fútbol",
-    "createdBy": "1",
-    "createdByName": "GabrielSP",
-    "createdByUsername": "gabrisp",
-    "date": "2025-12-18",
-    "time": "23:22",
-    "location": {
-      "lat": 40.42551942170478,
-      "lng": -3.7379264831542973,
-      "address": "40.4255, -3.7379"
-    },
-    "totalPlayers": 14,
-    "currentPlayers": 1,
-    "requiresApproval": true,
-    "distance": 0,
-    "status": "active",
-    "players": ["1"],
-    "pendingRequests": [],
-    "isTeamMatch": true,
-    "team1Id": "6",
-    "team1Name": "PEPE",
-    "lookingForTeam": true
-  },
-  {
-    "id": "10",
-    "sport": "Fútbol",
-    "createdBy": "1",
-    "createdByName": "GabrielSP",
-    "createdByUsername": "gabrisp",
-    "date": "2025-11-19",
-    "time": "00:27",
-    "location": {
-      "lat": 40.42107625193686,
-      "lng": -3.682651519775391,
-      "address": "3525"
-    },
-    "totalPlayers": 14,
-    "currentPlayers": 1,
-    "requiresApproval": true,
-    "distance": 0,
-    "status": "active",
-    "players": ["1"],
-    "pendingRequests": [],
-    "isTeamMatch": true,
-    "team1Id": "6",
-    "team1Name": "PEPE",
     "lookingForTeam": true
   },
   {
@@ -222,35 +165,12 @@
     "requiresApproval": true,
     "distance": 0,
     "status": "active",
-    "players": ["1"],
+    "players": [
+      "1"
+    ],
     "pendingRequests": [],
     "isTeamMatch": false,
     "lookingForTeam": false
-  },
-  {
-    "id": "12",
-    "sport": "Fútbol",
-    "createdBy": "1",
-    "createdByName": "GabrielSP",
-    "createdByUsername": "gabrisp",
-    "date": "2025-12-23",
-    "time": "21:38",
-    "location": {
-      "lat": 40.43440488077008,
-      "lng": -3.737583160400391,
-      "address": "40.4344, -3.7376"
-    },
-    "totalPlayers": 14,
-    "currentPlayers": 1,
-    "requiresApproval": true,
-    "distance": 296,
-    "status": "active",
-    "players": ["1"],
-    "pendingRequests": [],
-    "isTeamMatch": true,
-    "team1Id": "7",
-    "team1Name": "FRGSNDGRWH",
-    "lookingForTeam": true
   },
   {
     "id": "200",
@@ -270,7 +190,18 @@
     "requiresApproval": true,
     "distance": 500,
     "status": "completed",
-    "players": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+    "players": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10"
+    ],
     "pendingRequests": [],
     "isTeamMatch": false
   },
@@ -292,7 +223,22 @@
     "requiresApproval": false,
     "distance": 850,
     "status": "completed",
-    "players": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"],
+    "players": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14"
+    ],
     "pendingRequests": [],
     "isTeamMatch": true,
     "team1Id": "f1",
@@ -319,7 +265,20 @@
     "requiresApproval": true,
     "distance": 600,
     "status": "completed",
-    "players": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+    "players": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ],
     "pendingRequests": [],
     "isTeamMatch": false
   },
@@ -341,7 +300,22 @@
     "requiresApproval": false,
     "distance": 1200,
     "status": "completed",
-    "players": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"],
+    "players": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14"
+    ],
     "pendingRequests": [],
     "isTeamMatch": true,
     "team1Id": "f3",
@@ -368,7 +342,20 @@
     "requiresApproval": true,
     "distance": 900,
     "status": "completed",
-    "players": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+    "players": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12"
+    ],
     "pendingRequests": [],
     "isTeamMatch": false
   },
@@ -390,7 +377,22 @@
     "requiresApproval": false,
     "distance": 1500,
     "status": "completed",
-    "players": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"],
+    "players": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14"
+    ],
     "pendingRequests": [],
     "isTeamMatch": true,
     "team1Id": "f5",
@@ -399,7 +401,6 @@
     "team2Name": "Fútbol Pro B",
     "lookingForTeam": false
   },
-
   {
     "id": "210",
     "sport": "Baloncesto",
@@ -418,7 +419,16 @@
     "requiresApproval": true,
     "distance": 700,
     "status": "completed",
-    "players": ["1", "2", "3", "4", "5", "6", "7", "8"],
+    "players": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
     "pendingRequests": [],
     "isTeamMatch": false
   },
@@ -440,7 +450,18 @@
     "requiresApproval": false,
     "distance": 900,
     "status": "completed",
-    "players": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+    "players": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10"
+    ],
     "pendingRequests": [],
     "isTeamMatch": true,
     "team1Id": "b1",
@@ -467,7 +488,16 @@
     "requiresApproval": true,
     "distance": 1100,
     "status": "completed",
-    "players": ["1", "2", "3", "4", "5", "6", "7", "8"],
+    "players": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
     "pendingRequests": [],
     "isTeamMatch": false
   },
@@ -489,7 +519,18 @@
     "requiresApproval": false,
     "distance": 1300,
     "status": "completed",
-    "players": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+    "players": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10"
+    ],
     "pendingRequests": [],
     "isTeamMatch": true,
     "team1Id": "b3",
@@ -516,7 +557,16 @@
     "requiresApproval": true,
     "distance": 1500,
     "status": "completed",
-    "players": ["1", "2", "3", "4", "5", "6", "7", "8"],
+    "players": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
     "pendingRequests": [],
     "isTeamMatch": false
   },
@@ -538,7 +588,18 @@
     "requiresApproval": false,
     "distance": 1700,
     "status": "completed",
-    "players": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+    "players": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10"
+    ],
     "pendingRequests": [],
     "isTeamMatch": true,
     "team1Id": "b5",
@@ -547,7 +608,6 @@
     "team2Name": "Basket Pro B",
     "lookingForTeam": false
   },
-
   {
     "id": "220",
     "sport": "Tenis",
@@ -566,7 +626,10 @@
     "requiresApproval": false,
     "distance": 400,
     "status": "completed",
-    "players": ["1", "2"],
+    "players": [
+      "1",
+      "2"
+    ],
     "pendingRequests": [],
     "isTeamMatch": false
   },
@@ -588,7 +651,10 @@
     "requiresApproval": true,
     "distance": 650,
     "status": "completed",
-    "players": ["1", "3"],
+    "players": [
+      "1",
+      "3"
+    ],
     "pendingRequests": [],
     "isTeamMatch": false
   },
@@ -610,7 +676,10 @@
     "requiresApproval": false,
     "distance": 900,
     "status": "completed",
-    "players": ["1", "4"],
+    "players": [
+      "1",
+      "4"
+    ],
     "pendingRequests": [],
     "isTeamMatch": false
   },
@@ -632,7 +701,10 @@
     "requiresApproval": true,
     "distance": 1150,
     "status": "completed",
-    "players": ["1", "5"],
+    "players": [
+      "1",
+      "5"
+    ],
     "pendingRequests": [],
     "isTeamMatch": false
   },
@@ -654,7 +726,10 @@
     "requiresApproval": false,
     "distance": 1400,
     "status": "completed",
-    "players": ["1", "6"],
+    "players": [
+      "1",
+      "6"
+    ],
     "pendingRequests": [],
     "isTeamMatch": false
   },
@@ -676,11 +751,13 @@
     "requiresApproval": true,
     "distance": 1650,
     "status": "completed",
-    "players": ["1", "7"],
+    "players": [
+      "1",
+      "7"
+    ],
     "pendingRequests": [],
     "isTeamMatch": false
   },
-
   {
     "id": "230",
     "sport": "Pádel",
@@ -699,7 +776,12 @@
     "requiresApproval": false,
     "distance": 500,
     "status": "completed",
-    "players": ["1", "2", "3", "4"],
+    "players": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
     "pendingRequests": [],
     "isTeamMatch": false
   },
@@ -721,7 +803,12 @@
     "requiresApproval": true,
     "distance": 750,
     "status": "completed",
-    "players": ["1", "3", "5", "7"],
+    "players": [
+      "1",
+      "3",
+      "5",
+      "7"
+    ],
     "pendingRequests": [],
     "isTeamMatch": false
   },
@@ -743,7 +830,12 @@
     "requiresApproval": false,
     "distance": 1000,
     "status": "completed",
-    "players": ["1", "4", "6", "8"],
+    "players": [
+      "1",
+      "4",
+      "6",
+      "8"
+    ],
     "pendingRequests": [],
     "isTeamMatch": false
   },
@@ -765,7 +857,12 @@
     "requiresApproval": true,
     "distance": 1250,
     "status": "completed",
-    "players": ["1", "2", "5", "8"],
+    "players": [
+      "1",
+      "2",
+      "5",
+      "8"
+    ],
     "pendingRequests": [],
     "isTeamMatch": false
   },
@@ -787,7 +884,12 @@
     "requiresApproval": false,
     "distance": 1500,
     "status": "completed",
-    "players": ["1", "6", "7", "8"],
+    "players": [
+      "1",
+      "6",
+      "7",
+      "8"
+    ],
     "pendingRequests": [],
     "isTeamMatch": false
   },
@@ -809,8 +911,40 @@
     "requiresApproval": true,
     "distance": 1750,
     "status": "completed",
-    "players": ["1", "2", "3", "5"],
+    "players": [
+      "1",
+      "2",
+      "3",
+      "5"
+    ],
     "pendingRequests": [],
     "isTeamMatch": false
+  },
+  {
+    "id": "236",
+    "sport": "Fútbol",
+    "createdBy": "1",
+    "createdByName": "GabrielSP",
+    "createdByUsername": "gabrisp",
+    "date": "2025-12-04",
+    "time": "21:31",
+    "location": {
+      "lat": 40.538094,
+      "lng": -3.893667,
+      "address": "Campo de padel U-tad, Las Rozas de Madrid"
+    },
+    "totalPlayers": 14,
+    "currentPlayers": 1,
+    "requiresApproval": false,
+    "distance": 0,
+    "status": "active",
+    "players": [
+      "1"
+    ],
+    "pendingRequests": [],
+    "isTeamMatch": true,
+    "team1Id": "6",
+    "team1Name": "PEPE",
+    "lookingForTeam": true
   }
 ]

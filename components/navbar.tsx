@@ -1,31 +1,31 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { usePathname, useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { useAuth } from "@/hooks/use-auth"
-import { Menu, X } from "lucide-react"
-import { useState } from "react"
-import { Logo } from "./logo"
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/use-auth";
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
+import { Logo } from "./logo";
 
 export const Navbar = () => {
-  const { currentUser, logout } = useAuth()
-  const router = useRouter()
-  const pathname = usePathname()
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { currentUser, logout } = useAuth();
+  //const router = useRouter()
+  const pathname = usePathname();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
-    logout()
-  }
+    logout();
+  };
 
-  if (!currentUser) return null
+  if (!currentUser) return null;
 
   const navLinks = [
     { href: "/home", label: "Dashboard" },
     { href: "/profile", label: "Perfil" },
     { href: "/ranking", label: "Ranking" },
     { href: "/historial", label: "Historial" },
-  ]
+  ];
 
   return (
     <nav className="hidden md:block sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border shadow-sm">
@@ -55,12 +55,7 @@ export const Navbar = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
+          <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </Button>
         </div>
@@ -84,8 +79,8 @@ export const Navbar = () => {
               size="sm"
               className="w-full justify-start text-sm mt-2"
               onClick={() => {
-                setMobileMenuOpen(false)
-                handleLogout()
+                setMobileMenuOpen(false);
+                handleLogout();
               }}
             >
               Cerrar Sesión
@@ -94,6 +89,5 @@ export const Navbar = () => {
         )}
       </div>
     </nav>
-  )
-}
-
+  );
+};
