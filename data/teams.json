@@ -1,65 +1,121 @@
 [
   {
-    "id": "2",
-    "name": "Los Halcones",
-    "code": "HALCON",
-    "sport": "Baloncesto",
-    "createdBy": "2",
-    "createdByName": "Nico",
-    "createdByUsername": "nico",
-    "members": [
-      "2",
-      "4",
-      "1"
-    ],
-    "maxMembers": 5,
-    "createdAt": "2025-11-09T15:30:00Z",
-    "description": "Equipo de baloncesto competitivo"
-  },
-  {
     "id": "3",
-    "name": "Los Leones",
+    "name": "Los Leones UPM",
     "code": "LEONES",
     "sport": "Fútbol",
-    "createdBy": "5",
-    "createdByName": "Laura",
-    "createdByUsername": "laura",
+    "createdBy": "6",
+    "createdByName": "Martín",
+    "createdByUsername": "martin",
     "members": [
-      "5"
+      "6",
+      "4",
+      "3",
+      "10",
+      "14",
+      "18"
     ],
     "maxMembers": 7,
-    "createdAt": "2025-11-11T09:00:00Z",
-    "description": "Buscando jugadores"
+    "createdAt": "2025-12-01T10:00:00Z",
+    "description": "El equipo más fuerte de la UPM. ¡A por la victoria!"
+  },
+  {
+    "id": "4",
+    "name": "Furia Roja UCM",
+    "code": "FURIAR",
+    "sport": "Fútbol",
+    "createdBy": "4",
+    "createdByName": "Carlos",
+    "createdByUsername": "carlos",
+    "members": [
+      "4",
+      "6",
+      "18",
+      "3",
+      "1",
+      "10",
+      "12"
+    ],
+    "maxMembers": 7,
+    "createdAt": "2025-12-01T12:30:00Z",
+    "description": "Pasión y garra en cada partido de fútbol 7."
+  },
+  {
+    "id": "5",
+    "name": "Los Gladiadores",
+    "code": "GLADUC",
+    "sport": "Fútbol",
+    "createdBy": "18",
+    "createdByName": "Luis",
+    "createdByUsername": "luis",
+    "members": [
+      "18",
+      "6",
+      "4",
+      "3",
+      "1",
+      "14",
+      "10"
+    ],
+    "maxMembers": 7,
+    "createdAt": "2025-12-02T09:15:00Z",
+    "description": "Un equipo técnico y ofensivo para dominar el campo."
   },
   {
     "id": "6",
-    "name": "PEPE",
-    "code": "PEPE",
-    "sport": "Fútbol",
-    "createdBy": "1",
-    "createdByName": "GabrielSP",
-    "createdByUsername": "gabrisp",
+    "name": "Titanes U-tad",
+    "code": "TITANU",
+    "sport": "Baloncesto",
+    "createdBy": "20",
+    "createdByName": "Nicolás",
+    "createdByUsername": "nicolas",
     "members": [
-      "1"
+      "20",
+      "16",
+      "2",
+      "3",
+      "19"
     ],
-    "maxMembers": 7,
-    "createdAt": "2025-11-30T18:38:34.048Z",
-    "description": ""
+    "maxMembers": 5,
+    "createdAt": "2025-12-01T15:00:00Z",
+    "description": "Un equipo imparable en la cancha, con énfasis en el juego rápido."
   },
   {
     "id": "7",
-    "name": "RAIMON",
-    "code": "RAIMON",
-    "sport": "Fútbol",
-    "createdBy": "1",
-    "createdByName": "GabrielSP",
-    "createdByUsername": "gabrisp",
+    "name": "Los Nets UPM",
+    "code": "NETSUP",
+    "sport": "Baloncesto",
+    "createdBy": "16",
+    "createdByName": "Javier",
+    "createdByUsername": "javier",
     "members": [
-      "1",
-      "2"
+      "16",
+      "20",
+      "4",
+      "2",
+      "9"
     ],
-    "maxMembers": 7,
-    "createdAt": "2025-12-02T16:30:31.811Z",
-    "description": ""
+    "maxMembers": 5,
+    "createdAt": "2025-12-01T17:45:00Z",
+    "description": "Fuerza y técnica en el juego interior."
+  },
+  {
+    "id": "8",
+    "name": "Las Panteras UCM",
+    "code": "PANTER",
+    "sport": "Baloncesto",
+    "createdBy": "3",
+    "createdByName": "María",
+    "createdByUsername": "maria",
+    "members": [
+      "3",
+      "20",
+      "16",
+      "19",
+      "1"
+    ],
+    "maxMembers": 5,
+    "createdAt": "2025-12-02T11:00:00Z",
+    "description": "Defensa sólida y tiros de tres letales."
   }
 ]

@@ -159,7 +159,7 @@ export default function RankingPage() {
                           <td className="p-4">
                             <div className="flex items-center gap-2">
                               <Avatar className="h-10 w-10">
-                                <AvatarFallback>{user.name.charAt(0).toUpperCase()}</AvatarFallback>
+                                <AvatarFallback>{user.name?.charAt(0)?.toUpperCase() ?? "U"}</AvatarFallback>{" "}
                               </Avatar>
                               <div>
                                 <div className={`font-semibold ${isCurrentUser ? "text-primary" : ""}`}>
