@@ -24,7 +24,22 @@
     "team1Name": "Los Leones UPM",
     "team2Id": "4",
     "team2Name": "Furia Roja UCM",
-    "players": ["2", "4", "11", "3", "10", "14", "18", "6", "12", "5", "8", "16", "19", "20"],
+    "players": [
+      "2",
+      "4",
+      "11",
+      "3",
+      "10",
+      "14",
+      "18",
+      "6",
+      "12",
+      "5",
+      "8",
+      "16",
+      "19",
+      "20"
+    ],
     "pendingRequests": []
   },
   {
@@ -52,7 +67,22 @@
     "team1Name": "Los Gladiadores",
     "team2Id": "3",
     "team2Name": "Los Leones UPM",
-    "players": ["4", "6", "18", "3", "1", "14", "10", "2", "5", "8", "11", "13", "15", "17"],
+    "players": [
+      "4",
+      "6",
+      "18",
+      "3",
+      "1",
+      "14",
+      "10",
+      "2",
+      "5",
+      "8",
+      "11",
+      "13",
+      "15",
+      "17"
+    ],
     "pendingRequests": []
   },
   {
@@ -80,7 +110,22 @@
     "team1Name": "Furia Roja UCM",
     "team2Id": "5",
     "team2Name": "Los Gladiadores",
-    "players": ["1", "3", "5", "6", "12", "18", "4", "2", "8", "10", "14", "16", "19", "20"],
+    "players": [
+      "1",
+      "3",
+      "5",
+      "6",
+      "12",
+      "18",
+      "4",
+      "2",
+      "8",
+      "10",
+      "14",
+      "16",
+      "19",
+      "20"
+    ],
     "pendingRequests": []
   },
   {
@@ -108,7 +153,22 @@
     "team1Name": "Los Leones UPM",
     "team2Id": "4",
     "team2Name": "Furia Roja UCM",
-    "players": ["3", "1", "2", "4", "5", "6", "18", "8", "10", "12", "14", "16", "19", "20"],
+    "players": [
+      "3",
+      "1",
+      "2",
+      "4",
+      "5",
+      "6",
+      "18",
+      "8",
+      "10",
+      "12",
+      "14",
+      "16",
+      "19",
+      "20"
+    ],
     "pendingRequests": []
   },
   {
@@ -136,7 +196,22 @@
     "team1Name": "Los Gladiadores",
     "team2Id": "3",
     "team2Name": "Los Leones UPM",
-    "players": ["5", "1", "2", "3", "4", "6", "18", "8", "10", "11", "13", "15", "17", "19"],
+    "players": [
+      "5",
+      "1",
+      "2",
+      "3",
+      "4",
+      "6",
+      "18",
+      "8",
+      "10",
+      "11",
+      "13",
+      "15",
+      "17",
+      "19"
+    ],
     "pendingRequests": []
   },
   {
@@ -164,7 +239,22 @@
     "team1Name": "Furia Roja UCM",
     "team2Id": "5",
     "team2Name": "Los Gladiadores",
-    "players": ["6", "4", "18", "3", "1", "10", "14", "2", "5", "8", "12", "16", "19", "20"],
+    "players": [
+      "6",
+      "4",
+      "18",
+      "3",
+      "1",
+      "10",
+      "14",
+      "2",
+      "5",
+      "8",
+      "12",
+      "16",
+      "19",
+      "20"
+    ],
     "pendingRequests": []
   },
   {
@@ -192,8 +282,18 @@
     "team1Name": "Los Leones UPM",
     "team2Id": "4",
     "team2Name": "Furia Roja UCM",
-    "players": ["6", "4", "3", "10", "14", "18"],
-    "pendingRequests": ["2", "5"]
+    "players": [
+      "6",
+      "4",
+      "3",
+      "10",
+      "14",
+      "18"
+    ],
+    "pendingRequests": [
+      "2",
+      "5"
+    ]
   },
   {
     "id": "8",
@@ -220,7 +320,15 @@
     "team1Name": "Los Gladiadores",
     "team2Id": "3",
     "team2Name": "Los Leones UPM",
-    "players": ["18", "6", "4", "3", "1", "14", "10"],
+    "players": [
+      "18",
+      "6",
+      "4",
+      "3",
+      "1",
+      "14",
+      "10"
+    ],
     "pendingRequests": []
   },
   {
@@ -248,8 +356,18 @@
     "team1Name": "Furia Roja UCM",
     "team2Id": "5",
     "team2Name": "Los Gladiadores",
-    "players": ["4", "6", "18", "3", "1", "10", "12"],
-    "pendingRequests": ["2"]
+    "players": [
+      "4",
+      "6",
+      "18",
+      "3",
+      "1",
+      "10",
+      "12"
+    ],
+    "pendingRequests": [
+      "2"
+    ]
   },
   {
     "id": "10",
@@ -276,35 +394,14 @@
     "team1Name": "Los Leones UPM",
     "team2Id": "4",
     "team2Name": "Furia Roja UCM",
-    "players": ["6", "4", "3", "10", "14", "18"],
-    "pendingRequests": []
-  },
-  {
-    "id": "11",
-    "sport": "Fútbol",
-    "createdBy": "1",
-    "createdByName": "Jaime",
-    "createdByUsername": "JRobledo",
-    "date": "2025-12-18",
-    "time": "19:45",
-    "location": {
-      "id": "upm-futbol",
-      "name": "Club Deportivo Retiro Sur UPM",
-      "lat": 40.4091631,
-      "lng": -3.6863655,
-      "address": "P.º de Fernán Núñez, 3, Retiro, 28009 Madrid"
-    },
-    "totalPlayers": 14,
-    "currentPlayers": 7,
-    "requiresApproval": true,
-    "distance": 250,
-    "status": "active",
-    "isTeamMatch": true,
-    "team1Id": "5",
-    "team1Name": "Los Gladiadores",
-    "team2Id": "3",
-    "team2Name": "Los Leones UPM",
-    "players": ["18", "6", "4", "3", "1", "14", "10"],
+    "players": [
+      "6",
+      "4",
+      "3",
+      "10",
+      "14",
+      "18"
+    ],
     "pendingRequests": []
   },
   {
@@ -332,8 +429,18 @@
     "team1Name": "Furia Roja UCM",
     "team2Id": "5",
     "team2Name": "Los Gladiadores",
-    "players": ["4", "6", "18", "3", "1", "10", "12"],
-    "pendingRequests": ["5"]
+    "players": [
+      "4",
+      "6",
+      "18",
+      "3",
+      "1",
+      "10",
+      "12"
+    ],
+    "pendingRequests": [
+      "5"
+    ]
   },
   {
     "id": "13",
@@ -356,7 +463,10 @@
     "distance": 250,
     "status": "completed",
     "isTeamMatch": false,
-    "players": ["1", "11"],
+    "players": [
+      "1",
+      "11"
+    ],
     "pendingRequests": []
   },
   {
@@ -380,7 +490,12 @@
     "distance": 350,
     "status": "completed",
     "isTeamMatch": false,
-    "players": ["5", "8", "3", "13"],
+    "players": [
+      "5",
+      "8",
+      "3",
+      "13"
+    ],
     "pendingRequests": []
   },
   {
@@ -404,7 +519,10 @@
     "distance": 150,
     "status": "completed",
     "isTeamMatch": false,
-    "players": ["3", "15"],
+    "players": [
+      "3",
+      "15"
+    ],
     "pendingRequests": []
   },
   {
@@ -428,7 +546,12 @@
     "distance": 400,
     "status": "completed",
     "isTeamMatch": false,
-    "players": ["8", "1", "11", "5"],
+    "players": [
+      "8",
+      "1",
+      "11",
+      "5"
+    ],
     "pendingRequests": []
   },
   {
@@ -452,7 +575,10 @@
     "distance": 500,
     "status": "completed",
     "isTeamMatch": false,
-    "players": ["11", "3"],
+    "players": [
+      "11",
+      "3"
+    ],
     "pendingRequests": []
   },
   {
@@ -476,7 +602,12 @@
     "distance": 300,
     "status": "completed",
     "isTeamMatch": false,
-    "players": ["13", "5", "1", "8"],
+    "players": [
+      "13",
+      "5",
+      "1",
+      "8"
+    ],
     "pendingRequests": []
   },
   {
@@ -500,7 +631,9 @@
     "distance": 300,
     "status": "active",
     "isTeamMatch": false,
-    "players": ["11"],
+    "players": [
+      "11"
+    ],
     "pendingRequests": []
   },
   {
@@ -524,8 +657,13 @@
     "distance": 450,
     "status": "active",
     "isTeamMatch": false,
-    "players": ["5", "13"],
-    "pendingRequests": ["3"]
+    "players": [
+      "5",
+      "13"
+    ],
+    "pendingRequests": [
+      "3"
+    ]
   },
   {
     "id": "21",
@@ -548,8 +686,12 @@
     "distance": 200,
     "status": "active",
     "isTeamMatch": false,
-    "players": ["3"],
-    "pendingRequests": ["1"]
+    "players": [
+      "3"
+    ],
+    "pendingRequests": [
+      "1"
+    ]
   },
   {
     "id": "22",
@@ -572,8 +714,14 @@
     "distance": 100,
     "status": "active",
     "isTeamMatch": false,
-    "players": ["1", "8"],
-    "pendingRequests": ["11", "15"]
+    "players": [
+      "1",
+      "8"
+    ],
+    "pendingRequests": [
+      "11",
+      "15"
+    ]
   },
   {
     "id": "23",
@@ -596,7 +744,9 @@
     "distance": 600,
     "status": "active",
     "isTeamMatch": false,
-    "players": ["8"],
+    "players": [
+      "8"
+    ],
     "pendingRequests": []
   },
   {
@@ -620,7 +770,11 @@
     "distance": 350,
     "status": "active",
     "isTeamMatch": false,
-    "players": ["5", "13", "15"],
+    "players": [
+      "5",
+      "13",
+      "15"
+    ],
     "pendingRequests": []
   },
   {
@@ -648,7 +802,18 @@
     "team1Name": "Titanes U-tad",
     "team2Id": "7",
     "team2Name": "Los Nets UPM",
-    "players": ["2", "16", "3", "19", "20", "4", "9", "1", "12", "6"],
+    "players": [
+      "2",
+      "16",
+      "3",
+      "19",
+      "20",
+      "4",
+      "9",
+      "1",
+      "12",
+      "6"
+    ],
     "pendingRequests": []
   },
   {
@@ -676,7 +841,18 @@
     "team1Name": "Los Nets UPM",
     "team2Id": "8",
     "team2Name": "Las Panteras UCM",
-    "players": ["16", "20", "4", "2", "9", "3", "1", "5", "19", "12"],
+    "players": [
+      "16",
+      "20",
+      "4",
+      "2",
+      "9",
+      "3",
+      "1",
+      "5",
+      "19",
+      "12"
+    ],
     "pendingRequests": []
   },
   {
@@ -704,7 +880,18 @@
     "team1Name": "Las Panteras UCM",
     "team2Id": "6",
     "team2Name": "Titanes U-tad",
-    "players": ["4", "3", "20", "16", "19", "2", "1", "6", "9", "12"],
+    "players": [
+      "4",
+      "3",
+      "20",
+      "16",
+      "19",
+      "2",
+      "1",
+      "6",
+      "9",
+      "12"
+    ],
     "pendingRequests": []
   },
   {
@@ -732,7 +919,18 @@
     "team1Name": "Titanes U-tad",
     "team2Id": "7",
     "team2Name": "Los Nets UPM",
-    "players": ["3", "20", "16", "2", "19", "4", "1", "9", "5", "12"],
+    "players": [
+      "3",
+      "20",
+      "16",
+      "2",
+      "19",
+      "4",
+      "1",
+      "9",
+      "5",
+      "12"
+    ],
     "pendingRequests": []
   },
   {
@@ -760,7 +958,18 @@
     "team1Name": "Los Nets UPM",
     "team2Id": "8",
     "team2Name": "Las Panteras UCM",
-    "players": ["20", "16", "4", "2", "9", "3", "1", "5", "12", "6"],
+    "players": [
+      "20",
+      "16",
+      "4",
+      "2",
+      "9",
+      "3",
+      "1",
+      "5",
+      "12",
+      "6"
+    ],
     "pendingRequests": []
   },
   {
@@ -788,7 +997,18 @@
     "team1Name": "Las Panteras UCM",
     "team2Id": "6",
     "team2Name": "Titanes U-tad",
-    "players": ["9", "3", "20", "16", "19", "2", "4", "1", "6", "12"],
+    "players": [
+      "9",
+      "3",
+      "20",
+      "16",
+      "19",
+      "2",
+      "4",
+      "1",
+      "6",
+      "12"
+    ],
     "pendingRequests": []
   },
   {
@@ -816,8 +1036,16 @@
     "team1Name": "Titanes U-tad",
     "team2Id": "7",
     "team2Name": "Los Nets UPM",
-    "players": ["20", "16", "2", "3", "19"],
-    "pendingRequests": ["4"]
+    "players": [
+      "20",
+      "16",
+      "2",
+      "3",
+      "19"
+    ],
+    "pendingRequests": [
+      "4"
+    ]
   },
   {
     "id": "32",
@@ -844,7 +1072,13 @@
     "team1Name": "Los Nets UPM",
     "team2Id": "8",
     "team2Name": "Las Panteras UCM",
-    "players": ["16", "20", "4", "2", "9"],
+    "players": [
+      "16",
+      "20",
+      "4",
+      "2",
+      "9"
+    ],
     "pendingRequests": []
   },
   {
@@ -872,8 +1106,16 @@
     "team1Name": "Las Panteras UCM",
     "team2Id": "6",
     "team2Name": "Titanes U-tad",
-    "players": ["3", "20", "16", "19", "1"],
-    "pendingRequests": ["2"]
+    "players": [
+      "3",
+      "20",
+      "16",
+      "19",
+      "1"
+    ],
+    "pendingRequests": [
+      "2"
+    ]
   },
   {
     "id": "34",
@@ -900,7 +1142,13 @@
     "team1Name": "Titanes U-tad",
     "team2Id": "7",
     "team2Name": "Los Nets UPM",
-    "players": ["20", "16", "2", "3", "19"],
+    "players": [
+      "20",
+      "16",
+      "2",
+      "3",
+      "19"
+    ],
     "pendingRequests": []
   },
   {
@@ -928,7 +1176,13 @@
     "team1Name": "Los Nets UPM",
     "team2Id": "8",
     "team2Name": "Las Panteras UCM",
-    "players": ["16", "20", "4", "2", "9"],
+    "players": [
+      "16",
+      "20",
+      "4",
+      "2",
+      "9"
+    ],
     "pendingRequests": []
   },
   {
@@ -956,8 +1210,16 @@
     "team1Name": "Las Panteras UCM",
     "team2Id": "6",
     "team2Name": "Titanes U-tad",
-    "players": ["3", "20", "16", "19", "1"],
-    "pendingRequests": ["5"]
+    "players": [
+      "3",
+      "20",
+      "16",
+      "19",
+      "1"
+    ],
+    "pendingRequests": [
+      "5"
+    ]
   },
   {
     "id": "37",
@@ -980,7 +1242,12 @@
     "distance": 200,
     "status": "completed",
     "isTeamMatch": false,
-    "players": ["5", "2", "13", "10"],
+    "players": [
+      "5",
+      "2",
+      "13",
+      "10"
+    ],
     "pendingRequests": []
   },
   {
@@ -1004,7 +1271,10 @@
     "distance": 300,
     "status": "completed",
     "isTeamMatch": false,
-    "players": ["2", "1"],
+    "players": [
+      "2",
+      "1"
+    ],
     "pendingRequests": []
   },
   {
@@ -1028,7 +1298,12 @@
     "distance": 400,
     "status": "completed",
     "isTeamMatch": false,
-    "players": ["13", "5", "2", "7"],
+    "players": [
+      "13",
+      "5",
+      "2",
+      "7"
+    ],
     "pendingRequests": []
   },
   {
@@ -1052,7 +1327,10 @@
     "distance": 500,
     "status": "completed",
     "isTeamMatch": false,
-    "players": ["8", "10"],
+    "players": [
+      "8",
+      "10"
+    ],
     "pendingRequests": []
   },
   {
@@ -1076,7 +1354,12 @@
     "distance": 150,
     "status": "completed",
     "isTeamMatch": false,
-    "players": ["7", "5", "13", "2"],
+    "players": [
+      "7",
+      "5",
+      "13",
+      "2"
+    ],
     "pendingRequests": []
   },
   {
@@ -1100,7 +1383,10 @@
     "distance": 250,
     "status": "completed",
     "isTeamMatch": false,
-    "players": ["10", "8"],
+    "players": [
+      "10",
+      "8"
+    ],
     "pendingRequests": []
   },
   {
@@ -1124,8 +1410,14 @@
     "distance": 200,
     "status": "active",
     "isTeamMatch": false,
-    "players": ["5", "13"],
-    "pendingRequests": ["2", "1"]
+    "players": [
+      "5",
+      "13"
+    ],
+    "pendingRequests": [
+      "2",
+      "1"
+    ]
   },
   {
     "id": "44",
@@ -1148,8 +1440,12 @@
     "distance": 350,
     "status": "active",
     "isTeamMatch": false,
-    "players": ["2"],
-    "pendingRequests": ["8"]
+    "players": [
+      "2"
+    ],
+    "pendingRequests": [
+      "8"
+    ]
   },
   {
     "id": "45",
@@ -1172,7 +1468,11 @@
     "distance": 250,
     "status": "active",
     "isTeamMatch": false,
-    "players": ["13", "5", "8"],
+    "players": [
+      "13",
+      "5",
+      "8"
+    ],
     "pendingRequests": []
   },
   {
@@ -1196,8 +1496,12 @@
     "distance": 500,
     "status": "active",
     "isTeamMatch": false,
-    "players": ["1"],
-    "pendingRequests": ["2"]
+    "players": [
+      "1"
+    ],
+    "pendingRequests": [
+      "2"
+    ]
   },
   {
     "id": "47",
@@ -1220,8 +1524,14 @@
     "distance": 300,
     "status": "active",
     "isTeamMatch": false,
-    "players": ["10", "8"],
-    "pendingRequests": ["5", "13"]
+    "players": [
+      "10",
+      "8"
+    ],
+    "pendingRequests": [
+      "5",
+      "13"
+    ]
   },
   {
     "id": "48",
@@ -1244,7 +1554,36 @@
     "distance": 400,
     "status": "active",
     "isTeamMatch": false,
-    "players": ["7"],
+    "players": [
+      "7"
+    ],
     "pendingRequests": []
+  },
+  {
+    "id": "49",
+    "sport": "Fútbol",
+    "createdBy": "1",
+    "createdByName": "Jaime",
+    "createdByUsername": "JRobledo",
+    "date": "2025-12-19",
+    "time": "20:46",
+    "location": {
+      "lat": 40.538115,
+      "lng": -3.893912,
+      "address": "Campo de fútbol U-tad, Las Rozas de Madrid"
+    },
+    "totalPlayers": 14,
+    "currentPlayers": 1,
+    "requiresApproval": true,
+    "distance": 300,
+    "status": "active",
+    "players": [
+      "1"
+    ],
+    "pendingRequests": [],
+    "isTeamMatch": true,
+    "team1Id": "5",
+    "team1Name": "Los Gladiadores",
+    "lookingForTeam": true
   }
 ]
